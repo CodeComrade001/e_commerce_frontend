@@ -4,7 +4,7 @@
   /* position: absolute; */
   display: grid;
   grid-template-rows: 5% 95%;
-  grid-template-columns: 25% 75%;
+  grid-template-columns: 15% 85%;
   box-sizing: border-box;
   overflow: hidden;
 }
@@ -14,6 +14,8 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
+  border-bottom: 1px solid #f1742759;
+  background-color: white;
 }
 
 #admin_container #logo {
@@ -83,15 +85,185 @@
   height: 100%;
   width: 100%;
   display: flex;
+  background-color: white;
   flex-direction: column;
 }
 
 #admin_container #side_bar_items {
   height: 95%;
   width: 100%;
+  overflow: auto;
+  display: flex;
+  gap: 5px;
+  padding: 50px 0px;
+  border-right: 1px solid #f1742759;
+  border-bottom: 1px solid #f1742759;
+  flex-direction: column;
 }
 
 #admin_container #side_bar_collapse {
   height: 5%;
   width: 100%;
+  border-right: 1px solid #f1742759;
+  border-bottom: 1px solid #f1742759;
+}
+
+#admin_container #side_bar_collapse > button {
+  display: flex;
+  flex-direction: row;
+  border: none;
+  width: 100%;
+  height: 100%;
+  align-items: center;
+}
+
+#admin_container #side_bar_collapse > button > i {
+  width: 10%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+#admin_container #side_bar_collapse > button > span {
+  width: 90%;
+  height: fit-content;
+  font-size: 1.5em;
+  font-weight: bolder;
+}
+
+#admin_container #side_bar_collapse > button > i > svg {
+  height: 30px;
+  width: 30px;
+}
+
+/* #admin_container #side_bar_items > nav {
+  display: flex;
+  gap: 5px;
+  padding: 50px 5px;
+  flex-direction: column;
+} */
+
+#admin_container .admin_button_grouping {
+  border-radius: 10px;
+  color: black;
+  cursor: pointer;
+  display: inline-block;
+  padding: 7px 20px;
+  margin: 0px 10px;
+  text-align: center;
+  text-decoration: none;
+  transition: all 250ms;
+  border: 0;
+  font-size: 1.4em;
+  -webkit-user-select: none;
+  user-select: none;
+  text-align: left;
+  touch-action: manipulation;
+  position: relative;
+  border: 3px ridge #f1742759;
+  outline: none;
+  background-color: transparent;
+  transition: 1s;
+  font-weight: bold;
+}
+
+#admin_container #active_admin_button {
+  box-shadow: inset 0px 0px 25px #f1742759;
+}
+
+#admin_container #active_admin_button::before,
+#admin_container #active_admin_button::after {
+  transform: scale(0);
+}
+
+#admin_container .admin_button_grouping::after {
+  content: "";
+  position: absolute;
+  top: -5px;
+  left: 3%;
+  width: 95%;
+  height: 30%;
+  background-color: white;
+  transition: 0.5s;
+  transform-origin: center;
+}
+
+#admin_container .admin_button_grouping::before {
+  content: "";
+  transform-origin: center;
+  position: absolute;
+  top: 90%;
+  left: 3%;
+  width: 95%;
+  height: 30%;
+  background-color: white;
+  transition: 0.5s;
+}
+
+#admin_container .admin_button_grouping:hover::before,
+#admin_container .admin_button_grouping:hover::after {
+  transform: scale(0);
+}
+
+#admin_container .admin_button_grouping:hover {
+  box-shadow: inset 0px 0px 25px #f1742759;
+}
+
+#admin_container #side_bar_content {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-template-rows: repeat(4, 1fr);
+  background-color: white;
+  margin: 10px 10px;
+  gap: 10px;
+}
+
+#admin_container #total_orders {
+  background-color: #f7cc8759;
+  order: 5;
+  grid-column: 3 / 5;
+  grid-row: 3 / 4;
+}
+
+#admin_container #customers_graph {
+  background-color: #f7cc8759;
+  order: 4;
+  grid-column: 3 / 5;
+}
+
+#admin_container #active_customer {
+  background-color: #f7cc8759;
+}
+
+#admin_container #active_days {
+  background-color: #f7cc8759;
+}
+
+#admin_container #all_customers {
+  background-color: #f7cc8759;
+  order: 3;
+  grid-row: 3 / 5;
+}
+
+#admin_container #clothes_review {
+  background-color: #f7cc8759;
+  order: 2;
+  grid-row: 1 / 3;
+  grid-column: 3 / 5;
+}
+
+#admin_container #chart {
+  grid-column: span 2;
+  grid-row: 1 / 3;
+  display: grid;
+  grid-template-rows: 10% 80% 10%;
+  grid-template-columns: 100%;
+  background-color: #f7cc8759;
+  order: 1;
+}
+
+#admin_container #chart > #line_chart_comment svg {
+  height: 35px;
+  width: 35px;
 }
