@@ -1,15 +1,34 @@
 // src/components/Admin.tsx
-import { JSX } from "react";
-import "../../../styles/admin.css"
+import { JSX, useState } from "react";
+import "../../../styles/admin.css";
+import DashboardComponent from "../Admin Component/reusable_component/dashboardPage";
+import BlogComponent from "../Admin Component/reusable_component/blogPage";
 
 export default function AdminHome(): JSX.Element {
+  const [selectedView, setSelectedView] = useState('blog');
+
+  const renderSideViewContent = () => {
+    switch (selectedView) {
+      case 'dashboard':
+        return <DashboardComponent />;
+      case 'blog':
+        return <BlogComponent />;
+      case 'message':
+        return <div>Message Content</div>;
+      // Add more cases for additional side views
+      default:
+        return <DashboardComponent />;
+    }
+  };
+
   return (
     <div id="admin_container">
       <div id="admin_header">
         <div id="logo">
-          <h1 id="text3d">
+          {/* <h1 id="text3d">
             DIVINEYAH Fashion
-          </h1>
+          </h1> */}
+          <img src="/new logo.png" alt="website logo" />
         </div>
         <div id="Admin_widget">
           <button
@@ -45,13 +64,52 @@ export default function AdminHome(): JSX.Element {
       </div>
       <div id="side_bar">
         <div id="side_bar_items">
-          <button className="admin_button_grouping" id="active_admin_button" >Dashboard</button>
-          <button className="admin_button_grouping" >Blog</button>
-          <button className="admin_button_grouping" >Message</button>
-          <button className="admin_button_grouping" >Videos</button>
-          <button className="admin_button_grouping" >Images</button>
-          <button className="admin_button_grouping" >Security</button>
-          <button className="admin_button_grouping" >History</button>
+          <div id="side_bar_items">
+            {/* Use Link to navigate without a page refresh */}
+            <button
+              className="admin_button_grouping"
+              id="active_admin_button"
+              onClick={() => setSelectedView('dashboard')}
+            >
+              Dashboard
+            </button>
+            <button
+              className="admin_button_grouping"
+              onClick={() => setSelectedView('blog')}
+            >
+              Blog
+            </button>
+            <button
+              className="admin_button_grouping"
+              onClick={() => setSelectedView('message')}
+            >
+              Message
+            </button>
+            <button
+              className="admin_button_grouping"
+              onClick={() => setSelectedView('videos')}
+            >
+              Videos
+            </button>
+            <button
+              className="admin_button_grouping"
+              onClick={() => setSelectedView('images')}
+            >
+              Images
+            </button>
+            <button
+              className="admin_button_grouping"
+              onClick={() => setSelectedView('Security')}
+            >
+              Security
+            </button>
+            <button
+              className="admin_button_grouping"
+              onClick={() => setSelectedView('history')}
+            >
+              history
+            </button>
+          </div>
         </div>
         <div id="side_bar_collapse">
           <button>
@@ -71,40 +129,8 @@ export default function AdminHome(): JSX.Element {
           </button>
         </div>
       </div>
-      <div id="side_bar_content">
-        <div id="total_orders"></div>
-        <div id="customers_graph"></div>
-        <div id="active_customer"></div>
-        <div id="active_days"></div>
-        <div id="all_customers"></div>
-        <div id="clothes_review"></div>
-        <div id="chart">
-          <div id="overView_container">
-            <div className="order_graphics">
-              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-cart-check-fill" viewBox="0 0 16 16">
-                <path d="M.5 1a.5.5 0 0 0 0 1h1.11l.401 1.607 1.498 7.985A.5.5 0 0 0 4 12h1a2 2 0 1 0 0 4 2 2 0 0 0 0-4h7a2 2 0 1 0 0 4 2 2 0 0 0 0-4h1a.5.5 0 0 0 .491-.408l1.5-8A.5.5 0 0 0 14.5 3H2.89l-.405-1.621A.5.5 0 0 0 2 1zM6 14a1 1 0 1 1-2 0 1 1 0 0 1 2 0m7 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0m-1.646-7.646-3 3a.5.5 0 0 1-.708 0l-1.5-1.5a.5.5 0 1 1 .708-.708L8 8.293l2.646-2.647a.5.5 0 0 1 .708.708" />
-              </svg>
-            </div>
-          </div>
-
-          <div id="line_chart"></div>
-          <div id="line_chart_comment">
-            <i>
-              <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <g id="SVGRepo_bgCarrier" strokeWidth="0"></g>
-                <g id="SVGRepo_tracerCarrier" strokeLinecap="round" strokeLinejoin="round"></g>
-                <g id="SVGRepo_iconCarrier">
-                  <path d="M3 17L8.29289 11.7071C8.68342 11.3166 9.31658 11.3166 9.70711 11.7071L12.2929 14.2929C12.6834 14.6834 13.3166 14.6834 13.7071 14.2929L21 7M21 7H16M21 7V12" stroke="#0aeb19" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"></path>
-                </g>
-              </svg>
-            </i>
-            <p className="comment" >
-              Trending up by 5.2% this month
-              Showing total visitors for the last 6 months</p>
-          </div>
-        </div>
-      </div>
-    </div>
+      {renderSideViewContent()}
+    </div >
   );
 };
 

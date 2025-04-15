@@ -1,29 +1,17 @@
 // "use client"
 
-// import { TrendingUp } from "lucide-react"
+// import { GitCommitVertical, TrendingUp } from "lucide-react"
 // import { CartesianGrid, Line, LineChart, XAxis } from "recharts"
 
-// import {
-//   Card,
-//   CardContent,
-//   CardDescription,
-//   CardFooter,
-//   CardHeader,
-//   CardTitle,
-// } from "@/components/ui/card"
-// import {
-//   ChartConfig,
-//   ChartContainer,
-//   ChartTooltip,
-//   ChartTooltipContent,
-// } from "@/components/ui/chart"
+// import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle,} from "@/components/ui/card";
+// import {  ChartConfig,  ChartContainer,  ChartTooltip,  ChartTooltipContent,} from "@/components/ui/chart";
 // const chartData = [
-//   { month: "January", desktop: 186 },
-//   { month: "February", desktop: 305 },
-//   { month: "March", desktop: 237 },
-//   { month: "April", desktop: 73 },
-//   { month: "May", desktop: 209 },
-//   { month: "June", desktop: 214 },
+//   { month: "January", desktop: 186, mobile: 80 },
+//   { month: "February", desktop: 305, mobile: 200 },
+//   { month: "March", desktop: 237, mobile: 120 },
+//   { month: "April", desktop: 73, mobile: 190 },
+//   { month: "May", desktop: 209, mobile: 130 },
+//   { month: "June", desktop: 214, mobile: 140 },
 // ]
 
 // const chartConfig = {
@@ -31,13 +19,17 @@
 //     label: "Desktop",
 //     color: "hsl(var(--chart-1))",
 //   },
+//   mobile: {
+//     label: "Mobile",
+//     color: "hsl(var(--chart-2))",
+//   },
 // } satisfies ChartConfig
 
-// export function Component() {
+// export default function LineChartComponent() {
 //   return (
 //     <Card>
 //       <CardHeader>
-//         <CardTitle>Line Chart</CardTitle>
+//         <CardTitle>Line Chart - Custom Dots</CardTitle>
 //         <CardDescription>January - June 2024</CardDescription>
 //       </CardHeader>
 //       <CardContent>
@@ -67,7 +59,20 @@
 //               type="natural"
 //               stroke="var(--color-desktop)"
 //               strokeWidth={2}
-//               dot={false}
+//               dot={({ cx, cy, payload }) => {
+//                 const r = 24
+//                 return (
+//                   <GitCommitVertical
+//                     key={payload.month}
+//                     x={cx - r / 2}
+//                     y={cy - r / 2}
+//                     width={r}
+//                     height={r}
+//                     fill="hsl(var(--background))"
+//                     stroke="var(--color-desktop)"
+//                   />
+//                 )
+//               }}
 //             />
 //           </LineChart>
 //         </ChartContainer>

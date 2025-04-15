@@ -1,3 +1,21 @@
+/* @layer base {
+  :root {
+    --chart-1: 12 76% 61%;
+    --chart-2: 173 58% 39%;
+    --chart-3: 197 37% 24%;
+    --chart-4: 43 74% 66%;
+    --chart-5: 27 87% 67%;
+  }
+
+  .dark {
+    --chart-1: 220 70% 50%;
+    --chart-2: 160 60% 45%;
+    --chart-3: 30 80% 55%;
+    --chart-4: 280 65% 60%;
+    --chart-5: 340 75% 55%;
+  }
+} */
+
 #admin_container {
   height: 100%;
   width: 100%;
@@ -25,6 +43,10 @@
   position: relative;
   align-items: center;
   display: flex;
+}
+
+#admin_container #logo > img {
+  height: 100%;
 }
 
 #admin_container #text3d {
@@ -90,12 +112,12 @@
 }
 
 #admin_container #side_bar_items {
-  height: 95%;
+  height: 100%;
   width: 100%;
-  overflow: auto;
+  /* overflow: auto; */
   display: flex;
   gap: 5px;
-  padding: 50px 0px;
+  padding-top: 10px;
   border-right: 1px solid #f1742759;
   border-bottom: 1px solid #f1742759;
   flex-direction: column;
@@ -208,62 +230,4 @@
 
 #admin_container .admin_button_grouping:hover {
   box-shadow: inset 0px 0px 25px #f1742759;
-}
-
-#admin_container #side_bar_content {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  grid-template-rows: repeat(4, 1fr);
-  background-color: white;
-  margin: 10px 10px;
-  gap: 10px;
-}
-
-#admin_container #total_orders {
-  background-color: #f7cc8759;
-  order: 5;
-  grid-column: 3 / 5;
-  grid-row: 3 / 4;
-}
-
-#admin_container #customers_graph {
-  background-color: #f7cc8759;
-  order: 4;
-  grid-column: 3 / 5;
-}
-
-#admin_container #active_customer {
-  background-color: #f7cc8759;
-}
-
-#admin_container #active_days {
-  background-color: #f7cc8759;
-}
-
-#admin_container #all_customers {
-  background-color: #f7cc8759;
-  order: 3;
-  grid-row: 3 / 5;
-}
-
-#admin_container #clothes_review {
-  background-color: #f7cc8759;
-  order: 2;
-  grid-row: 1 / 3;
-  grid-column: 3 / 5;
-}
-
-#admin_container #chart {
-  grid-column: span 2;
-  grid-row: 1 / 3;
-  display: grid;
-  grid-template-rows: 10% 80% 10%;
-  grid-template-columns: 100%;
-  background-color: #f7cc8759;
-  order: 1;
-}
-
-#admin_container #chart > #line_chart_comment svg {
-  height: 35px;
-  width: 35px;
 }
