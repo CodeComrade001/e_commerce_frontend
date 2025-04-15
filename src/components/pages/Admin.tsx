@@ -3,9 +3,14 @@ import { JSX, useState } from "react";
 import "../../../styles/admin.css";
 import DashboardComponent from "../Admin Component/reusable_component/dashboardPage";
 import BlogComponent from "../Admin Component/reusable_component/blogPage";
+import ImagesComponent from "../Admin Component/reusable_component/ImagesPage";
+import MessageComponent from "../Admin Component/reusable_component/MessagePage";
+import VideosComponent from "../Admin Component/reusable_component/VideoPage";
+import SecurityComponent from "../Admin Component/reusable_component/SecurityPage";
+import HistoryComponent from "../Admin Component/reusable_component/HistoryPage";
 
 export default function AdminHome(): JSX.Element {
-  const [selectedView, setSelectedView] = useState('blog');
+  const [selectedView, setSelectedView] = useState('videos');
 
   const renderSideViewContent = () => {
     switch (selectedView) {
@@ -14,8 +19,15 @@ export default function AdminHome(): JSX.Element {
       case 'blog':
         return <BlogComponent />;
       case 'message':
-        return <div>Message Content</div>;
-      // Add more cases for additional side views
+        return <MessageComponent />;
+      case 'videos':
+        return <VideosComponent />;
+      case 'images':
+        return <ImagesComponent />;
+      case 'security':
+        return <SecurityComponent />;
+      case 'history':
+        return <HistoryComponent />;
       default:
         return <DashboardComponent />;
     }
@@ -99,7 +111,7 @@ export default function AdminHome(): JSX.Element {
             </button>
             <button
               className="admin_button_grouping"
-              onClick={() => setSelectedView('Security')}
+              onClick={() => setSelectedView('security')}
             >
               Security
             </button>

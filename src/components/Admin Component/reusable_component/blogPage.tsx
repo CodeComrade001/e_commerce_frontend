@@ -1,4 +1,4 @@
-import React, { JSX } from "react";
+import { JSX } from "react";
 import "../../../../styles/blog.css";
 
 export default function BlogComponent(): JSX.Element {
@@ -189,93 +189,18 @@ export default function BlogComponent(): JSX.Element {
             Local post
           </span>
           <span>title</span>
-          <span>date</span>
-          <span>Time</span>
+          <button>Upload</button>
+          <button>Delete</button>
         </div>
         <div className="table_body">
           <div className="post">
             <input type="checkbox" name="" id="" placeholder="mark" />
             <span>the change of  my new world </span>
-            <span>2025-06-14</span>
-            <span>22:13:43</span>
-          </div>
-          <div className="post">
-            <input type="checkbox" name="" id="" placeholder="mark" />
-            <span>the change of  my new world </span>
-            <span>2025-06-14</span>
-            <span>22:13:43</span>
-          </div>
-          <div className="post">
-            <input type="checkbox" name="" id="" placeholder="mark" />
-            <span>the change of  my new world </span>
-            <span>2025-06-14</span>
-            <span>22:13:43</span>
-          </div>
-          <div className="post">
-            <input type="checkbox" name="" id="" placeholder="mark" />
-            <span>the change of  my new world </span>
-            <span>2025-06-14</span>
-            <span>22:13:43</span>
-          </div>
-          <div className="post">
-            <input type="checkbox" name="" id="" placeholder="mark" />
-            <span>the change of  my new world </span>
-            <span>2025-06-14</span>
-            <span>22:13:43</span>
-          </div>
-          <div className="post">
-            <input type="checkbox" name="" id="" placeholder="mark" />
-            <span>the change of  my new world </span>
-            <span>2025-06-14</span>
-            <span>22:13:43</span>
-          </div>
-          <div className="post">
-            <input type="checkbox" name="" id="" placeholder="mark" />
-            <span>the change of  my new world </span>
-            <span>2025-06-14</span>
-            <span>22:13:43</span>
-          </div>
-          <div className="post">
-            <input type="checkbox" name="" id="" placeholder="mark" />
-            <span>the change of  my new world </span>
-            <span>2025-06-14</span>
-            <span>22:13:43</span>
-          </div>
-          <div className="post">
-            <input type="checkbox" name="" id="" placeholder="mark" />
-            <span>the change of  my new world </span>
-            <span>2025-06-14</span>
-            <span>22:13:43</span>
-          </div>
-          <div className="post">
-            <input type="checkbox" name="" id="" placeholder="mark" />
-            <span>the change of  my new world </span>
-            <span>2025-06-14</span>
-            <span>22:13:43</span>
-          </div>
-          <div className="post">
-            <input type="checkbox" name="" id="" placeholder="mark" />
-            <span>the change of  my new world </span>
-            <span>2025-06-14</span>
-            <span>22:13:43</span>
-          </div>
-          <div className="post">
-            <input type="checkbox" name="" id="" placeholder="mark" />
-            <span>the change of  my new world </span>
-            <span>2025-06-14</span>
-            <span>22:13:43</span>
-          </div>
-          <div className="post">
-            <input type="checkbox" name="" id="" placeholder="mark" />
-            <span>the change of  my new world </span>
-            <span>2025-06-14</span>
-            <span>22:13:43</span>
-          </div>
-          <div className="post">
-            <input type="checkbox" name="" id="" placeholder="mark" />
-            <span>the change of  my new world </span>
-            <span>2025-06-14</span>
-            <span>22:13:43</span>
+            <span>
+              <button>Delete</button>
+              <button>Edit</button>
+              <button>Upload</button>
+            </span>
           </div>
         </div>
       </div>
