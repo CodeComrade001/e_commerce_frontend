@@ -77,13 +77,13 @@
   height: 250px;
   width: 100%;
   border-radius: 10px;
+  background-color: white;
 }
 
 #all_video .table_body > .video_content > video {
   height: 100%;
   width: 100%;
   border-radius: 10px;
-  background-color: white;
 }
 
 #all_video .table_body::-webkit-scrollbar {
@@ -153,13 +153,13 @@
   height: 250px;
   width: 100%;
   border-radius: 10px;
+  background-color: white;
 }
 
 #local_video_storage .table_body > .video_content > video {
   height: 100%;
   width: 100%;
   border-radius: 10px;
-  background-color: white;
 }
 
 #local_video_storage .table_body::-webkit-scrollbar {

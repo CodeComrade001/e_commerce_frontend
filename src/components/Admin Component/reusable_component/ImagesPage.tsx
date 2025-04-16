@@ -68,7 +68,7 @@ export default function ImagesComponent(): JSX.Element {
           </div>
         </div>
       </div>
-      <div id="local_video_storage">
+      <div id="local_image_storage">
         <div id="table_header">
           <div id="table_name">All Locally Stored Images</div>
           <input type="text" name="" placeholder="search post all Task" />
@@ -80,7 +80,7 @@ export default function ImagesComponent(): JSX.Element {
           <span>Clicks</span>
         </div>
         <div className="table_body">
-        <div className="image_content">
+          <div className="image_content">
             <img src="/images/all/IMG-20250328-WA0038.jpg" alt="" />
           </div>
           <div className="image_content">

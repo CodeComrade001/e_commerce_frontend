@@ -1,5 +1,5 @@
 // src/components/Admin.tsx
-import { JSX, useState } from "react";
+import { JSX, useCallback, useEffect, useState } from "react";
 import "../../../styles/admin.css";
 import DashboardComponent from "../Admin Component/reusable_component/dashboardPage";
 import BlogComponent from "../Admin Component/reusable_component/blogPage";
@@ -10,9 +10,23 @@ import SecurityComponent from "../Admin Component/reusable_component/SecurityPag
 import HistoryComponent from "../Admin Component/reusable_component/HistoryPage";
 
 export default function AdminHome(): JSX.Element {
-  const [selectedView, setSelectedView] = useState('videos');
+  const [selectedView, setSelectedView] = useState('images');
 
-  const renderSideViewContent = () => {
+  // A mapping from view to button class can be defined.
+  const activeBtnMapping: Record<string, string> = {
+    dashboard: "active_admin_dashboard",
+    blog: "active_admin_blog",
+    message: "active_admin_message",
+    videos: "active_admin_videos",
+    images: "active_admin_images",
+    security: "active_admin_security",
+    history: "active_admin_history",
+  };
+
+  // Compute active button class from selectedView without needing state
+  const activeBtn = activeBtnMapping[selectedView] || "active_admin_dashboard";
+
+  const renderSideViewContent = useCallback(() => {
     switch (selectedView) {
       case 'dashboard':
         return <DashboardComponent />;
@@ -31,7 +45,11 @@ export default function AdminHome(): JSX.Element {
       default:
         return <DashboardComponent />;
     }
-  };
+  }, [selectedView]);
+
+  useEffect(() => {
+    renderSideViewContent()
+  }, [activeBtn])
 
   return (
     <div id="admin_container">
@@ -80,43 +98,49 @@ export default function AdminHome(): JSX.Element {
             {/* Use Link to navigate without a page refresh */}
             <button
               className="admin_button_grouping"
-              id="active_admin_button"
+              id={selectedView === "dashboard" ? activeBtn : ""}
               onClick={() => setSelectedView('dashboard')}
             >
               Dashboard
             </button>
             <button
               className="admin_button_grouping"
+              id={selectedView === "blog" ? activeBtn : ""}
               onClick={() => setSelectedView('blog')}
             >
               Blog
             </button>
             <button
               className="admin_button_grouping"
+              id={selectedView === "message" ? activeBtn : ""}
               onClick={() => setSelectedView('message')}
             >
               Message
             </button>
             <button
               className="admin_button_grouping"
+              id={selectedView === "videos" ? activeBtn : ""}
               onClick={() => setSelectedView('videos')}
             >
               Videos
             </button>
             <button
               className="admin_button_grouping"
+              id={selectedView === "images" ? activeBtn : ""}
               onClick={() => setSelectedView('images')}
             >
               Images
             </button>
             <button
               className="admin_button_grouping"
+              id={selectedView === "security" ? activeBtn : ""}
               onClick={() => setSelectedView('security')}
             >
               Security
             </button>
             <button
               className="admin_button_grouping"
+              id={selectedView === "history" ? activeBtn : ""}
               onClick={() => setSelectedView('history')}
             >
               history
