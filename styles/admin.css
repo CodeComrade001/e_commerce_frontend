@@ -194,48 +194,48 @@
 active button style
 =================== */
 
-#admin_container #active_admin_dashboard {
+#admin_container .active_admin_dashboard {
   box-shadow: inset 0px 0px 25px #f1742759;
 }
 
-#admin_container #active_admin_blog {
+#admin_container .active_admin_blog {
   box-shadow: inset 0px 0px 25px #f1742759;
 }
 
-#admin_container #active_admin_message {
+#admin_container .active_admin_message {
   box-shadow: inset 0px 0px 25px #f1742759;
 }
 
-#admin_container #active_admin_videos {
+#admin_container .active_admin_videos {
   box-shadow: inset 0px 0px 25px #f1742759;
 }
 
-#admin_container #active_admin_images {
+#admin_container .active_admin_images {
   box-shadow: inset 0px 0px 25px #f1742759;
 }
 
-#admin_container #active_admin_security {
+#admin_container .active_admin_security {
   box-shadow: inset 0px 0px 25px #f1742759;
 }
 
-#admin_container #active_admin_history {
+#admin_container .active_admin_history {
   box-shadow: inset 0px 0px 25px #f1742759;
 }
 
-#admin_container #active_admin_dashboard::before,
-#admin_container #active_admin_dashboard::after,
-#admin_container #active_admin_blog::before,
-#admin_container #active_admin_blog::after,
-#admin_container #active_admin_message::before,
-#admin_container #active_admin_message::after,
-#admin_container #active_admin_videos::before,
-#admin_container #active_admin_videos::after,
-#admin_container #active_admin_images::before,
-#admin_container #active_admin_images::after,
-#admin_container #active_admin_security::before,
-#admin_container #active_admin_security::after,
-#admin_container #active_admin_history::before,
-#admin_container #active_admin_history::after {
+#admin_container .active_admin_dashboard::before,
+#admin_container .active_admin_dashboard::after,
+#admin_container .active_admin_blog::before,
+#admin_container .active_admin_blog::after,
+#admin_container .active_admin_message::before,
+#admin_container .active_admin_message::after,
+#admin_container .active_admin_videos::before,
+#admin_container .active_admin_videos::after,
+#admin_container .active_admin_images::before,
+#admin_container .active_admin_images::after,
+#admin_container .active_admin_security::before,
+#admin_container .active_admin_security::after,
+#admin_container .active_admin_history::before,
+#admin_container .active_admin_history::after {
   transform: scale(0);
 }
 

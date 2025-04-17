@@ -3,10 +3,13 @@
   grid-template-columns: repeat(4, 1fr);
   grid-template-rows: repeat(4, 1fr);
   background-color: white;
-  margin: 10px 10px;
   gap: 10px;
   background-color: whitesmoke;
   color: #495456;
+}
+
+#blog_component > * {
+  margin: 10px;
 }
 
 #blog_component #clicked_post_graph {

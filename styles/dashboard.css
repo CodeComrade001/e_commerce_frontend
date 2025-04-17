@@ -1,34 +1,37 @@
- #dashboard_content {
+#dashboard_content {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   grid-template-rows: repeat(4, 1fr);
   background-color: white;
-  margin: 10px 10px;
   gap: 10px;
 }
 
- #dashboard_content #total_orders {
+#dashboard_content > * {
+  margin: 10px;
+}
+
+#dashboard_content #total_orders {
   background-color: whitesmoke;
   order: 5;
   grid-column: 3 / 4;
   grid-row: 3 / 5;
 }
 
- #dashboard_content #customers_graph {
+#dashboard_content #customers_graph {
   background-color: whitesmoke;
   order: 4;
   grid-column: 4 / 5;
   grid-row: 3 / 5;
 }
 
- #dashboard_content #total_orders {
+#dashboard_content #total_orders {
   background-color: whitesmoke;
 }
 
- #dashboard_content #total_orders {
+#dashboard_content #total_orders {
 }
 
- #dashboard_content #weekly_bar_chart {
+#dashboard_content #weekly_bar_chart {
   background-color: whitesmoke;
   display: grid;
   grid-template-rows: 20% 60% 20%;
@@ -36,7 +39,7 @@
   height: 100%;
 }
 
- #dashboard_content #weekly_bar_chart > #header {
+#dashboard_content #weekly_bar_chart > #header {
   display: flex;
   flex-direction: row;
   display: flex;
@@ -44,7 +47,7 @@
   width: 100%;
 }
 
- #dashboard_content #weekly_bar_chart > #header > button {
+#dashboard_content #weekly_bar_chart > #header > button {
   background-color: white;
   border: none;
   height: 90%;
@@ -54,7 +57,7 @@
   border-radius: 10px;
 }
 
- #dashboard_content #weekly_bar_chart > #header > span {
+#dashboard_content #weekly_bar_chart > #header > span {
   background-color: blue;
   border: none;
   height: fit-content;
@@ -65,7 +68,7 @@
   border-radius: 15px;
 }
 
- #dashboard_content #weekly_bar_chart > #header > div {
+#dashboard_content #weekly_bar_chart > #header > div {
   border: none;
   height: fit-content;
   width: fit-content;
@@ -76,13 +79,13 @@
   text-align: right;
 }
 
- #dashboard_content #weekly_bar_chart #order_bar_chart {
+#dashboard_content #weekly_bar_chart #order_bar_chart {
   display: flex;
   justify-content: center;
   align-items: center;
 }
 
- #dashboard_content #weekly_bar_chart #order_bar_chart {
+#dashboard_content #weekly_bar_chart #order_bar_chart {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -90,11 +93,7 @@
   padding: 10px 0;
 }
 
-
-  #dashboard_content
-  #weekly_bar_chart
-  #order_bar_chart
-  .active_container {
+#dashboard_content #weekly_bar_chart #order_bar_chart .active_container {
   background-color: white;
   width: 10px;
   display: flex;
@@ -104,18 +103,13 @@
   height: 100%;
 }
 
-
-  #dashboard_content
-  #weekly_bar_chart
-  #order_bar_chart
-  .complete_bar {
+#dashboard_content #weekly_bar_chart #order_bar_chart .complete_bar {
   border-radius: 10px;
   background-color: blue;
   width: 10px;
 }
 
-
-  #dashboard_content
+#dashboard_content
   #weekly_bar_chart
   #order_bar_chart
   .active_container:nth-child(1)
@@ -123,8 +117,7 @@
   height: 19%;
 }
 
-
-  #dashboard_content
+#dashboard_content
   #weekly_bar_chart
   #order_bar_chart
   .active_container:nth-child(2)
@@ -132,8 +125,7 @@
   height: 57%;
 }
 
-
-  #dashboard_content
+#dashboard_content
   #weekly_bar_chart
   #order_bar_chart
   .active_container:nth-child(3)
@@ -141,8 +133,7 @@
   height: 24%;
 }
 
-
-  #dashboard_content
+#dashboard_content
   #weekly_bar_chart
   #order_bar_chart
   .active_container:nth-child(4)
@@ -150,8 +141,7 @@
   height: 96%;
 }
 
-
-  #dashboard_content
+#dashboard_content
   #weekly_bar_chart
   #order_bar_chart
   .active_container:nth-child(5)
@@ -159,8 +149,7 @@
   height: 13%;
 }
 
-
-  #dashboard_content
+#dashboard_content
   #weekly_bar_chart
   #order_bar_chart
   .active_container:nth-child(6)
@@ -168,8 +157,7 @@
   height: 54%;
 }
 
-
-  #dashboard_content
+#dashboard_content
   #weekly_bar_chart
   #order_bar_chart
   .active_container:nth-child(7)
@@ -177,21 +165,20 @@
   height: 23%;
 }
 
- #dashboard_content #weekly_bar_chart > #order_label {
+#dashboard_content #weekly_bar_chart > #order_label {
   display: grid;
   grid-template-rows: repeat(2, 1fr);
   grid-template-columns: 80% 20%;
 }
 
- #dashboard_content #weekly_bar_chart > #order_label > div {
+#dashboard_content #weekly_bar_chart > #order_label > div {
   display: flex;
   width: fit-content;
   gap: 10px;
   height: 100%;
 }
 
-
-  #dashboard_content
+#dashboard_content
   #weekly_bar_chart
   > #order_label
   > div:nth-child(1)
@@ -202,24 +189,19 @@
   height: 10px;
 }
 
-
-  #dashboard_content
-  #weekly_bar_chart
-  > #order_label
-  > div
-  .active_indicator {
+#dashboard_content #weekly_bar_chart > #order_label > div .active_indicator {
   background-color: white;
   display: flex;
   width: 15px;
   height: 10px;
 }
 
- #dashboard_content #weekly_bar_chart > #order_label > span {
+#dashboard_content #weekly_bar_chart > #order_label > span {
   font-size: 1.2em;
   text-align: right;
 }
 
- #dashboard_content #all_customers {
+#dashboard_content #all_customers {
   background-color: whitesmoke;
   order: 3;
   grid-row: 3 / 5;
@@ -228,7 +210,7 @@
   border-radius: 10px;
 }
 
- #dashboard_content #all_customers > #header {
+#dashboard_content #all_customers > #header {
   display: flex;
   flex: 10%;
   background-color: white;
@@ -236,7 +218,7 @@
   align-items: center;
 }
 
- #dashboard_content #all_customers .leaderboard__title {
+#dashboard_content #all_customers .leaderboard__title {
   display: flex;
   flex-direction: column;
   flex: 60%;
@@ -244,14 +226,14 @@
   margin: 0;
 }
 
- #dashboard_content #all_customers > #header > div {
+#dashboard_content #all_customers > #header > div {
   height: 35px;
   width: 100%;
   flex: 40%;
   padding: 5px;
 }
 
- #dashboard_content #all_customers > #header > div > input {
+#dashboard_content #all_customers > #header > div > input {
   height: 90%;
   width: 100%;
   border-radius: 15px;
@@ -259,16 +241,11 @@
   background-color: whitesmoke;
 }
 
-
-  #dashboard_content
-  #all_customers
-  > #header
-  > div
-  > input::placeholder {
+#dashboard_content #all_customers > #header > div > input::placeholder {
   font-size: 1.2em;
 }
 
- #dashboard_content #all_customers > .user_info {
+#dashboard_content #all_customers > .user_info {
   display: flex;
   flex: 90%;
   padding: 10px 0;
@@ -277,14 +254,11 @@
   overflow: auto;
 }
 
-
-  #dashboard_content
-  #all_customers
-  > .user_info::-webkit-scrollbar {
+#dashboard_content #all_customers > .user_info::-webkit-scrollbar {
   width: 0;
 }
 
- #dashboard_content #all_customers .profile_info {
+#dashboard_content #all_customers .profile_info {
   height: 70px;
   display: flex;
   gap: 5px;
@@ -296,25 +270,25 @@
   margin: 0 10px;
 }
 
- #dashboard_content #all_customers .profile_info:hover {
+#dashboard_content #all_customers .profile_info:hover {
   transform: scale(1);
   box-shadow: 0 9px 47px 11px rgba(51, 51, 51, 0.18);
 }
 
- #dashboard_content #all_customers .img_container {
+#dashboard_content #all_customers .img_container {
   height: 100%;
   width: 20%;
   flex: 20%;
   border-radius: 50%;
 }
 
- #dashboard_content #all_customers .img_container > img {
+#dashboard_content #all_customers .img_container > img {
   height: 100%;
   width: 100%;
   border-radius: 50%;
 }
 
- #dashboard_content #all_customers .user_more_info {
+#dashboard_content #all_customers .user_more_info {
   display: flex;
   flex-direction: column;
   height: 100%;
@@ -322,7 +296,7 @@
   width: 50%;
 }
 
- #dashboard_content #all_customers .user_more_info .userEmail {
+#dashboard_content #all_customers .user_more_info .userEmail {
   display: flex;
   font-size: 1.2em;
   flex: 1;
@@ -330,7 +304,7 @@
   justify-content: center;
 }
 
- #dashboard_content #all_customers .user_more_info .user_sales {
+#dashboard_content #all_customers .user_more_info .user_sales {
   display: flex;
   font-size: 1.2em;
   flex: 1;
@@ -338,7 +312,7 @@
   justify-content: center;
 }
 
- #dashboard_content #all_customers .user_profile_control {
+#dashboard_content #all_customers .user_profile_control {
   flex: 30%;
   width: 40%;
   display: grid;
@@ -347,7 +321,7 @@
   height: 100%;
 }
 
- #dashboard_content #clothes_catalogue {
+#dashboard_content #clothes_catalogue {
   background-color: whitesmoke;
   order: 2;
   grid-row: 1 / 3;
@@ -358,17 +332,13 @@
   gap: 10px;
 }
 
- #dashboard_content #clothes_catalogue #sort_container {
+#dashboard_content #clothes_catalogue #sort_container {
   width: 100%;
   height: 100%;
   display: flex;
 }
 
-
-  #dashboard_content
-  #clothes_catalogue
-  #sort_container
-  > button {
+#dashboard_content #clothes_catalogue #sort_container > button {
   height: 90%;
   margin: auto 10px;
   width: fit-content;
@@ -382,7 +352,7 @@
   font-size: 1.2em;
 }
 
- #dashboard_content #clothes_catalogue #sort_option {
+#dashboard_content #clothes_catalogue #sort_option {
   height: 100%;
   display: flex;
   gap: 5px;
@@ -392,7 +362,7 @@
   justify-content: flex-end;
 }
 
- #dashboard_content #clothes_catalogue #sort_option > button {
+#dashboard_content #clothes_catalogue #sort_option > button {
   height: 90%;
   margin: auto 0;
   width: fit-content;
@@ -406,7 +376,7 @@
   font-size: 1.2em;
 }
 
- #dashboard_content #clothes_catalogue #All_images_container {
+#dashboard_content #clothes_catalogue #All_images_container {
   height: 100%;
   width: 100%;
   display: grid;
@@ -416,24 +386,21 @@
   overflow: auto;
 }
 
-
-  #dashboard_content
-  #clothes_catalogue
-  #All_images_container::-webkit-scrollbar {
+#dashboard_content #clothes_catalogue #All_images_container::-webkit-scrollbar {
   width: 0px;
 }
 
- #dashboard_content #clothes_catalogue .image_container {
+#dashboard_content #clothes_catalogue .image_container {
   border-radius: 10px;
 }
 
- #dashboard_content #clothes_catalogue .image_container > img {
+#dashboard_content #clothes_catalogue .image_container > img {
   border-radius: 10px;
   height: 100%;
   width: 100%;
 }
 
- #dashboard_content #chart {
+#dashboard_content #chart {
   grid-column: span 2;
   grid-row: 1 / 3;
   display: grid;
@@ -443,41 +410,41 @@
   order: 1;
 }
 
- #dashboard_content #overView_container {
+#dashboard_content #overView_container {
   display: flex;
   justify-content: center;
   align-items: center;
 }
 
- #dashboard_content #line_chart_message {
+#dashboard_content #line_chart_message {
   flex: 80%;
   display: flex;
   justify-content: flex-start;
 }
 
- #dashboard_content #date_search {
+#dashboard_content #date_search {
   height: 100%;
   flex: 40%;
   display: flex;
   justify-content: flex-end;
 }
 
- #dashboard_content #date_search > input {
+#dashboard_content #date_search > input {
   height: 100%;
   width: fit-content;
 }
 
- #dashboard_content #line_chart {
+#dashboard_content #line_chart {
   width: 100%;
   height: 100%;
   font-family: sans-serif;
 }
- #dashboard_content .graph {
+#dashboard_content .graph {
   position: relative;
   height: 100%;
 }
 /* Style for the Y-axis labels */
- #dashboard_content .y-axis {
+#dashboard_content .y-axis {
   position: absolute;
   left: -40px;
   top: 0;
@@ -488,19 +455,19 @@
   justify-content: space-between;
   text-align: right;
 }
- #dashboard_content .y-axis .tick {
+#dashboard_content .y-axis .tick {
   position: relative;
   right: 0;
   color: #333;
 }
 /* The plot area where points and the SVG line are displayed */
- #dashboard_content .plot {
+#dashboard_content .plot {
   position: relative;
   width: 100%;
   height: 100%;
 }
 /* Style for each data point (optional, for visual markers) */
- #dashboard_content .plot .point {
+#dashboard_content .plot .point {
   position: absolute;
   width: 6px;
   height: 6px;
@@ -509,7 +476,7 @@
   transform: translate(-50%, -50%);
 }
 /* Ensure the SVG covers the entire plot area */
- #dashboard_content .plot .line {
+#dashboard_content .plot .line {
   position: absolute;
   top: 0;
   left: 0;
@@ -517,7 +484,7 @@
   height: 100%;
 }
 /* Style for X-axis labels */
- #dashboard_content .x-axis {
+#dashboard_content .x-axis {
   position: absolute;
   bottom: -25px;
   width: 100%;
@@ -526,12 +493,12 @@
   font-size: 0.9em;
   color: #333;
 }
- #dashboard_content .x-axis .label {
+#dashboard_content .x-axis .label {
   position: absolute;
   /* transform: translateX(-50%); */
 }
 
- #dashboard_content #chart > #line_chart_comment svg {
+#dashboard_content #chart > #line_chart_comment svg {
   height: 35px;
   width: 35px;
 }

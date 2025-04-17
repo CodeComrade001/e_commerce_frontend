@@ -1,4 +1,5 @@
-// src/components/Admin.tsx
+
+
 import { JSX, useCallback, useEffect, useState } from "react";
 import "../../../styles/admin.css";
 import DashboardComponent from "../Admin Component/reusable_component/dashboardPage";
@@ -10,7 +11,7 @@ import SecurityComponent from "../Admin Component/reusable_component/SecurityPag
 import HistoryComponent from "../Admin Component/reusable_component/HistoryPage";
 
 export default function AdminHome(): JSX.Element {
-  const [selectedView, setSelectedView] = useState('images');
+  const [selectedView, setSelectedView] = useState('message');
 
   // A mapping from view to button class can be defined.
   const activeBtnMapping: Record<string, string> = {
@@ -25,6 +26,7 @@ export default function AdminHome(): JSX.Element {
 
   // Compute active button class from selectedView without needing state
   const activeBtn = activeBtnMapping[selectedView] || "active_admin_dashboard";
+  console.log("🚀 ~ AdminHome ~ activeBtn:", activeBtn)
 
   const renderSideViewContent = useCallback(() => {
     switch (selectedView) {
@@ -94,58 +96,49 @@ export default function AdminHome(): JSX.Element {
       </div>
       <div id="side_bar">
         <div id="side_bar_items">
-          <div id="side_bar_items">
-            {/* Use Link to navigate without a page refresh */}
-            <button
-              className="admin_button_grouping"
-              id={selectedView === "dashboard" ? activeBtn : ""}
-              onClick={() => setSelectedView('dashboard')}
-            >
-              Dashboard
-            </button>
-            <button
-              className="admin_button_grouping"
-              id={selectedView === "blog" ? activeBtn : ""}
-              onClick={() => setSelectedView('blog')}
-            >
-              Blog
-            </button>
-            <button
-              className="admin_button_grouping"
-              id={selectedView === "message" ? activeBtn : ""}
-              onClick={() => setSelectedView('message')}
-            >
-              Message
-            </button>
-            <button
-              className="admin_button_grouping"
-              id={selectedView === "videos" ? activeBtn : ""}
-              onClick={() => setSelectedView('videos')}
-            >
-              Videos
-            </button>
-            <button
-              className="admin_button_grouping"
-              id={selectedView === "images" ? activeBtn : ""}
-              onClick={() => setSelectedView('images')}
-            >
-              Images
-            </button>
-            <button
-              className="admin_button_grouping"
-              id={selectedView === "security" ? activeBtn : ""}
-              onClick={() => setSelectedView('security')}
-            >
-              Security
-            </button>
-            <button
-              className="admin_button_grouping"
-              id={selectedView === "history" ? activeBtn : ""}
-              onClick={() => setSelectedView('history')}
-            >
-              history
-            </button>
-          </div>
+          {/* Use Link to navigate without a page refresh */}
+          <button
+            className={`admin_button_grouping ${selectedView === "dashboard" ? activeBtn : ""}`}
+            onClick={() => setSelectedView('dashboard')}
+          >
+            Dashboard
+          </button>
+          <button
+            className={`admin_button_grouping ${selectedView === "blog" ? activeBtn : ""}`}
+            onClick={() => setSelectedView('blog')}
+          >
+            Blog
+          </button>
+          <button
+            className={`admin_button_grouping ${selectedView === "message" ? activeBtn : ""}`}
+            onClick={() => setSelectedView('message')}
+          >
+            Message
+          </button>
+          <button
+            className={`admin_button_grouping ${selectedView === "videos" ? activeBtn : ""}`}
+            onClick={() => setSelectedView('videos')}
+          >
+            Videos
+          </button>
+          <button
+            className={`admin_button_grouping ${selectedView === "images" ? activeBtn : ""}`}
+            onClick={() => setSelectedView('images')}
+          >
+            Images
+          </button>
+          <button
+            className={`admin_button_grouping ${selectedView === "security" ? activeBtn : ""}`}
+            onClick={() => setSelectedView('security')}
+          >
+            Security
+          </button>
+          <button
+            className={`admin_button_grouping ${selectedView === "history" ? activeBtn : ""}`}
+            onClick={() => setSelectedView('history')}
+          >
+            history
+          </button>
         </div>
         <div id="side_bar_collapse">
           <button>
