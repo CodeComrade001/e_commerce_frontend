@@ -11,7 +11,7 @@ import SecurityComponent from "../Admin Component/reusable_component/SecurityPag
 import HistoryComponent from "../Admin Component/reusable_component/HistoryPage";
 
 export default function AdminHome(): JSX.Element {
-  const [selectedView, setSelectedView] = useState('message');
+  const [selectedView, setSelectedView] = useState('dashboard');
 
   // A mapping from view to button class can be defined.
   const activeBtnMapping: Record<string, string> = {

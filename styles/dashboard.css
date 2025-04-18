@@ -2,13 +2,104 @@
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   grid-template-rows: repeat(4, 1fr);
-  background-color: white;
+  background-color: whitesmoke;
   gap: 10px;
+}
+
+#dashboard_content > .trend_charts {
+  display: flex;
+  flex-direction: column;
+  margin: 10px;
+  grid-row: 1 / 4;
+  grid-column: span 2;
+  gap: 5px;
+}
+
+#dashboard_content > .trend_charts > .chart_options {
+  display: flex;
+  gap: 5px;
+  background-color: white;
+  border-radius: 10px;
+  justify-content: center;
+  height: 20%;
+  width: 100%;
+}
+
+#dashboard_content > .trend_charts .chart_options > .chart_container {
+  flex-direction: column;
+  display: flex;
+  gap: 5px;
+}
+
+#dashboard_content > .trend_charts .chart_diagram {
+  width: 100%;
+  height: 80%;
+  background-color: white;
+  position: relative;
+}
+
+#dashboard_content > .trend_charts .chart_diagram .chart_canvas {
+  position: absolute !important;
+  width: 100% !important;
+  height: 100% !important;
 }
 
 #dashboard_content > * {
   margin: 10px;
 }
+
+/* ===================================
+
+ignore the css styles below for now
+ignore the css styles below for now
+ignore the css styles below for now
+ignore the css styles below for now
+ignore the css styles below for now
+ignore the css styles below for now
+ignore the css styles below for now
+ignore the css styles below for now
+ignore the css styles below for now
+ignore the css styles below for now
+ignore the css styles below for now
+ignore the css styles below for now
+ignore the css styles below for now
+ignore the css styles below for now
+ignore the css styles below for now
+ignore the css styles below for now
+ignore the css styles below for now
+ignore the css styles below for now
+ignore the css styles below for now
+ignore the css styles below for now
+ignore the css styles below for now
+ignore the css styles below for now
+ignore the css styles below for now
+ignore the css styles below for now
+ignore the css styles below for now
+ignore the css styles below for now
+ignore the css styles below for now
+ignore the css styles below for now
+ignore the css styles below for now
+ignore the css styles below for now
+ignore the css styles below for now
+ignore the css styles below for now
+ignore the css styles below for now
+ignore the css styles below for now
+ignore the css styles below for now
+ignore the css styles below for now
+ignore the css styles below for now
+ignore the css styles below for now
+ignore the css styles below for now
+ignore the css styles below for now
+ignore the css styles below for now
+ignore the css styles below for now
+ignore the css styles below for now
+ignore the css styles below for now
+ignore the css styles below for now
+ignore the css styles below for now
+ignore the css styles below for now
+ignore the css styles below for now
+
+===================================== */
 
 #dashboard_content #total_orders {
   background-color: whitesmoke;
