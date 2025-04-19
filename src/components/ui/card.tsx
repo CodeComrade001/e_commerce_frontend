@@ -1,92 +1,82 @@
-import { cn } from "@/lib/utils"
-import * as React from "react"
+import React, { useEffect, useRef } from "react";
+import { Chart } from "chart.js/auto";
 
 
-function Card({ className, ...props }: React.ComponentProps<"div">) {
+export default function LineChartDiagram() {
+  const revenueChartRef = useRef<HTMLCanvasElement>(null);
+  const discountChartRef = useRef<HTMLCanvasElement>(null);
+
+  useEffect(() => {
+    const initChart = (
+      canvas: HTMLCanvasElement | null,
+      data: number[],
+      label: string,
+      borderColor: string
+    ) => {
+      if (!canvas) return;
+
+      // Destroy existing chart instance if it exists
+      const existingChart = Chart.getChart(canvas);
+      if (existingChart) {
+        existingChart.destroy();
+      }
+
+      const ctx = canvas.getContext("2d");
+      if (!ctx) return;
+
+      new Chart(ctx, {
+        type: "line",
+        data: {
+          labels: [
+            "January", "February", "March", "April", "May", "June",
+            "July", "Aug", "Sep", "Oct", "Nov", "Dec"
+          ],
+          datasets: [
+            {
+              label,
+              data,
+              fill: false,
+              borderColor,
+              tension: 0.1
+            }
+          ]
+        },
+
+        options: {
+          plugins: { legend: { display: false } },
+          scales: {
+            x: { display: true },
+            y: { display: false }
+          }
+        }
+      });
+    };
+
+    // Initialize both charts
+    initChart(
+      revenueChartRef.current,
+      [65, 59, 80, 81, 56, 55, 40, 45, 70, 75, 60, 90],
+      "Revenue Trend",
+      "#4A5568"
+    );
+    initChart(
+      discountChartRef.current,
+      [5, 10, 3, 8, 7, 12, 4, 6, 9, 11, 2, 5],
+      "Discount Impact",
+      "#3182CE"
+    );
+
+    // Cleanup on unmount
+    return () => {
+      if (revenueChartRef.current) Chart.getChart(revenueChartRef.current)?.destroy();
+      if (discountChartRef.current) Chart.getChart(discountChartRef.current)?.destroy();
+    };
+  }, []);
   return (
-    <div
-      data-slot="card"
-      className={cn(
-        "bg-card text-card-foreground flex flex-col gap-6 rounded-xl border py-6 shadow-sm",
-        className
-      )}
-      {...props}
+    <canvas
+      ref={revenueChartRef}
+      className="chart_canvas"
+      aria-label="line chart of revenue trend"
     />
   )
-}
-
-function CardHeader({ className, ...props }: React.ComponentProps<"div">) {
-  return (
-    <div
-      data-slot="card-header"
-      className={cn(
-        "@container/card-header grid auto-rows-min grid-rows-[auto_auto] items-start gap-1.5 px-6 has-data-[slot=card-action]:grid-cols-[1fr_auto] [.border-b]:pb-6",
-        className
-      )}
-      {...props}
-    />
-  )
-}
-
-function CardTitle({ className, ...props }: React.ComponentProps<"div">) {
-  return (
-    <div
-      data-slot="card-title"
-      className={cn("leading-none font-semibold", className)}
-      {...props}
-    />
-  )
-}
-
-function CardDescription({ className, ...props }: React.ComponentProps<"div">) {
-  return (
-    <div
-      data-slot="card-description"
-      className={cn("text-muted-foreground text-sm", className)}
-      {...props}
-    />
-  )
-}
-
-function CardAction({ className, ...props }: React.ComponentProps<"div">) {
-  return (
-    <div
-      data-slot="card-action"
-      className={cn(
-        "col-start-2 row-span-2 row-start-1 self-start justify-self-end",
-        className
-      )}
-      {...props}
-    />
-  )
-}
-
-function CardContent({ className, ...props }: React.ComponentProps<"div">) {
-  return (
-    <div
-      data-slot="card-content"
-      className={cn("px-6", className)}
-      {...props}
-    />
-  )
-}
-
-function CardFooter({ className, ...props }: React.ComponentProps<"div">) {
-  return (
-    <div
-      data-slot="card-footer"
-      className={cn("flex items-center px-6 [.border-t]:pt-6", className)}
-      {...props}
-    />
-  )
-}
-
-export {
-  Card,
-  CardHeader,
-  CardFooter,
-  CardTitle,
-  CardAction,
-  CardDescription,
-  CardContent,
 }

@@ -1,10 +1,28 @@
 import { JSX } from "react";
 import "../../../../styles/blog.css";
+import LineChartDiagram from "@/components/ui/card";
 
 export default function BlogComponent(): JSX.Element {
   return (
     <div id="blog_component">
-      <div id="clicked_post_graph">able
+      <div id="clicked_post_graph">
+        <div className="chart_options">
+          {/* <div className="chart_type"> position absolute</div> */}
+          <button className="chart_category">Sales Report</button>
+          <div className="date_container" >
+            <input type="date" className="start_date" placeholder="Enter date" name="" id="" />
+            <div>
+              ==⫸
+            </div>
+            <input type="date" className="end_date" placeholder="Enter date" name="" id="" />
+          </div>
+          <div className="graph_review">
+            A graph is a set of vertices (nodes) connected by edges (links), modeling pairwise relationships in data
+          </div>
+        </div>
+        <div className="chart_diagram">
+          <LineChartDiagram />
+        </div>
       </div>
       <div id="all_blog_post">
         <div id="table_header">

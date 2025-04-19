@@ -15,6 +15,131 @@
   grid-column: 1 / 3;
   background-color: white;
   border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+#video_component #Viewed_clothes_graph > .chart_options {
+  display: grid;
+  gap: 5px;
+  background-color: white;
+  border-radius: 10px;
+  justify-content: center;
+  height: 20%;
+  width: 100%;
+  grid-template-columns: repeat(4, 1fr);
+  grid-template-rows: 50% 50%;
+}
+
+#video_component #Viewed_clothes_graph > .chart_options > .chart_category {
+  grid-area: 1 / 1 / 2 / 2;
+  height: 90%;
+  width: 90%;
+  margin: auto;
+  border-radius: 10px;
+  border: none;
+  font-size: 1.2em;
+  font-size: 1.2e;
+  font-weight: bolder;
+}
+
+#video_component #Viewed_clothes_graph > .chart_options > .date_container {
+  grid-area: 1 / 3 / 2 / 5;
+  font-size: 1.2em;
+  font-weight: bolder;
+  border-radius: 10px;
+  height: fit-content;
+  padding: 5px 15px;
+  background-color: whitesmoke;
+  border: none;
+  margin-top: 5px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 90%;
+}
+
+#video_component
+  > #Viewed_clothes_graph
+  > .chart_options
+  > .date_container
+  .end_date_container {
+  grid-area: 1/4/2/4;
+  width: 80%;
+  font-size: 1.2em;
+  font-weight: bolder;
+  border-radius: 10px;
+  height: fit-content;
+  padding: 10px 15px;
+  background-color: whitesmoke;
+  border: none;
+  margin: auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+#video_component
+  > #Viewed_clothes_graph
+  > .chart_options
+  .date_container
+  > .start_date {
+  width: fit-content;
+  font-size: 1.2em;
+  font-weight: bolder;
+  border-radius: 10px;
+  height: fit-content;
+  padding: 10px 15px;
+  background-color: white;
+  border: none;
+}
+
+#video_component
+  > #Viewed_clothes_graph
+  > .chart_options
+  .date_container
+  > .end_date {
+  width: fit-content;
+  font-size: 1.2em;
+  font-weight: bolder;
+  border-radius: 10px;
+  height: fit-content;
+  padding: 10px 15px;
+  background-color: white;
+  border: none;
+}
+
+#video_component > #Viewed_clothes_graph > .chart_options > .graph_review {
+  grid-area: 2 / 1 / 3 / 5;
+  width: 90%;
+  margin: auto;
+  border-radius: 10px;
+  border: none;
+  font-size: 1.2em;
+  font-weight: bolder;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+}
+
+#video_component > #Viewed_clothes_graph .chart_options > .chart_container {
+  flex-direction: column;
+  display: flex;
+  gap: 5px;
+}
+
+#video_component > #Viewed_clothes_graph .chart_diagram {
+  width: 100%;
+  height: 80%;
+  background-color: white;
+  position: relative;
+}
+
+#video_component > #Viewed_clothes_graph .chart_diagram .chart_canvas {
+  position: absolute !important;
+  width: 100% !important;
+  height: 100% !important;
 }
 
 #video_component #all_video {
