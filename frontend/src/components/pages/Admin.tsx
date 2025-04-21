@@ -102,42 +102,119 @@ export default function AdminHome(): JSX.Element {
             onClick={() => setSelectedView('dashboard')}
           >
             Dashboard
+            <i className="dropdown_widget_icon">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="16"
+                  height="16"
+                  fill="currentColor"
+                  className="bi bi-caret-down-fill"
+                  viewBox="0 0 16 16">
+                  <path d="M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z" />
+                </svg>
+              </i>
           </button>
           <button
             className={`admin_button_grouping ${selectedView === "blog" ? activeBtn : ""}`}
             onClick={() => setSelectedView('blog')}
           >
             Blog
+            <i className="dropdown_widget_icon">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="16"
+                  height="16"
+                  fill="currentColor"
+                  className="bi bi-caret-down-fill"
+                  viewBox="0 0 16 16">
+                  <path d="M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z" />
+                </svg>
+              </i>
           </button>
           <button
             className={`admin_button_grouping ${selectedView === "message" ? activeBtn : ""}`}
             onClick={() => setSelectedView('message')}
           >
             Message
+            <i className="dropdown_widget_icon">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="16"
+                  height="16"
+                  fill="currentColor"
+                  className="bi bi-caret-down-fill"
+                  viewBox="0 0 16 16">
+                  <path d="M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z" />
+                </svg>
+              </i>
           </button>
           <button
             className={`admin_button_grouping ${selectedView === "videos" ? activeBtn : ""}`}
             onClick={() => setSelectedView('videos')}
           >
             Videos
+            <i className="dropdown_widget_icon">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="16"
+                  height="16"
+                  fill="currentColor"
+                  className="bi bi-caret-down-fill"
+                  viewBox="0 0 16 16">
+                  <path d="M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z" />
+                </svg>
+              </i>
           </button>
           <button
             className={`admin_button_grouping ${selectedView === "images" ? activeBtn : ""}`}
             onClick={() => setSelectedView('images')}
           >
             Images
+            <i className="dropdown_widget_icon">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="16"
+                  height="16"
+                  fill="currentColor"
+                  className="bi bi-caret-down-fill"
+                  viewBox="0 0 16 16">
+                  <path d="M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z" />
+                </svg>
+              </i>
           </button>
           <button
             className={`admin_button_grouping ${selectedView === "security" ? activeBtn : ""}`}
             onClick={() => setSelectedView('security')}
           >
             Security
+            <i className="dropdown_widget_icon">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="16"
+                  height="16"
+                  fill="currentColor"
+                  className="bi bi-caret-down-fill"
+                  viewBox="0 0 16 16">
+                  <path d="M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z" />
+                </svg>
+              </i>
           </button>
           <button
             className={`admin_button_grouping ${selectedView === "history" ? activeBtn : ""}`}
             onClick={() => setSelectedView('history')}
           >
             history
+            <i className="dropdown_widget_icon">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="16"
+                  height="16"
+                  fill="currentColor"
+                  className="bi bi-caret-down-fill"
+                  viewBox="0 0 16 16">
+                  <path d="M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z" />
+                </svg>
+              </i>
           </button>
         </div>
         <div id="side_bar_collapse">

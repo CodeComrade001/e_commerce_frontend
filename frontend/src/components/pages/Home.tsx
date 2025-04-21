@@ -12,7 +12,7 @@ export default function ShoppingPageHome(): JSX.Element {
             <div id="text3d_background"></div>
             <h1 id="text3d">
               <span id="first_part" > E-commerce</span>
-              <span id="second_part" > Fashion</span>
+              <span id="second_part" > Project</span>
             </h1>
             <nav className="nav_bar">
               <button className="button">

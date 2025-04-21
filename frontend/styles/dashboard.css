@@ -35,8 +35,12 @@
   border-radius: 10px;
   border: none;
   font-size: 1.2em;
-  font-size: 1.2e;
   font-weight: bolder;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: inset 0px 0px 25px #000c6659;
+  border: 3px solid #000c6659;
 }
 
 #dashboard_content > .trend_charts > .chart_options > .date_container {
@@ -45,7 +49,7 @@
   font-weight: bolder;
   border-radius: 10px;
   height: fit-content;
-  padding: 5px 15px;
+  padding: 0px 15px;
   background-color: whitesmoke;
   border: none;
   margin-top: 5px;
@@ -58,35 +62,15 @@
 #dashboard_content
   > .trend_charts
   > .chart_options
-  > .date_container
-  .end_date_container {
-  grid-area: 1/4/2/4;
-  width: 80%;
-  font-size: 1.2em;
-  font-weight: bolder;
-  border-radius: 10px;
-  height: fit-content;
-  padding: 10px 15px;
-  background-color: whitesmoke;
-  border: none;
-  margin: auto;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-#dashboard_content
-  > .trend_charts
-  > .chart_options
   .date_container
   > .start_date {
   width: fit-content;
+  background-color: whitesmoke;
   font-size: 1.2em;
   font-weight: bolder;
   border-radius: 10px;
   height: fit-content;
   padding: 10px 15px;
-  background-color: white;
   border: none;
 }
 
@@ -97,11 +81,11 @@
   > .end_date {
   width: fit-content;
   font-size: 1.2em;
+  background-color: whitesmoke;
   font-weight: bolder;
   border-radius: 10px;
   height: fit-content;
   padding: 10px 15px;
-  background-color: white;
   border: none;
 }
 
@@ -149,11 +133,24 @@
   flex-direction: column;
 }
 
+#dashboard_content #all_orders button {
+  box-shadow: inset 0px 0px 25px #000c6659;
+  border: 3px solid #000c6659;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  gap: 40px;
+  justify-content: center;
+}
+
 #dashboard_content #all_orders .widget_header {
   height: 10%;
   display: flex;
   justify-content: space-between;
   align-items: center;
+  background-color: white;
+  padding: 10px;
+  border-radius: 10px;
 }
 
 #dashboard_content #all_orders > .widget_header .all_order_option > *,
@@ -202,8 +199,10 @@
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   grid-template-rows: repeat(4, 1fr);
-  gap: 10px;
-  overflow-y: auto;
+  gap: 40px;
+  padding: 10px;
+  background-color: white;
+  border-radius: 10px;
 }
 
 #dashboard_content #all_orders .all_orders_container::-webkit-scrollbar {
@@ -224,6 +223,8 @@
   height: fit-content;
   width: 100%;
   flex-direction: column;
+  box-shadow: 0 0 6px 5px grey;
+  border-radius: 10px;
 }
 
 #dashboard_content #all_orders .all_orders_container .image_container {
@@ -350,11 +351,11 @@
   align-items: center;
 }
 
-#dashboard_content #all_customers > #mark_items_option > div:nth-child(1) {
+#dashboard_content #all_customers > #mark_items_option > .sort_leaderBoard {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  font: size 1.2em;
+  font-size: 1.2em;
 }
 
 #dashboard_content #all_customers > #mark_items_option > div {
@@ -368,6 +369,8 @@
   height: 90%;
   width: fit-content;
   padding: 0 10px;
+  box-shadow: inset 0px 0px 25px #000c6659;
+  border: 3px solid #000c6659;
 }
 
 #dashboard_content #all_customers .leaderboard__title {
@@ -460,12 +463,11 @@
   display: flex;
   font-size: 1.2em;
   flex: 1;
-  flex-direction: column;
-  justify-content: center;
+  justify-content: space-between;
+  align-items: center;
 }
 
 #dashboard_content #all_customers .coupons {
-  height: 100%;
   border-radius: 10px;
   font-size: 1.2em;
   width: 10%;
@@ -473,16 +475,30 @@
   justify-content: center;
   align-items: center;
   background-color: whitesmoke;
+  margin-right: 15px;
   font-weight: bolder;
+  box-shadow: inset 0px 0px 25px #000c6659;
+  border: 3px solid #000c6659;
+  padding: 5px;
 }
 
 #dashboard_content #all_customers .user_profile_control {
-  flex: 30%;
-  width: 30%;
+  width: fit-content;
   display: grid;
   grid-template-rows: repeat(2, 1fr);
   grid-template-columns: repeat(2, 1fr);
   height: 100%;
+  column-gap: 10px;
+}
+
+#dashboard_content #all_customers .user_profile_control > button {
+  box-shadow: inset 0px 0px 25px #000c6659;
+  border: 3px solid #000c6659;
+  height: fit-content;
+  width: fit-content;
+  padding: 5px 10px;
+  border-radius: 10px;
+  font-size: 1.2em;
 }
 
 #dashboard_content #weekly_chart_order {
@@ -513,6 +529,9 @@
   border: none;
   font-weight: bolder;
   font-size: 1.5em;
+  box-shadow: inset 0px 0px 25px #000c6659;
+  border: 3px solid #000c6659;
+  border-radius: 10px;
 }
 
 #dashboard_content #weekly_chart_orders #header .complete_order {
@@ -552,6 +571,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  position: relative;
 }
 
 #dashboard_content #weekly_chart_order #order_bar_chart {
@@ -876,6 +896,7 @@
   flex: 1;
   display: flex;
   flex-direction: column;
+  margin-left: 10px;
 }
 
 #dashboard_content
@@ -938,6 +959,32 @@
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+#dashboard_content
+  #weekly_sales
+  > .coupon_sales_chart
+  #order_bar_chart
+  .chart_canvas {
+  height: 100% !important;
+  width: 100% !important;
+}
+
+#dashboard_content
+  #weekly_sales
+  .coupon_sales_chart
+  #order_bar_chart
+  .chart_canvas
+  g,
+#dashboard_content
+  #weekly_sales
+  .coupon_sales_chart
+  #order_bar_chart
+  .chart_canvas
+  path {
+  position: relative;
+  height: 100% !important;
+  width: 100% !important;
 }
 
 #dashboard_content
@@ -1150,6 +1197,8 @@
   text-align: center;
   font-weight: bolder;
   border: none;
+  box-shadow: inset 0px 0px 25px #000c6659;
+  border: 3px solid #000c6659;
 }
 
 #dashboard_content #download_report .table_body {
@@ -1189,6 +1238,11 @@
   display: flex;
 }
 
+#dashboard_content #download_report .table_body > .post .download_option > * {
+  box-shadow: inset 0px 0px 25px #000c6659;
+  border: 3px solid #000c6659;
+}
+
 #dashboard_content #download_report .table_body > .post .report_type {
   font-size: 1.2em;
   display: flex;
@@ -1198,11 +1252,12 @@
 }
 
 #dashboard_content #download_report .table_body > .post .last_refresh {
-  font-size: 1em;
+  font-size: 0.8em;
   background-color: blue;
   margin-right: 10px;
   border-radius: 10px;
   padding: 5px;
+  color: white;
 }
 
 #dashboard_content
