@@ -1,3 +1,5 @@
+@import url("https://fonts.googleapis.com/css2?family=Bungee+Tint&family=Inria+Sans&family=Poetsen+One&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap");
+
 .container {
   height: 100%;
   width: 100%;
@@ -33,6 +35,12 @@
   position: relative;
   height: 100%;
   flex: 20%;
+}
+
+#text3d * {
+  font-family: "Poetsen One", sans-serif !important ;
+  font-weight: 400 !important;
+  font-style: normal !important;
 }
 
 #first_part {
@@ -119,12 +127,26 @@
   flex: 55%;
 }
 
+.nav_bar * {
+  font-family: "Inria Sans", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+}
+
 .button {
   --white: #ffe7ff;
-  --purple-100: #f7cc8759; /* Light tint (L ~75%) */
-  --purple-200: #f1742759; /* Lighter tint (L ~55%) */
-  --purple-300: #a0430a59; /* Base color (L ~33%) */
-  --purple-400: #60290659; /* Dark shade (L ~20%) */
+
+  /* Light tint (L ≈ 75%) */
+  --purple-100: #808eff59;
+
+  /* Lighter tint (L ≈ 55%) */
+  --purple-200: #1a34ff59;
+
+  /* Base color (L ≈ 66.5%) */
+  --purple-300: #5468ff59;
+
+  /* Dark tint (L ≈ 20%) */
+  --purple-400: #000c6659;
   --radius: 10px;
 
   border-radius: var(--radius);
@@ -520,6 +542,12 @@
   gap: 15px;
 }
 
+.search_widget * {
+  font-family: "Poetsen One", sans-serif !important ;
+  font-weight: 400 !important;
+  font-style: normal !important;
+}
+
 .search_widget > * {
   flex: 1;
 }
@@ -704,7 +732,9 @@
   cursor: pointer;
   display: inline-block;
   padding: 7px 20px;
-
+  font-family: "Poetsen One", sans-serif;
+  font-weight: 400;
+  font-style: normal;
   text-align: center;
   text-decoration: none;
   transition: all 250ms;
@@ -715,11 +745,13 @@
   text-align: left;
   touch-action: manipulation;
   position: relative;
-  border: 3px ridge #f1742759;
+  border: 3px ridge #000c6659;
   outline: none;
   background-color: transparent;
   transition: 1s;
-  font-weight: bold;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
 .clothes_grouping_button::after {
@@ -752,7 +784,7 @@
 }
 
 .clothes_grouping_button:hover {
-  box-shadow: inset 0px 0px 25px #f1742759;
+  box-shadow: inset 0px 0px 25px #000c6659;
 }
 
 .clothes_filter_option {
@@ -806,9 +838,9 @@
   display: flex;
   flex-direction: column;
   position: absolute;
-  height: 70%;
-  width: 50%;
-  right: 27%;
+  height: 75%;
+  width: 69%;
+  right: 5%;
   top: 20%;
   background-color: white;
   border-radius: 12px;
@@ -993,7 +1025,7 @@
   text-align: left;
   touch-action: manipulation;
   position: relative;
-  border: 3px ridge #f1742759;
+  border: 3px ridge #000c6659;
   outline: none;
   background-color: white;
   transition: 1s;
@@ -1081,7 +1113,7 @@
   user-select: none;
   touch-action: manipulation;
   position: relative;
-  border: 3px ridge #f1742759;
+  border: 3px ridge #000c6659;
   outline: none;
   background-color: transparent;
   transition: 1s;
@@ -1124,149 +1156,140 @@
 }
 
 .chatRoom {
+  display: none;
   height: 70%;
-  width: 20%;
+  width: 30%;
   position: absolute;
   right: 5%;
   top: 20%;
-}
-
-.chat_container {
-  height: 75%;
-  width: 100%;
   display: flex;
   flex-direction: column;
-  gap: 100px;
+}
+
+.chatRoom #conversation_heading * {
+  font-family: "Inria Sans", sans-serif;
+  font-weight: 700;
+  font-style: normal;
+}
+
+.chatRoom #conversation_room * {
+  font-family: "Inria Sans", sans-serif;
+  font-weight: 700;
+  font-style: normal;
+}
+
+.chatRoom > #conversation_heading {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  height: 10%;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+  background-color: white;
+  justify-content: center;
+  align-items: center;
+}
+
+.chatRoom > #conversation_room {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  height: 90%;
   overflow-y: auto;
-  overflow-x: hidden;
-  padding: 10px 0;
-  background-color: antiquewhite;
+  background-color: azure;
 }
 
-.chat_container > * {
-  position: relative;
+.chatRoom > #conversation_room::-webkit-scrollbar {
+  width: 5px;
+}
+
+.chatRoom > #conversation_room > .inbox_message {
+  height: fit-content;
   width: 100%;
-  height: fit-content;
-  margin: 0 6px;
+  margin: 15px 0px;
+  position: relative;
 }
 
-.admin {
+.chatRoom > #conversation_room > .outbox_message {
   height: fit-content;
+  width: 100%;
+  margin: 15px 0px;
+  position: relative;
   display: flex;
-  flex-direction: column;
-  width: 48%;
-  position: absolute;
-  left: 0;
-  right: 0;
+  justify-content: flex-end;
 }
 
-.ordered_items {
+.chatRoom > #conversation_room .inbox_message .message_received {
+  border-radius: 10px;
+  width: fit-content;
   height: fit-content;
+  position: relative;
+  left: 0;
+  font-size: 1.2em;
+  font-weight: bolder;
+  background-color: white;
+  padding: 15px 20px;
+  margin-left: 0;
+}
+
+.chatRoom > #conversation_room .outbox_message .message_sent {
+  border-radius: 10px;
+  width: fit-content;
+  height: fit-content;
+  right: 0;
+  font-size: 1.2em;
+  font-weight: bolder;
+  background-color: white;
+  padding: 15px 20px;
+  margin-right: 0;
+}
+
+.chatRoom #text-box {
+  height: 10%;
+  width: 100%;
+  position: relative;
+  border-radius: 10px;
+  display: flex;
+}
+
+.chatRoom #text-box > textarea {
+  flex: 1;
+  border-radius: 10px;
+  border: none;
+  background-color: white;
+  height: 100%;
+}
+
+.chatRoom #text-box > textarea::placeholder {
+  font-size: 1.2em;
+}
+
+.chatRoom #text-box > textarea:focus {
+  font-size: 1.2em;
+  border-radius: 10px;
+  border: none;
+  height: 100%;
+}
+
+.chatRoom #text-box > .send-svg {
+  height: 70%;
+  width: fit-content;
+  position: absolute;
+  border-radius: 10px;
+  padding: 0 10px;
+  background-color: blue;
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: white;
-  width: fit-content;
-  padding: 0 10px;
+  bottom: 10%;
+  right: 2%;
+}
+
+.chatRoom #text-box > .send-svg > svg {
+  height: 30px;
+  width: 30px;
   position: relative;
-  border-top-left-radius: 15px;
-}
-
-.ordered_items_icon {
-  height: 100%;
-  width: 40px;
-}
-
-.count {
-  font-size: 1.2em;
-  border-radius: 50%;
-  background-color: blue;
-  padding: 5px 8px;
-  position: absolute;
-  right: 0;
-  color: white;
-  top: -9px;
-  font-weight: bolder;
-}
-
-.admin_text {
-  padding: 2px 22px;
-  height: fit-content;
-  background-color: white;
-  font-size: 1.2em;
-  font-weight: bolder;
-  border-top-right-radius: 10px;
-  border-bottom-right-radius: 10px;
-}
-
-.customer {
-  height: fit-content;
-  display: flex;
-  flex-direction: column;
-  width: 48%;
-  position: absolute;
-  right: 0;
-  top: 0;
-}
-
-.customer_text {
-  padding: 2px 22px;
-  height: fit-content;
-  background-color: white;
-  font-size: 1.2em;
-  font-weight: bolder;
-  border-top-right-radius: 20px;
-  border-bottom-left-radius: 20px;
-}
-
-.text-box {
-  height: 20%;
-  position: relative;
-}
-
-.text-box > .text-input {
-  width: 100%;
-  max-width: 100%;
-  border: none;
-  border-bottom-right-radius: 10px;
-  border-bottom-left-radius: 10px;
-  font-size: 2.2em;
-  overflow-wrap: break-word;
-  white-space: pre-wrap;
-  box-sizing: border-box;
-  resize: none;
-  padding: 10px;
-  height: 100%;
-  line-height: 1.5;
-  font-weight: bolder;
-}
-
-.text-box > .text-input:focus {
-  border: none;
-  font-size: 2em;
-  line-height: 1.5;
-  font-weight: bolder;
-  border-color: none;
-}
-
-.text-box > .text-input:focus text-input::-webkit-scrollbar {
-  width: 0;
-}
-
-.text-box > .text-input:focus-visible {
-  border: none;
-  font-size: 2em;
-  line-height: 1.5;
-  font-weight: bolder;
-}
-
-.send-svg {
-  position: absolute;
-  z-index: 1;
-  right: 10px;
-  height: 40px;
-  width: 40px;
-  bottom: 10px;
+  border-radius: 10px;
 }
 
 .random_clothes {
