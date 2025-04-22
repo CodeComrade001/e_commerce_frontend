@@ -20,126 +20,23 @@ export default function MessageComponent(): JSX.Element {
               <div className="last_seen_value">5 min</div>
             </div>
           </div>
-          <div className="user_profile">
-            <div>
-              <img src="/images/profile/profile.png" alt="" />
-            </div>
-            <div className="user_name">userName</div>
-            <div className="last_message"> my order has not been going through </div>
-            <div className="last_seen">
-              <div className="last_seen_value">5 min</div>
-            </div>
-          </div>
-          <div className="user_profile">
-            <div>
-              <img src="/images/profile/profile.png" alt="" />
-            </div>
-            <div className="user_name">userName</div>
-            <div className="last_message"> my order has not been going through </div>
-            <div className="last_seen">
-              <div className="last_seen_value">5 min</div>
-            </div>
-          </div>
-          <div className="user_profile">
-            <div>
-              <img src="/images/profile/profile.png" alt="" />
-            </div>
-            <div className="user_name">userName</div>
-            <div className="last_message"> my order has not been going through </div>
-            <div className="last_seen">
-              <div className="last_seen_value">5 min</div>
-            </div>
-          </div>
-          <div className="user_profile">
-            <div>
-              <img src="/images/profile/profile.png" alt="" />
-            </div>
-            <div className="user_name">userName</div>
-            <div className="last_message"> my order has not been going through </div>
-            <div className="last_seen">
-              <div className="last_seen_value">5 min</div>
-            </div>
-          </div>
-          <div className="user_profile">
-            <div>
-              <img src="/images/profile/profile.png" alt="" />
-            </div>
-            <div className="user_name">userName</div>
-            <div className="last_message"> my order has not been going through </div>
-            <div className="last_seen">
-              <div className="last_seen_value">5 min</div>
-            </div>
-          </div>
-          <div className="user_profile">
-            <div>
-              <img src="/images/profile/profile.png" alt="" />
-            </div>
-            <div className="user_name">userName</div>
-            <div className="last_message"> my order has not been going through </div>
-            <div className="last_seen">
-              <div className="last_seen_value">5 min</div>
-            </div>
-          </div>
-          <div className="user_profile">
-            <div>
-              <img src="/images/profile/profile.png" alt="" />
-            </div>
-            <div className="user_name">userName</div>
-            <div className="last_message"> my order has not been going through </div>
-            <div className="last_seen">
-              <div className="last_seen_value">5 min</div>
-            </div>
-          </div>
-          <div className="user_profile">
-            <div>
-              <img src="/images/profile/profile.png" alt="" />
-            </div>
-            <div className="user_name">userName</div>
-            <div className="last_message"> my order has not been going through </div>
-            <div className="last_seen">
-              <div className="last_seen_value">5 min</div>
-            </div>
-          </div>
-          <div className="user_profile">
-            <div>
-              <img src="/images/profile/profile.png" alt="" />
-            </div>
-            <div className="user_name">userName</div>
-            <div className="last_message"> my order has not been going through </div>
-            <div className="last_seen">
-              <div className="last_seen_value">5 min</div>
-            </div>
-          </div>
-          <div className="user_profile">
-            <div>
-              <img src="/images/profile/profile.png" alt="" />
-            </div>
-            <div className="user_name">userName</div>
-            <div className="last_message"> my order has not been going through </div>
-            <div className="last_seen">
-              <div className="last_seen_value">5 min</div>
-            </div>
-          </div>
-          <div className="user_profile">
-            <div>
-              <img src="/images/profile/profile.png" alt="" />
-            </div>
-            <div className="user_name">userName</div>
-            <div className="last_message"> my order has not been going through </div>
-            <div className="last_seen">
-              <div className="last_seen_value">5 min</div>
-            </div>
-          </div>
-          <div className="user_profile">
-            <div>
-              <img src="/images/profile/profile.png" alt="" />
-            </div>
-            <div className="user_name">userName</div>
-            <div className="last_message"> my order has not been going through </div>
-            <div className="last_seen">
-              <div className="last_seen_value">5 min</div>
-            </div>
-          </div>
+        </div>
+        <div id="customer_side_bar_collapse">
+          <button>
+            <i>
+              <svg viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg" transform="matrix(-1, 0, 0, 1, 0, 0)">
+                <g id="SVGRepo_bgCarrier" strokeWidth="0"></g>
+                <g id="SVGRepo_tracerCarrier" strokeLinecap="round" strokeLinejoin="round"></g>
+                <g id="SVGRepo_iconCarrier">
+                  <path d="M16 1V15H9V13H14V3H9V1L16 1Z" fill="#000000"></path>
+                  <path d="M6 4V7L8.74229e-08 7L0 9H6V12H7L11 8L7 4H6Z" fill="#000000"></path>
+                </g>
+              </svg>
+            </i>
+            <span>
+              Collapse
+            </span>
+          </button>
         </div>
       </section>
       <section id="all_messages">

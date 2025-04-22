@@ -1,6 +1,5 @@
 @import url("https://fonts.googleapis.com/css2?family=Bungee+Tint&family=Inria+Sans&family=Poetsen+One&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap");
 
-
 #admin_container {
   height: 100%;
   width: 100%;
@@ -120,6 +119,10 @@
   flex-direction: row;
   border: none;
   width: 100%;
+  border-radius: 10px;
+  background-color: white;
+  box-shadow: inset 0px 0px 25px #000c6659;
+  border: 3px solid #000c6659;
   height: 100%;
   align-items: center;
 }
@@ -156,7 +159,7 @@
   font-weight: 700;
   font-style: normal;
 }
-  
+
 #admin_container .admin_button_grouping {
   border-radius: 10px;
   color: black;
@@ -177,7 +180,7 @@
   text-align: left;
   touch-action: manipulation;
   position: relative;
-  border: 3px ridge  #000c6659;
+  border: 3px ridge #000c6659;
   outline: none;
   background-color: transparent;
   transition: 1s;
@@ -191,31 +194,31 @@ active button style
 =================== */
 
 #admin_container .active_admin_dashboard {
-  box-shadow: inset 0px 0px 25px  #000c6659;
+  box-shadow: inset 0px 0px 25px #000c6659;
 }
 
 #admin_container .active_admin_blog {
-  box-shadow: inset 0px 0px 25px  #000c6659;
+  box-shadow: inset 0px 0px 25px #000c6659;
 }
 
 #admin_container .active_admin_message {
-  box-shadow: inset 0px 0px 25px  #000c6659;
+  box-shadow: inset 0px 0px 25px #000c6659;
 }
 
 #admin_container .active_admin_videos {
-  box-shadow: inset 0px 0px 25px  #000c6659;
+  box-shadow: inset 0px 0px 25px #000c6659;
 }
 
 #admin_container .active_admin_images {
-  box-shadow: inset 0px 0px 25px  #000c6659;
+  box-shadow: inset 0px 0px 25px #000c6659;
 }
 
 #admin_container .active_admin_security {
-  box-shadow: inset 0px 0px 25px  #000c6659;
+  box-shadow: inset 0px 0px 25px #000c6659;
 }
 
 #admin_container .active_admin_history {
-  box-shadow: inset 0px 0px 25px  #000c6659;
+  box-shadow: inset 0px 0px 25px #000c6659;
 }
 
 #admin_container .active_admin_dashboard::before,

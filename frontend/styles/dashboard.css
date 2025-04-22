@@ -714,7 +714,9 @@
   height: 90%;
   background-color: white;
   align-items: center;
-  border: none;
+  box-shadow: inset 0px 0px 25px #000c6659;
+  border: 3px solid #000c6659 ;
+  border-radius:10px;
   font-weight: bolder;
   font-size: 1.5em;
 }

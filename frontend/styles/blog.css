@@ -159,9 +159,9 @@
   background-color: white;
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  grid-template-rows: repeat(3, 1fr);
+  grid-template-rows: repeat(2, 1fr);
   align-items: center;
-  height: 150px;
+  height: 72px;
   border-radius: 10px;
 }
 
@@ -175,41 +175,6 @@
   font-size: 1.2em;
   font-weight: bolder;
   grid-column: span 2;
-}
-
-#blog_component #all_blog_post #table_header > nav {
-  display: flex;
-  align-items: center;
-  grid-area: 2/1/ 3/5;
-}
-
-#blog_component #all_blog_post #table_header .sort_option {
-  flex: 1;
-  display: flex;
-}
-
-#blog_component #all_blog_post #table_header .sort_option button {
-  font-size: 1.3em;
-  width: 25%;
-  height: fit-content;
-  padding: 0px 10px;
-  border-radius: 10px;
-  text-align: center;
-  border: none;
-  box-shadow: inset 0px 0px 25px #000c6659;
-  border: 3px solid #000c6659;
-}
-
-#blog_component #all_blog_post #table_header .blog_options button {
-  font-size: 1.3em;
-  width: 25%;
-  height: fit-content;
-  padding: 0px 10px;
-  border-radius: 10px;
-  text-align: center;
-  border: none;
-  box-shadow: inset 0px 0px 25px #000c6659;
-  border: 3px solid #000c6659;
 }
 
 #blog_component #all_blog_post #table_header > input {
@@ -260,6 +225,14 @@
 
 #all_blog_post .table_body > .post > * {
   flex: 1;
+}
+
+#all_blog_post .table_body > .post > button {
+  flex: none;
+  box-shadow: inset 0px 0px 25px #000c6659;
+  border: 3px solid #000c6659;
+  margin: 5px;
+  border-radius: 10px;
 }
 
 #blog_component #special_promotion_post {
@@ -343,6 +316,14 @@
 
 #special_promotion_post .table_body > .post > * {
   flex: 1;
+}
+
+#special_promotion_post .table_body > .post > button {
+  flex: none;
+  box-shadow: inset 0px 0px 25px #000c6659;
+  border: 3px solid #000c6659;
+  margin: 5px;
+  border-radius: 10px;
 }
 
 #blog_component #new_post {
@@ -441,10 +422,17 @@
 
 #Local_posts #table_header {
   background-color: white;
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  display: flex;
   align-items: center;
   height: 50px;
+  border-radius: 10px;
+}
+
+#Local_posts #table_header button {
+  flex: none;
+  box-shadow: inset 0px 0px 25px #000c6659;
+  border: 3px solid #000c6659;
+  margin: 5px;
   border-radius: 10px;
 }
 
@@ -504,12 +492,20 @@
   flex: 1;
 }
 
-#Local_posts .table_body > .post > span:nth-child(2) {
+#Local_posts .table_body > .post > span:nth-child(3) {
   display: flex;
   flex-direction: column;
 }
 
-#Local_posts .table_body > .post > span:nth-child(2) > * {
+#Local_posts .table_body > .post > span:nth-child(3) > * {
   flex: 1;
   border: none;
+}
+
+#Local_posts .table_body > .post .post_option > * {
+  flex: none;
+  box-shadow: inset 0px 0px 25px #000c6659;
+  border: 3px solid #000c6659;
+  margin: 5px;
+  border-radius: 10px;
 }
