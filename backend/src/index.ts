@@ -1,11 +1,8 @@
-import express from 'express';
-import cors from 'cors';
-import dotenv from 'dotenv';
+// src/index.ts
 
-dotenv.config();
-const app = express();
-app.use(cors());            // Allow Vite dev origin
-app.use(express.json());
+import { createApp } from "./app.js";
+
+const app = createApp();
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
