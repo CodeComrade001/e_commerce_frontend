@@ -1,0 +1,257 @@
+@import url("https://fonts.googleapis.com/css2?family=Bungee+Tint&family=Inria+Sans&family=Poetsen+One&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap");
+
+/* HomeSignUp.css */
+.SignInComponent {
+  display: flex;
+  width: 60%;
+  height: 70%;
+  position: absolute;
+  right: 10%;
+  top: 20%;
+  border-radius: 10px;
+}
+
+.SignInComponent * {
+  font-family: "Inria Sans", sans-serif !important ;
+  font-weight: 700 !important;
+  font-style: normal !important;
+}
+
+/* SignInComponent.css */
+.SignInComponent *,
+.SignInComponent *:before,
+.SignInComponent *:after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+.SignInComponent input,
+.SignInComponent button {
+  border: none;
+  outline: none;
+  background: none;
+  font-family: inherit;
+}
+
+.SignInComponent .cont {
+  border-radius: 20px;
+  overflow: hidden;
+  position: relative;
+  width: 900px;
+  height: 550px;
+  background: #fff;
+  margin: auto;
+  box-shadow: -10px -10px 15px rgba(255, 255, 255, 0.3),
+    10px 10px 15px rgba(70, 70, 70, 0.15),
+    inset -10px -10px 15px rgba(255, 255, 255, 0.3),
+    inset 10px 10px 15px rgba(70, 70, 70, 0.15);
+}
+
+.SignInComponent .form {
+  position: relative;
+  width: 640px;
+  height: 100%;
+  transition: transform 1.2s ease-in-out;
+  padding: 50px 30px 0;
+}
+
+.SignInComponent .sub-cont {
+  overflow: hidden;
+  position: absolute;
+  left: 640px;
+  top: 0;
+  width: 900px;
+  height: 100%;
+  padding-left: 260px;
+  background: #fff;
+  transition: transform 1.2s ease-in-out;
+}
+
+.SignInComponent.s--signup .sub-cont {
+  transform: translate3d(-640px, 0, 0);
+}
+
+.SignInComponent button {
+  display: block;
+  margin: 0 auto;
+  width: 260px;
+  height: 36px;
+  border-radius: 30px;
+  color: #fff;
+  font-size: 15px;
+  cursor: pointer;
+}
+
+.SignInComponent .img {
+  overflow: hidden;
+  z-index: 2;
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 260px;
+  height: 100%;
+  padding-top: 360px;
+}
+
+.SignInComponent .img:before {
+  content: "";
+  position: absolute;
+  right: 0;
+  top: 0;
+  width: 900px;
+  height: 100%;
+  background-image: url("ext.jpg");
+  opacity: 0.8;
+  background-size: cover;
+  transition: transform 1.2s ease-in-out;
+}
+
+.SignInComponent .img:after {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.6);
+}
+
+.SignInComponent.s--signup .img:before {
+  transform: translate3d(640px, 0, 0);
+}
+
+.SignInComponent .img__text {
+  z-index: 2;
+  position: absolute;
+  left: 0;
+  top: 50px;
+  width: 100%;
+  padding: 0 20px;
+  text-align: center;
+  color: #fff;
+  transition: transform 1.2s ease-in-out;
+}
+
+.SignInComponent .img__text.m--up {
+  transform: translateX(520px);
+}
+
+.SignInComponent .img__text.m--in {
+  transform: translateX(-520px);
+}
+
+.SignInComponent.s--signup .img__text.m--in {
+  transform: translateX(0);
+}
+
+.SignInComponent .img__btn {
+  overflow: hidden;
+  z-index: 2;
+  position: relative;
+  width: 100px;
+  height: 36px;
+  margin: 0 auto;
+  background: transparent;
+  color: #fff;
+  text-transform: uppercase;
+  font-size: 15px;
+  cursor: pointer;
+}
+
+.SignInComponent .img__btn:after {
+  content: "";
+  z-index: 2;
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  border: 2px solid #fff;
+  border-radius: 30px;
+}
+
+.SignInComponent .img__btn span {
+  position: absolute;
+  left: 0;
+  top: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  transition: transform 1.2s;
+}
+
+.SignInComponent .img__btn span.m--in {
+  transform: translateY(-72px);
+}
+
+.SignInComponent.s--signup .img__btn span.m--in {
+  transform: translateY(0);
+}
+
+.SignInComponent.s--signup .img__btn span.m--up {
+  transform: translateY(72px);
+}
+
+.SignInComponent h2 {
+  width: 100%;
+  font-size: 26px;
+  text-align: center;
+}
+
+.SignInComponent label {
+  display: block;
+  width: 260px;
+  margin: 25px auto 0;
+  text-align: center;
+}
+
+.SignInComponent label span {
+  font-size: 12px;
+  color: #cfcfcf;
+  text-transform: uppercase;
+}
+
+.SignInComponent input {
+  display: block;
+  width: 100%;
+  margin-top: 5px;
+  padding-bottom: 5px;
+  font-size: 16px;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.4);
+  text-align: center;
+}
+
+.SignInComponent .forgot-pass {
+  margin-top: 15px;
+  text-align: center;
+  font-size: 12px;
+  color: #cfcfcf;
+}
+
+.SignInComponent .submit {
+  margin-top: 40px;
+  margin-bottom: 20px;
+  background: #000c6659;
+  text-transform: uppercase;
+}
+
+.SignInComponent .sign-in {
+  transition-timing-function: ease-out;
+}
+
+.SignInComponent.s--signup .sign-in {
+  transition-timing-function: ease-in-out;
+  transition-duration: 1.2s;
+  transform: translate3d(640px, 0, 0);
+}
+
+.SignInComponent .sign-up {
+  transform: translate3d(-900px, 0, 0);
+}
+
+.SignInComponent.s--signup .sign-up {
+  transform: translate3d(0, 0, 0);
+}

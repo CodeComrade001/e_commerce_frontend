@@ -1,6 +1,6 @@
 import { JSX, useEffect, useState } from "react";
 import "../../../../styles/images.css"
-import { fetchAllProducts } from '../../../../services/api';
+import { fetchAllProducts } from "@/services/api";
 
 export default function ImagesComponent(): JSX.Element {
   const [allProducts, setAllProducts] = useState<any[]>([]);

@@ -1,8 +1,96 @@
-import React, { JSX } from "react";
+import { JSX, useCallback, useEffect, useState } from "react";
 import '../../../styles/home.css';
+import { fetchHomeProducts } from "@/services/api";
+import HomeAvailableProduct from "../Home Component/HomeProducts";
+import HomeSignUp from "../Home Component/HomeSignUp";
+import OrderSummary from "../Home Component/CheckoutPage";
+import HomeBlogPage from "../Home Component/BlogHome";
 
+export interface Product {
+  id: number;
+  title: string;
+  price: number;
+  description: string;
+  category: string;
+  image_url: string;
+  rating_rate: number;
+}
+
+// Groups products under a category label
+interface CategoryGroup {
+  category: string;
+  products: Product[];
+}
+
+export interface HomeAvailableProductProps {
+  group: CategoryGroup;
+}
 
 export default function ShoppingPageHome(): JSX.Element {
+  const [showAdminOption, setShowAdminOption] = useState(false);
+  const [showCheckoutSummary, setShowCheckoutSummary] = useState(false);
+  const [products, setProducts] = useState<CategoryGroup[]>();
+  const [activeButton, setActiveButton] = useState('Home');
+  const [activeProductButton, setActiveProductButton] = useState('');
+  const [categoryIndex, setCategoryIndex] = useState(0);
+  console.log("🚀 ~ ShoppingPageHome ~ products:", products)
+  console.log("🚀 ~ ShoppingPageHome ~ showAdminOption:", showAdminOption)
+
+
+  const handleClickedBtn = (buttonName: string) => {
+    setActiveButton(buttonName);
+    // Perform additional actions here
+  };
+
+  function handleAccountClick() {
+    setShowAdminOption(prev => !prev);
+  }
+
+  function displayProductCategory(index: number, category: string) {
+    setCategoryIndex(index)
+    setActiveProductButton(category)
+  }
+
+  function CheckoutSummaryClick() {
+    setShowCheckoutSummary(prev => !prev)
+  }
+
+
+  const renderSideViewContent = useCallback(() => {
+    if (!products) return <div>Loading…</div>;
+
+    switch (activeButton) {
+      case 'Home':
+        const group = products[categoryIndex];
+        return (
+          <HomeAvailableProduct group={group} />
+        );
+      case 'Sign In':
+        return <HomeSignUp />;            // or better: <HomeSignIn /> if you split forms
+
+      case 'Sign Up':
+        return <HomeSignUp />;
+      case "Checkout":
+        return <OrderSummary />;
+      case "Blog":
+        return <HomeBlogPage />;
+      default:
+        const defaultGroup = products[categoryIndex];
+        return <HomeAvailableProduct group={defaultGroup} />;
+    }
+  }, [activeButton, products, categoryIndex]);
+
+  useEffect(() => {
+    renderSideViewContent()
+  }, [activeButton])
+
+  useEffect(() => {
+    async function fetchProducts() {
+      const response = await fetchHomeProducts()
+      setProducts(response.data)
+    }
+    fetchProducts()
+  }, [])
 
   return (
     <>
@@ -15,478 +103,29 @@ export default function ShoppingPageHome(): JSX.Element {
               <span id="second_part" > Project</span>
             </h1>
             <nav className="nav_bar">
-              <button className="button">
-                <div className="bg"></div>
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  fill="none"
-                  viewBox="0 0 342 208"
-                  height="208"
-                  width="342"
-                  className="splash"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeWidth="3"
-                    d="M54.1054 99.7837C54.1054 99.7837 40.0984 90.7874 26.6893 97.6362C13.2802 104.485 1.5 97.6362 1.5 97.6362"
-                  ></path>
-                  <path
-                    strokeLinecap="round"
-                    strokeWidth="3"
-                    d="M285.273 99.7841C285.273 99.7841 299.28 90.7879 312.689 97.6367C326.098 104.486 340.105 95.4893 340.105 95.4893"
-                  ></path>
-                  <path
-                    strokeLinecap="round"
-                    strokeWidth="3"
-                    strokeOpacity="0.3"
-                    d="M281.133 64.9917C281.133 64.9917 287.96 49.8089 302.934 48.2295C317.908 46.6501 319.712 36.5272 319.712 36.5272"
-                  ></path>
-                  <path
-                    strokeLinecap="round"
-                    strokeWidth="3"
-                    strokeOpacity="0.3"
-                    d="M281.133 138.984C281.133 138.984 287.96 154.167 302.934 155.746C317.908 157.326 319.712 167.449 319.712 167.449"
-                  ></path>
-                  <path
-                    strokeLinecap="round"
-                    strokeWidth="3"
-                    d="M230.578 57.4476C230.578 57.4476 225.785 41.5051 236.061 30.4998C246.337 19.4945 244.686 12.9998 244.686 12.9998"
-                  ></path>
-                  <path
-                    strokeLinecap="round"
-                    strokeWidth="3"
-                    d="M230.578 150.528C230.578 150.528 225.785 166.471 236.061 177.476C246.337 188.481 244.686 194.976 244.686 194.976"
-                  ></path>
-                  <path
-                    strokeLinecap="round"
-                    strokeWidth="3"
-                    strokeOpacity="0.3"
-                    d="M170.392 57.0278C170.392 57.0278 173.89 42.1322 169.571 29.54C165.252 16.9478 168.751 2.05227 168.751 2.05227"
-                  ></path>
-                  <path
-                    strokeLinecap="round"
-                    strokeWidth="3"
-                    strokeOpacity="0.3"
-                    d="M170.392 150.948C170.392 150.948 173.89 165.844 169.571 178.436C165.252 191.028 168.751 205.924 168.751 205.924"
-                  ></path>
-                  <path
-                    strokeLinecap="round"
-                    strokeWidth="3"
-                    d="M112.609 57.4476C112.609 57.4476 117.401 41.5051 107.125 30.4998C96.8492 19.4945 98.5 12.9998 98.5 12.9998"
-                  ></path>
-                  <path
-                    strokeLinecap="round"
-                    strokeWidth="3"
-                    d="M112.609 150.528C112.609 150.528 117.401 166.471 107.125 177.476C96.8492 188.481 98.5 194.976 98.5 194.976"
-                  ></path>
-                  <path
-                    strokeLinecap="round"
-                    strokeWidth="3"
-                    strokeOpacity="0.3"
-                    d="M62.2941 64.9917C62.2941 64.9917 55.4671 49.8089 40.4932 48.2295C25.5194 46.6501 23.7159 36.5272 23.7159 36.5272"
-                  ></path>
-                  <path
-                    strokeLinecap="round"
-                    strokeWidth="3"
-                    strokeOpacity="0.3"
-                    d="M62.2941 145.984C62.2941 145.984 55.4671 161.167 40.4932 162.746C25.5194 164.326 23.7159 174.449 23.7159 174.449"
-                  ></path>
-                </svg>
-
-                <div className="wrap">
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    fill="none"
-                    viewBox="0 0 221 42"
-                    height="42"
-                    width="221"
-                    className="path"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeWidth="3"
-                      d="M182.674 2H203C211.837 2 219 9.16344 219 18V24C219 32.8366 211.837 40 203 40H18C9.16345 40 2 32.8366 2 24V18C2 9.16344 9.16344 2 18 2H47.8855"
-                    ></path>
-                  </svg>
-
-                  <div className="outline"></div>
-                  <div className="content">
-                    <span className="char state-1">
-                      <span data-label="H" style={{ "--i": 1 } as React.CSSProperties}>H</span>
-                      <span data-label="o" style={{ "--i": 2 } as React.CSSProperties}>o</span>
-                      <span data-label="m" style={{ "--i": 3 } as React.CSSProperties}>m</span>
-                      <span data-label="e" style={{ "--i": 4 } as React.CSSProperties}>e</span>
-                    </span>
-
-
-                    <div className="icon">
-                      <div></div>
-                    </div>
-
-                    <span className="char state-2">
-                      <span data-label="H" style={{ "--i": 1 } as React.CSSProperties}>H</span>
-                      <span data-label="o" style={{ "--i": 2 } as React.CSSProperties}>o</span>
-                      <span data-label="m" style={{ "--i": 3 } as React.CSSProperties}>m</span>
-                      <span data-label="e" style={{ "--i": 4 } as React.CSSProperties}>e</span>
-                    </span>
-                  </div>
-                </div>
+              <button
+                className={activeButton === 'Home' ? 'activate_header_btn' : ''}
+                onClick={() => handleClickedBtn('Home')}
+              >
+                Home
               </button>
-              <button className="button">
-                <div className="bg"></div>
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  fill="none"
-                  viewBox="0 0 342 208"
-                  height="208"
-                  width="342"
-                  className="splash"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeWidth="3"
-                    d="M54.1054 99.7837C54.1054 99.7837 40.0984 90.7874 26.6893 97.6362C13.2802 104.485 1.5 97.6362 1.5 97.6362"
-                  ></path>
-                  <path
-                    strokeLinecap="round"
-                    strokeWidth="3"
-                    d="M285.273 99.7841C285.273 99.7841 299.28 90.7879 312.689 97.6367C326.098 104.486 340.105 95.4893 340.105 95.4893"
-                  ></path>
-                  <path
-                    strokeLinecap="round"
-                    strokeWidth="3"
-                    strokeOpacity="0.3"
-                    d="M281.133 64.9917C281.133 64.9917 287.96 49.8089 302.934 48.2295C317.908 46.6501 319.712 36.5272 319.712 36.5272"
-                  ></path>
-                  <path
-                    strokeLinecap="round"
-                    strokeWidth="3"
-                    strokeOpacity="0.3"
-                    d="M281.133 138.984C281.133 138.984 287.96 154.167 302.934 155.746C317.908 157.326 319.712 167.449 319.712 167.449"
-                  ></path>
-                  <path
-                    strokeLinecap="round"
-                    strokeWidth="3"
-                    d="M230.578 57.4476C230.578 57.4476 225.785 41.5051 236.061 30.4998C246.337 19.4945 244.686 12.9998 244.686 12.9998"
-                  ></path>
-                  <path
-                    strokeLinecap="round"
-                    strokeWidth="3"
-                    d="M230.578 150.528C230.578 150.528 225.785 166.471 236.061 177.476C246.337 188.481 244.686 194.976 244.686 194.976"
-                  ></path>
-                  <path
-                    strokeLinecap="round"
-                    strokeWidth="3"
-                    strokeOpacity="0.3"
-                    d="M170.392 57.0278C170.392 57.0278 173.89 42.1322 169.571 29.54C165.252 16.9478 168.751 2.05227 168.751 2.05227"
-                  ></path>
-                  <path
-                    strokeLinecap="round"
-                    strokeWidth="3"
-                    strokeOpacity="0.3"
-                    d="M170.392 150.948C170.392 150.948 173.89 165.844 169.571 178.436C165.252 191.028 168.751 205.924 168.751 205.924"
-                  ></path>
-                  <path
-                    strokeLinecap="round"
-                    strokeWidth="3"
-                    d="M112.609 57.4476C112.609 57.4476 117.401 41.5051 107.125 30.4998C96.8492 19.4945 98.5 12.9998 98.5 12.9998"
-                  ></path>
-                  <path
-                    strokeLinecap="round"
-                    strokeWidth="3"
-                    d="M112.609 150.528C112.609 150.528 117.401 166.471 107.125 177.476C96.8492 188.481 98.5 194.976 98.5 194.976"
-                  ></path>
-                  <path
-                    strokeLinecap="round"
-                    strokeWidth="3"
-                    strokeOpacity="0.3"
-                    d="M62.2941 64.9917C62.2941 64.9917 55.4671 49.8089 40.4932 48.2295C25.5194 46.6501 23.7159 36.5272 23.7159 36.5272"
-                  ></path>
-                  <path
-                    strokeLinecap="round"
-                    strokeWidth="3"
-                    strokeOpacity="0.3"
-                    d="M62.2941 145.984C62.2941 145.984 55.4671 161.167 40.4932 162.746C25.5194 164.326 23.7159 174.449 23.7159 174.449"
-                  ></path>
-                </svg>
-
-                <div className="wrap">
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    fill="none"
-                    viewBox="0 0 221 42"
-                    height="42"
-                    width="221"
-                    className="path"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeWidth="3"
-                      d="M182.674 2H203C211.837 2 219 9.16344 219 18V24C219 32.8366 211.837 40 203 40H18C9.16345 40 2 32.8366 2 24V18C2 9.16344 9.16344 2 18 2H47.8855"
-                    ></path>
-                  </svg>
-
-                  <div className="outline"></div>
-                  <div className="content">
-                    <span className="char state-1">
-                      <span data-label="B" style={{ "--i": 1 } as React.CSSProperties}>B</span>
-                      <span data-label="l" style={{ "--i": 2 } as React.CSSProperties}>l</span>
-                      <span data-label="o" style={{ "--i": 3 } as React.CSSProperties}>o</span>
-                      <span data-label="g" style={{ "--i": 4 } as React.CSSProperties}>g</span>
-                    </span>
-
-                    <div className="icon"><div></div></div>
-
-                    <span className="char state-2">
-                      <span data-label="B" style={{ "--i": 1 } as React.CSSProperties}>B</span>
-                      <span data-label="l" style={{ "--i": 2 } as React.CSSProperties}>l</span>
-                      <span data-label="o" style={{ "--i": 3 } as React.CSSProperties}>o</span>
-                      <span data-label="g" style={{ "--i": 4 } as React.CSSProperties}>g</span>
-                    </span>
-                  </div>
-
-                </div>
+              <button
+                className={activeButton === 'Blog' ? 'activate_header_btn' : ''}
+                onClick={() => handleClickedBtn('Blog')}
+              >
+                Blog
               </button>
-              <button className="button">
-                <div className="bg"></div>
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  fill="none"
-                  viewBox="0 0 342 208"
-                  height="208"
-                  width="342"
-                  className="splash"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeWidth="3"
-                    d="M54.1054 99.7837C54.1054 99.7837 40.0984 90.7874 26.6893 97.6362C13.2802 104.485 1.5 97.6362 1.5 97.6362"
-                  ></path>
-                  <path
-                    strokeLinecap="round"
-                    strokeWidth="3"
-                    d="M285.273 99.7841C285.273 99.7841 299.28 90.7879 312.689 97.6367C326.098 104.486 340.105 95.4893 340.105 95.4893"
-                  ></path>
-                  <path
-                    strokeLinecap="round"
-                    strokeWidth="3"
-                    strokeOpacity="0.3"
-                    d="M281.133 64.9917C281.133 64.9917 287.96 49.8089 302.934 48.2295C317.908 46.6501 319.712 36.5272 319.712 36.5272"
-                  ></path>
-                  <path
-                    strokeLinecap="round"
-                    strokeWidth="3"
-                    strokeOpacity="0.3"
-                    d="M281.133 138.984C281.133 138.984 287.96 154.167 302.934 155.746C317.908 157.326 319.712 167.449 319.712 167.449"
-                  ></path>
-                  <path
-                    strokeLinecap="round"
-                    strokeWidth="3"
-                    d="M230.578 57.4476C230.578 57.4476 225.785 41.5051 236.061 30.4998C246.337 19.4945 244.686 12.9998 244.686 12.9998"
-                  ></path>
-                  <path
-                    strokeLinecap="round"
-                    strokeWidth="3"
-                    d="M230.578 150.528C230.578 150.528 225.785 166.471 236.061 177.476C246.337 188.481 244.686 194.976 244.686 194.976"
-                  ></path>
-                  <path
-                    strokeLinecap="round"
-                    strokeWidth="3"
-                    strokeOpacity="0.3"
-                    d="M170.392 57.0278C170.392 57.0278 173.89 42.1322 169.571 29.54C165.252 16.9478 168.751 2.05227 168.751 2.05227"
-                  ></path>
-                  <path
-                    strokeLinecap="round"
-                    strokeWidth="3"
-                    strokeOpacity="0.3"
-                    d="M170.392 150.948C170.392 150.948 173.89 165.844 169.571 178.436C165.252 191.028 168.751 205.924 168.751 205.924"
-                  ></path>
-                  <path
-                    strokeLinecap="round"
-                    strokeWidth="3"
-                    d="M112.609 57.4476C112.609 57.4476 117.401 41.5051 107.125 30.4998C96.8492 19.4945 98.5 12.9998 98.5 12.9998"
-                  ></path>
-                  <path
-                    strokeLinecap="round"
-                    strokeWidth="3"
-                    d="M112.609 150.528C112.609 150.528 117.401 166.471 107.125 177.476C96.8492 188.481 98.5 194.976 98.5 194.976"
-                  ></path>
-                  <path
-                    strokeLinecap="round"
-                    strokeWidth="3"
-                    strokeOpacity="0.3"
-                    d="M62.2941 64.9917C62.2941 64.9917 55.4671 49.8089 40.4932 48.2295C25.5194 46.6501 23.7159 36.5272 23.7159 36.5272"
-                  ></path>
-                  <path
-                    strokeLinecap="round"
-                    strokeWidth="3"
-                    strokeOpacity="0.3"
-                    d="M62.2941 145.984C62.2941 145.984 55.4671 161.167 40.4932 162.746C25.5194 164.326 23.7159 174.449 23.7159 174.449"
-                  ></path>
-                </svg>
-
-                <div className="wrap">
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    fill="none"
-                    viewBox="0 0 221 42"
-                    height="42"
-                    width="221"
-                    className="path"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeWidth="3"
-                      d="M182.674 2H203C211.837 2 219 9.16344 219 18V24C219 32.8366 211.837 40 203 40H18C9.16345 40 2 32.8366 2 24V18C2 9.16344 9.16344 2 18 2H47.8855"
-                    ></path>
-                  </svg>
-
-                  <div className="outline"></div>
-                  <div className="content">
-                    <span className="char state-1">
-                      <span data-label="P" style={{ "--i": 1 } as React.CSSProperties}>P</span>
-                      <span data-label="a" style={{ "--i": 2 } as React.CSSProperties}>a</span>
-                      <span data-label="g" style={{ "--i": 3 } as React.CSSProperties}>g</span>
-                      <span data-label="e" style={{ "--i": 4 } as React.CSSProperties}>e</span>
-                    </span>
-
-                    <div className="icon"><div></div></div>
-
-                    <span className="char state-2">
-                      <span data-label="P" style={{ "--i": 1 } as React.CSSProperties}>P</span>
-                      <span data-label="a" style={{ "--i": 2 } as React.CSSProperties}>a</span>
-                      <span data-label="g" style={{ "--i": 3 } as React.CSSProperties}>g</span>
-                      <span data-label="e" style={{ "--i": 4 } as React.CSSProperties}>e</span>
-                    </span>
-                  </div>
-
-                </div>
+              <button
+                className={activeButton === 'Page' ? 'activate_header_btn' : ''}
+                onClick={() => handleClickedBtn('Page')}
+              >
+                Page
               </button>
-              <button className="button">
-                <div className="bg"></div>
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  fill="none"
-                  viewBox="0 0 342 208"
-                  height="208"
-                  width="342"
-                  className="splash"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeWidth="3"
-                    d="M54.1054 99.7837C54.1054 99.7837 40.0984 90.7874 26.6893 97.6362C13.2802 104.485 1.5 97.6362 1.5 97.6362"
-                  ></path>
-                  <path
-                    strokeLinecap="round"
-                    strokeWidth="3"
-                    d="M285.273 99.7841C285.273 99.7841 299.28 90.7879 312.689 97.6367C326.098 104.486 340.105 95.4893 340.105 95.4893"
-                  ></path>
-                  <path
-                    strokeLinecap="round"
-                    strokeWidth="3"
-                    strokeOpacity="0.3"
-                    d="M281.133 64.9917C281.133 64.9917 287.96 49.8089 302.934 48.2295C317.908 46.6501 319.712 36.5272 319.712 36.5272"
-                  ></path>
-                  <path
-                    strokeLinecap="round"
-                    strokeWidth="3"
-                    strokeOpacity="0.3"
-                    d="M281.133 138.984C281.133 138.984 287.96 154.167 302.934 155.746C317.908 157.326 319.712 167.449 319.712 167.449"
-                  ></path>
-                  <path
-                    strokeLinecap="round"
-                    strokeWidth="3"
-                    d="M230.578 57.4476C230.578 57.4476 225.785 41.5051 236.061 30.4998C246.337 19.4945 244.686 12.9998 244.686 12.9998"
-                  ></path>
-                  <path
-                    strokeLinecap="round"
-                    strokeWidth="3"
-                    d="M230.578 150.528C230.578 150.528 225.785 166.471 236.061 177.476C246.337 188.481 244.686 194.976 244.686 194.976"
-                  ></path>
-                  <path
-                    strokeLinecap="round"
-                    strokeWidth="3"
-                    strokeOpacity="0.3"
-                    d="M170.392 57.0278C170.392 57.0278 173.89 42.1322 169.571 29.54C165.252 16.9478 168.751 2.05227 168.751 2.05227"
-                  ></path>
-                  <path
-                    strokeLinecap="round"
-                    strokeWidth="3"
-                    strokeOpacity="0.3"
-                    d="M170.392 150.948C170.392 150.948 173.89 165.844 169.571 178.436C165.252 191.028 168.751 205.924 168.751 205.924"
-                  ></path>
-                  <path
-                    strokeLinecap="round"
-                    strokeWidth="3"
-                    d="M112.609 57.4476C112.609 57.4476 117.401 41.5051 107.125 30.4998C96.8492 19.4945 98.5 12.9998 98.5 12.9998"
-                  ></path>
-                  <path
-                    strokeLinecap="round"
-                    strokeWidth="3"
-                    d="M112.609 150.528C112.609 150.528 117.401 166.471 107.125 177.476C96.8492 188.481 98.5 194.976 98.5 194.976"
-                  ></path>
-                  <path
-                    strokeLinecap="round"
-                    strokeWidth="3"
-                    strokeOpacity="0.3"
-                    d="M62.2941 64.9917C62.2941 64.9917 55.4671 49.8089 40.4932 48.2295C25.5194 46.6501 23.7159 36.5272 23.7159 36.5272"
-                  ></path>
-                  <path
-                    strokeLinecap="round"
-                    strokeWidth="3"
-                    strokeOpacity="0.3"
-                    d="M62.2941 145.984C62.2941 145.984 55.4671 161.167 40.4932 162.746C25.5194 164.326 23.7159 174.449 23.7159 174.449"
-                  ></path>
-                </svg>
-
-                <div className="wrap">
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    fill="none"
-                    viewBox="0 0 221 42"
-                    height="42"
-                    width="221"
-                    className="path"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeWidth="3"
-                      d="M182.674 2H203C211.837 2 219 9.16344 219 18V24C219 32.8366 211.837 40 203 40H18C9.16345 40 2 32.8366 2 24V18C2 9.16344 9.16344 2 18 2H47.8855"
-                    ></path>
-                  </svg>
-
-                  <div className="outline"></div>
-                  <div className="content">
-                    <span className="char state-1">
-                      <span data-label="C" style={{ "--i": 1 } as React.CSSProperties}>C</span>
-                      <span data-label="o" style={{ "--i": 2 } as React.CSSProperties}>o</span>
-                      <span data-label="n" style={{ "--i": 3 } as React.CSSProperties}>n</span>
-                      <span data-label="t" style={{ "--i": 4 } as React.CSSProperties}>t</span>
-                      <span data-label="a" style={{ "--i": 5 } as React.CSSProperties}>a</span>
-                      <span data-label="c" style={{ "--i": 6 } as React.CSSProperties}>c</span>
-                      <span data-label="t" style={{ "--i": 7 } as React.CSSProperties}>t</span>
-                      <span data-label=" " style={{ "--i": 8 } as React.CSSProperties}>&nbsp;</span>
-                      <span data-label="U" style={{ "--i": 9 } as React.CSSProperties}>U</span>
-                      <span data-label="s" style={{ "--i": 10 } as React.CSSProperties}>s</span>
-                    </span>
-
-                    <div className="icon"><div></div></div>
-
-                    <span className="char state-2">
-                      <span data-label="C" style={{ "--i": 1 } as React.CSSProperties}>C</span>
-                      <span data-label="o" style={{ "--i": 2 } as React.CSSProperties}>o</span>
-                      <span data-label="n" style={{ "--i": 3 } as React.CSSProperties}>n</span>
-                      <span data-label="t" style={{ "--i": 4 } as React.CSSProperties}>t</span>
-                      <span data-label="a" style={{ "--i": 5 } as React.CSSProperties}>a</span>
-                      <span data-label="c" style={{ "--i": 6 } as React.CSSProperties}>c</span>
-                      <span data-label="t" style={{ "--i": 7 } as React.CSSProperties}>t</span>
-                      <span data-label=" " style={{ "--i": 8 } as React.CSSProperties}> </span>
-                      <span data-label="U" style={{ "--i": 9 } as React.CSSProperties}>U</span>
-                      <span data-label="s" style={{ "--i": 10 } as React.CSSProperties}>s</span>
-                    </span>
-                  </div>
-                </div>
+              <button
+                className={activeButton === 'Contact Us' ? 'activate_header_btn' : ''}
+                onClick={() => handleClickedBtn('Contact Us')}
+              >
+                Contact Us
               </button>
             </nav>
             <div className="search_widget">
@@ -524,8 +163,11 @@ export default function ShoppingPageHome(): JSX.Element {
                 </i>
               </div>
               {/* account */}
-              <div className="myAccount_title">
-                <i className="profile_widget_icon">
+              <div
+                className="myAccount_title"
+                onClick={() => handleAccountClick()}
+              >
+                <i className="profile_widget_icon"  >
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     fill="currentColor"
@@ -546,10 +188,62 @@ export default function ShoppingPageHome(): JSX.Element {
                     <path d="M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z" />
                   </svg>
                 </i>
-                {/* Account dropdown content can be added here if needed */}
+                {showAdminOption &&
+                  <div className="position">
+                    <div id="accountOptions" className="collapse">
+                      <button >
+                        <i >
+                          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" className="bi bi-person-bounding-box" viewBox="0 0 16 16">
+                            <path d="M1.5 1a.5.5 0 0 0-.5.5v3a.5.5 0 0 1-1 0v-3A1.5 1.5 0 0 1 1.5 0h3a.5.5 0 0 1 0 1zM11 .5a.5.5 0 0 1 .5-.5h3A1.5 1.5 0 0 1 16 1.5v3a.5.5 0 0 1-1 0v-3a.5.5 0 0 0-.5-.5h-3a.5.5 0 0 1-.5-.5M.5 11a.5.5 0 0 1 .5.5v3a.5.5 0 0 0 .5.5h3a.5.5 0 0 1 0 1h-3A1.5 1.5 0 0 1 0 14.5v-3a.5.5 0 0 1 .5-.5m15 0a.5.5 0 0 1 .5.5v3a1.5 1.5 0 0 1-1.5 1.5h-3a.5.5 0 0 1 0-1h3a.5.5 0 0 0 .5-.5v-3a.5.5 0 0 1 .5-.5" />
+                            <path d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1zm8-9a3 3 0 1 1-6 0 3 3 0 0 1 6 0" />
+                          </svg>
+                        </i>
+                        My Account
+                      </button>
+                      <button
+                        onClick={() => handleClickedBtn('Sign Up')}
+                      >
+                        <i className="fa fa-sign-in">
+                          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" className="bi bi-box-arrow-in-right" viewBox="0 0 16 16">
+                            <path fill-rule="evenodd" d="M6 3.5a.5.5 0 0 1 .5-.5h8a.5.5 0 0 1 .5.5v9a.5.5 0 0 1-.5.5h-8a.5.5 0 0 1-.5-.5v-2a.5.5 0 0 0-1 0v2A1.5 1.5 0 0 0 6.5 14h8a1.5 1.5 0 0 0 1.5-1.5v-9A1.5 1.5 0 0 0 14.5 2h-8A1.5 1.5 0 0 0 5 3.5v2a.5.5 0 0 0 1 0z" />
+                            <path fill-rule="evenodd" d="M11.854 8.354a.5.5 0 0 0 0-.708l-3-3a.5.5 0 1 0-.708.708L10.293 7.5H1.5a.5.5 0 0 0 0 1h8.793l-2.147 2.146a.5.5 0 0 0 .708.708z" />
+                          </svg>
+                        </i>
+                        Sign in
+                      </button>
+                      <button
+                        onClick={() => handleClickedBtn('Sign Up')}
+                      >
+                        <i className="fa fa-user">
+                          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" className="bi bi-person-plus-fill" viewBox="0 0 16 16">
+                            <path d="M1 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6" />
+                            <path fill-rule="evenodd" d="M13.5 5a.5.5 0 0 1 .5.5V7h1.5a.5.5 0 0 1 0 1H14v1.5a.5.5 0 0 1-1 0V8h-1.5a.5.5 0 0 1 0-1H13V5.5a.5.5 0 0 1 .5-.5" />
+                          </svg>
+                        </i>
+                        Register Account
+                      </button>
+                      <button
+                        onClick={() => handleClickedBtn('Checkout')}
+                      >
+                        <i className="fa fa-check" aria-hidden="true">
+                          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" className="bi bi-cart-check-fill" viewBox="0 0 16 16">
+                            <path d="M.5 1a.5.5 0 0 0 0 1h1.11l.401 1.607 1.498 7.985A.5.5 0 0 0 4 12h1a2 2 0 1 0 0 4 2 2 0 0 0 0-4h7a2 2 0 1 0 0 4 2 2 0 0 0 0-4h1a.5.5 0 0 0 .491-.408l1.5-8A.5.5 0 0 0 14.5 3H2.89l-.405-1.621A.5.5 0 0 0 2 1zM6 14a1 1 0 1 1-2 0 1 1 0 0 1 2 0m7 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0m-1.646-7.646-3 3a.5.5 0 0 1-.708 0l-1.5-1.5a.5.5 0 1 1 .708-.708L8 8.293l2.646-2.647a.5.5 0 0 1 .708.708" />
+                          </svg>
+                        </i>
+                        Checkout
+                      </button>
+                      <button className="link_wishlist">
+                        <i className="fa fa-heart">
+                          <svg fill="#000000" version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink" viewBox="0 0 512 512" xmlSpace="preserve"><g id="SVGRepo_bgCarrier" strokeWidth="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <g> <g> <path d="M294.957,478.609c-27.619,0-50.087-22.468-50.087-50.087c0-9.223-7.479-16.696-16.696-16.696H16.696 C7.479,411.826,0,419.299,0,428.522C0,474.554,37.446,512,83.478,512h211.478c9.217,0,16.696-7.473,16.696-16.696 C311.652,486.082,304.174,478.609,294.957,478.609z"></path> </g> </g> <g> <g> <path d="M510.239,209.576l-33.391-66.783c-2.826-5.658-8.608-9.228-14.935-9.228s-12.109,3.571-14.935,9.228l-33.391,66.783 c-1.152,2.321-1.761,4.875-1.761,7.467v16.696H512v-16.696C512,214.451,511.391,211.897,510.239,209.576z"></path> </g> </g> <g> <g> <rect x="411.826" y="267.13" width="100.174" height="144.696"></rect> </g> </g> <g> <g> <path d="M411.826,445.217v16.696c0,27.619,22.468,50.087,50.087,50.087C489.532,512,512,489.532,512,461.913v-16.696H411.826z"></path> </g> </g> <g> <g> <path d="M428.522,0H150.261c-46.032,0-83.478,37.446-83.478,83.478v294.956h161.391c27.619,0,50.087,22.468,50.087,50.087 c0,9.206,7.49,16.696,16.696,16.696c27.569,0,49.99,22.39,50.072,49.94c20.239-15.246,33.406-39.401,33.406-66.636V100.174h116.87 c9.217,0,16.696-7.473,16.696-16.696C512,37.446,474.554,0,428.522,0z M150.261,333.913c-9.22,0-16.696-7.475-16.696-16.696 s7.475-16.696,16.696-16.696s16.696,7.475,16.696,16.696S159.481,333.913,150.261,333.913z M150.261,267.13 c-9.22,0-16.696-7.475-16.696-16.696c0-9.22,7.475-16.696,16.696-16.696s16.696,7.475,16.696,16.696 C166.957,259.655,159.481,267.13,150.261,267.13z M150.261,200.348c-9.22,0-16.696-7.475-16.696-16.696 c0-9.22,7.475-16.696,16.696-16.696s16.696,7.475,16.696,16.696C166.957,192.873,159.481,200.348,150.261,200.348z M150.261,133.565c-9.22,0-16.696-7.475-16.696-16.696s7.475-16.696,16.696-16.696s16.696,7.475,16.696,16.696 S159.481,133.565,150.261,133.565z M294.957,333.913h-77.913c-9.217,0-16.696-7.473-16.696-16.696 c0-9.223,7.479-16.696,16.696-16.696h77.913c9.217,0,16.696,7.473,16.696,16.696C311.652,326.44,304.174,333.913,294.957,333.913z M294.957,267.13h-77.913c-9.217,0-16.696-7.473-16.696-16.696c0-9.223,7.479-16.696,16.696-16.696h77.913 c9.217,0,16.696,7.473,16.696,16.696C311.652,259.657,304.174,267.13,294.957,267.13z M294.957,200.348h-77.913 c-9.217,0-16.696-7.473-16.696-16.696c0-9.223,7.479-16.696,16.696-16.696h77.913c9.217,0,16.696,7.473,16.696,16.696 C311.652,192.875,304.174,200.348,294.957,200.348z M294.957,133.565h-77.913c-9.217,0-16.696-7.473-16.696-16.696 c0-9.223,7.479-16.696,16.696-16.696h77.913c9.217,0,16.696,7.473,16.696,16.696C311.652,126.092,304.174,133.565,294.957,133.565 z M381.293,66.783c6.892-19.435,25.456-33.391,47.229-33.391c21.772,0,40.337,13.956,47.229,33.391H381.293z"></path> </g> </g> </g></svg>
+                        </i>
+                        My Wishlists
+                      </button>
+                    </div>
+                  </div>
+                }
               </div>
               {/* userCart */}
-              <div className="checkout_cart">
+              <div className="checkout_cart" onClick={() => CheckoutSummaryClick()} >
                 <i className="shopping_cart_widget_icon ">
                   <svg
                     fill="#000000"
@@ -589,303 +283,81 @@ export default function ShoppingPageHome(): JSX.Element {
                   5
                 </span>
                 {/* User cart dropdown content can be added here */}
+                {showCheckoutSummary &&
+                  <div className="position">
+                    <div id="checkout_summary" className="dropdown-content">
+                      <div className="checkout_images">
+                        <div className="ordered_images" >
+                          <img src="/images/profile/profile.png" alt="" />
+                          <div className="count" >Qty: 4</div>
+                        </div>
+                        <div className="ordered_images" >
+                          <img src="/images/profile/profile.png" alt="" />
+                          <div className="count" >Qty: 4</div>
+                        </div>
+                        <div className="ordered_images" >
+                          <img src="/images/profile/profile.png" alt="" />
+                          <div className="count" >Qty: 4</div>
+                        </div>
+                        <div className="remaining_images" >
+                          <img src="/images/profile/profile.png" alt="" />
+                          <span>+5</span>
+                        </div>
+                      </div>
+                      <div className="total_sum">
+                        <span>total</span>
+                        <span>1283</span>
+                      </div>
+                      <div className="option">
+                        <button>
+                          <i>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" className="bi bi-eye-fill" viewBox="0 0 16 16">
+                              <path d="M10.5 8a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0" />
+                              <path d="M0 8s3-5.5 8-5.5S16 8 16 8s-3 5.5-8 5.5S0 8 0 8m8 3.5a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7" />
+                            </svg>
+                          </i>
+                          View cart
+                        </button>
+                        <button>
+                          <i>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" className="bi bi-cart-check-fill" viewBox="0 0 16 16">
+                              <path d="M.5 1a.5.5 0 0 0 0 1h1.11l.401 1.607 1.498 7.985A.5.5 0 0 0 4 12h1a2 2 0 1 0 0 4 2 2 0 0 0 0-4h7a2 2 0 1 0 0 4 2 2 0 0 0 0-4h1a.5.5 0 0 0 .491-.408l1.5-8A.5.5 0 0 0 14.5 3H2.89l-.405-1.621A.5.5 0 0 0 2 1zM6 14a1 1 0 1 1-2 0 1 1 0 0 1 2 0m7 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0m-1.646-7.646-3 3a.5.5 0 0 1-.708 0l-1.5-1.5a.5.5 0 1 1 .708-.708L8 8.293l2.646-2.647a.5.5 0 0 1 .708.708" />
+                            </svg>
+                          </i>
+                          checkout
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                }
               </div>
             </div>
           </div>
           <div className="clothes_type_grouping">
-            <fieldset>
-              <legend className="clothes_categories">
-                <h1>Tall Clothes</h1>
-              </legend>
-              <button className="clothes_grouping_button">Long Sleeve Shirt <i className="dropdown_widget_icon">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="16"
-                  height="16"
-                  fill="currentColor"
-                  className="bi bi-caret-down-fill"
-                  viewBox="0 0 16 16">
-                  <path d="M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z" />
-                </svg>
-              </i>
-              </button>
-              <button className="clothes_grouping_button">Cardigan <i className="dropdown_widget_icon">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="16"
-                  height="16"
-                  fill="currentColor"
-                  className="bi bi-caret-down-fill"
-                  viewBox="0 0 16 16">
-                  <path d="M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z" />
-                </svg>
-              </i>
-              </button>
-              <button className="clothes_grouping_button">Sweater <i className="dropdown_widget_icon">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="16"
-                  height="16"
-                  fill="currentColor"
-                  className="bi bi-caret-down-fill"
-                  viewBox="0 0 16 16">
-                  <path d="M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z" />
-                </svg>
-              </i>
-              </button>
-            </fieldset>
-
-            <fieldset>
-              <legend className="clothes_categories">
-                <h1>Long Clothes</h1>
-              </legend>
-              <button className="clothes_grouping_button">Trench Coat <i className="dropdown_widget_icon">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="16"
-                  height="16"
-                  fill="currentColor"
-                  className="bi bi-caret-down-fill"
-                  viewBox="0 0 16 16">
-                  <path d="M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z" />
-                </svg>
-              </i>
-              </button>
-              <button className="clothes_grouping_button">Overcoat <i className="dropdown_widget_icon">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="16"
-                  height="16"
-                  fill="currentColor"
-                  className="bi bi-caret-down-fill"
-                  viewBox="0 0 16 16">
-                  <path d="M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z" />
-                </svg>
-              </i>
-              </button>
-              <button className="clothes_grouping_button">Jacket <i className="dropdown_widget_icon">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="16"
-                  height="16"
-                  fill="currentColor"
-                  className="bi bi-caret-down-fill"
-                  viewBox="0 0 16 16">
-                  <path d="M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z" />
-                </svg>
-              </i>
-              </button>
-            </fieldset>
-
-            <fieldset>
-              <legend className="clothes_categories">
-                <h1>Short Clothes</h1>
-              </legend>
-              <button className="clothes_grouping_button">T-Shirt <i className="dropdown_widget_icon">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="16"
-                  height="16"
-                  fill="currentColor"
-                  className="bi bi-caret-down-fill"
-                  viewBox="0 0 16 16">
-                  <path d="M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z" />
-                </svg>
-              </i>
-              </button>
-              <button className="clothes_grouping_button">Shorts <i className="dropdown_widget_icon">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="16"
-                  height="16"
-                  fill="currentColor"
-                  className="bi bi-caret-down-fill"
-                  viewBox="0 0 16 16">
-                  <path d="M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z" />
-                </svg>
-              </i>
-              </button>
-              <button className="clothes_grouping_button">Tank Top <i className="dropdown_widget_icon">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="16"
-                  height="16"
-                  fill="currentColor"
-                  className="bi bi-caret-down-fill"
-                  viewBox="0 0 16 16">
-                  <path d="M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z" />
-                </svg>
-              </i>
-              </button>
-            </fieldset>
-
-            <fieldset>
-              <legend className="clothes_categories">
-                <h1>Casual Clothes</h1>
-              </legend>
-              <button className="clothes_grouping_button">Jeans <i className="dropdown_widget_icon">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="16"
-                  height="16"
-                  fill="currentColor"
-                  className="bi bi-caret-down-fill"
-                  viewBox="0 0 16 16">
-                  <path d="M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z" />
-                </svg>
-              </i>
-              </button>
-              <button className="clothes_grouping_button">Hoodie <i className="dropdown_widget_icon">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="16"
-                  height="16"
-                  fill="currentColor"
-                  className="bi bi-caret-down-fill"
-                  viewBox="0 0 16 16">
-                  <path d="M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z" />
-                </svg>
-              </i>
-              </button>
-              <button className="clothes_grouping_button">Sneakers <i className="dropdown_widget_icon">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="16"
-                  height="16"
-                  fill="currentColor"
-                  className="bi bi-caret-down-fill"
-                  viewBox="0 0 16 16">
-                  <path d="M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z" />
-                </svg>
-              </i>
-              </button>
-            </fieldset>
-
-            <fieldset>
-              <legend className="clothes_categories">
-                <h1>Formal Clothes</h1>
-              </legend>
-              <button className="clothes_grouping_button">Suit <i className="dropdown_widget_icon">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="16"
-                  height="16"
-                  fill="currentColor"
-                  className="bi bi-caret-down-fill"
-                  viewBox="0 0 16 16">
-                  <path d="M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z" />
-                </svg>
-              </i>
-              </button>
-              <button className="clothes_grouping_button">Dress Shirt <i className="dropdown_widget_icon">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="16"
-                  height="16"
-                  fill="currentColor"
-                  className="bi bi-caret-down-fill"
-                  viewBox="0 0 16 16">
-                  <path d="M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z" />
-                </svg>
-              </i>
-              </button>
-              <button className="clothes_grouping_button">Tie <i className="dropdown_widget_icon">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="16"
-                  height="16"
-                  fill="currentColor"
-                  className="bi bi-caret-down-fill"
-                  viewBox="0 0 16 16">
-                  <path d="M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z" />
-                </svg>
-              </i>
-              </button>
-            </fieldset>
-
-            <fieldset>
-              <legend className="clothes_categories">
-                <h1>Sport Clothes</h1>
-              </legend>
-              <button className="clothes_grouping_button">Tracksuit <i className="dropdown_widget_icon">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="16"
-                  height="16"
-                  fill="currentColor"
-                  className="bi bi-caret-down-fill"
-                  viewBox="0 0 16 16">
-                  <path d="M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z" />
-                </svg>
-              </i>
-              </button>
-              <button className="clothes_grouping_button">Athletic Shorts <i className="dropdown_widget_icon">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="16"
-                  height="16"
-                  fill="currentColor"
-                  className="bi bi-caret-down-fill"
-                  viewBox="0 0 16 16">
-                  <path d="M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z" />
-                </svg>
-              </i>
-              </button>
-              <button className="clothes_grouping_button">Running Shoes <i className="dropdown_widget_icon">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="16"
-                  height="16"
-                  fill="currentColor"
-                  className="bi bi-caret-down-fill"
-                  viewBox="0 0 16 16">
-                  <path d="M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z" />
-                </svg>
-              </i>
-              </button>
-            </fieldset>
+            {products !== undefined &&
+              products.map((item, index) => (
+                <fieldset key={index}>
+                  {/* <legend className="clothes_categories">
+                  </legend> */}
+                  <button
+                    id={activeProductButton === item.category ? 'activate_header_btn' : ''}
+                    className="clothes_grouping_button"
+                    onClick={() => displayProductCategory(index, item.category)}
+                  >
+                    {item.category}
+                    <i className="dropdown_widget_icon">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" className="bi bi-caret-right-fill" viewBox="0 0 16 16">
+                        <path d="m12.14 8.753-5.482 4.796c-.646.566-1.658.106-1.658-.753V3.204a1 1 0 0 1 1.659-.753l5.48 4.796a1 1 0 0 1 0 1.506z" />
+                      </svg>
+                    </i>
+                  </button>
+                </fieldset>
+              ))
+            }
           </div>
-          <div className="available_items_container">
-            <nav className="navigation_option">
-              <button>
-                Sort
-                <span id="sort_cloth_filter" >
-                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-caret-down-fill" viewBox="0 0 16 16">
-                    <path d="M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z" />
-                  </svg>
-                </span>
-              </button>
-            </nav>
-            <div className="navigation_option_content">
-              <div className="product_container">
-                <div className="product_item">
-                  <div className="product_img">
-                    <img
-                      src=""
-                      alt="Product"
-                      className="img-responsive"
-                    />
-                  </div>
-                  <div className="more_info_container">
-                    <div className="item_price_container">
-                      <div className="price">$30</div>
-                      <span className="available_items">Available : 4</span>
-                    </div>
-                    <nav className="more_info_nav">
-                      <button>Add</button>
-                      <button>Info</button>
-                      <button>Like</button>
-                      <button>Dislike</button>
-                    </nav>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div className="more_items">
-              <button className="next_page">Prev Items</button>
-              <button className="prev_page">Next Items</button>
-            </div>
-          </div>
+          <main>
+            {renderSideViewContent()}
+          </main>
           {/* <div className="chatRoom">
             <div id="conversation_heading">
               <h1 className="name">
@@ -956,15 +428,7 @@ export default function ShoppingPageHome(): JSX.Element {
         </div>
         <div className="random_clothes">
           <div
-            style={{ backgroundImage: `url("/images/random/random_Image_5.jpg")` }}
-          >
-          </div>
-          <div
-            style={{ backgroundImage: `url("/images/random/random_Image_3.jpg")` }}
-          >
-          </div>
-          <div
-            style={{ backgroundImage: `url("/images/random/random_Image_1.jpg")` }}
+            style={{ backgroundImage: `url("/images/random/home1-banner1.jpg")` }}
           >
           </div>
         </div>
