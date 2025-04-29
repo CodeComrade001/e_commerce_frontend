@@ -266,7 +266,7 @@ export default function ImagesComponent(): JSX.Element {
             allProducts.map((item) =>
             (
               <div key={item.id} className="image_content">
-                <img src={item.image} alt="" />
+                <img src={item.image[1]} alt="" />
                 <nav>
                   <button className="price">
                     {`$${item.price}`}
@@ -290,10 +290,7 @@ export default function ImagesComponent(): JSX.Element {
                 </nav>
               </div>
             ))
-
-
           }
-
         </div>
       </div>
       <div id="local_image_storage">
