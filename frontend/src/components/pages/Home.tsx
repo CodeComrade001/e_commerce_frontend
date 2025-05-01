@@ -7,8 +7,12 @@ import HomeBlogPage from "../Home Component/BlogHome";
 import WishlistComponent from "../Home Component/WishListPage";
 import OrderHistoryComponent from "../Home Component/HistoryPage";
 import MyAccountComponent from "../Home Component/AccountDetails";
+import { useAuth } from "@/context/AuthContext";
+
 
 export default function ShoppingPageHome(): JSX.Element {
+  const { userId } = useAuth();   // ← grab userId from context
+  console.log("🚀 ~ ShoppingPageHome ~ userId:", userId);
   const [showAdminOption, setShowAdminOption] = useState(false);
   const [showCheckoutSummary, setShowCheckoutSummary] = useState(false);
 
@@ -54,6 +58,15 @@ export default function ShoppingPageHome(): JSX.Element {
         return <HomeAvailableProduct />;
     }
   }, [activeButton]); // <-- correct placement :contentReference[oaicite:2]{index=2}
+
+
+  useEffect(() => {
+    // you can now fetch user‐specific data:
+    if (userId) {
+      // e.g. api.get(`/orders?userId=${userId}`)
+      console.log("user id has been fetched", userId)
+    }
+  }, [userId]);
 
   useEffect(() => {
     // If you need to perform side-effects when activeButton changes,

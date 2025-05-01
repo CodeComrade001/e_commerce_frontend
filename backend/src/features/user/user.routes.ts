@@ -1,13 +1,26 @@
 // src/features/user/user.routes.ts
-import { Router } from 'express';
-import { Login, SignUp } from './user.controller.js';
+import { Router, RequestHandler } from 'express';
+import asyncHandler from 'express-async-handler';
+import { GetCurrentUser, Login, SignUp } from './user.controller.js';
+import { authMiddleware } from '../../middleware/auth.middleware.js';
 
 const userAuthRoute = Router();
 
-// POST /api/user/login
-userAuthRoute.post('/login', Login);
+// cast each wrapped handler to RequestHandler
+userAuthRoute.post(
+  '/login',
+  asyncHandler(Login) as RequestHandler
+);
 
-// POST /api/user/sign-up
-userAuthRoute.post('/sign-up', SignUp);
+userAuthRoute.post(
+  '/sign-up',
+  asyncHandler(SignUp) as RequestHandler
+);
+
+userAuthRoute.get(
+  '/me',
+  authMiddleware as RequestHandler,      // ← cast directly
+  asyncHandler(GetCurrentUser) as RequestHandler
+);
 
 export default userAuthRoute;

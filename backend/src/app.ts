@@ -1,5 +1,6 @@
 import express, { Request, Response, NextFunction, ErrorRequestHandler } from 'express';
 import cors from 'cors';
+import cookieParser from 'cookie-parser';
 import productRoute from './features/product/product.routes.js';
 import userAuthRoute from './features/user/user.routes.js';
 
@@ -10,11 +11,13 @@ export default function createApp() {
   app.use(cors({
     origin: 'http://localhost:5173',
     methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
-    allowedHeaders: ['Content-Type', 'Authorization']
+    allowedHeaders: ['Content-Type', 'Authorization'],
+    credentials: true, 
   }));
 
   // JSON parser
   app.use(express.json());
+  app.use(cookieParser());
 
   // Routes
   app.use('/api/products', productRoute);

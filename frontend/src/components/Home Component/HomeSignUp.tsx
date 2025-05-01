@@ -4,6 +4,7 @@ import { LoginExistingAccount, CreateNewAccount } from '../../services/api';
 
 export default function HomeSignUp() {
   const [isSignup, setIsSignup] = useState(false);
+  console.log("🚀 ~ HomeSignUp ~ isSignup:", isSignup)
 
   // form fields
   const [userLogIn, setUserLogIn] = useState({
@@ -12,7 +13,6 @@ export default function HomeSignUp() {
   });
 
   console.log("🚀 ~ HomeSignUp ~ userLogIn:", userLogIn)
-
 
   const [userSignUp, setUserSignUp] = useState({
     name: '',
@@ -40,7 +40,8 @@ export default function HomeSignUp() {
           email: email,
           password: password
         }
-      });
+      }
+      );
       console.log('Logged in user:', response);
     } catch (error) {
       console.log(`Error logging in:`, error);

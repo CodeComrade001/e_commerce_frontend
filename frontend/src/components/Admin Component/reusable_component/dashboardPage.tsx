@@ -211,7 +211,7 @@ export default function DashboardComponent(): JSX.Element {
         <div className="widget_header">
           <button>Pending Orders
 
-          <i className="dropdown_widget_icon">
+            <i className="dropdown_widget_icon">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 width="16"
@@ -242,16 +242,16 @@ export default function DashboardComponent(): JSX.Element {
           <div className="product_ordered">
             <div className="image_container">
               <span>
-                <img src="/images/all/IMG-20250328-WA0045.jpg" alt="product_ordered" />
+                <img src="/images/order/7.jpg" alt="product_ordered" />
               </span>
               <span>
-                <img src="/images/all/IMG-20250328-WA0045.jpg" alt="product_ordered" />
+                <img src="/images/order/8.jpg" alt="product_ordered" />
               </span>
               <span>
-                <img src="/images/all/IMG-20250328-WA0045.jpg" alt="product_ordered" />
+                <img src="/images/order/9.jpg" alt="product_ordered" />
               </span>
               <span>
-                <img src="/images/all/IMG-20250328-WA0045.jpg" alt="product_ordered" />
+                <img src="/images/order/10.jpg" alt="product_ordered" />
               </span>
             </div>
             <div className="options">
