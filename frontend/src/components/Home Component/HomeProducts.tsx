@@ -1,6 +1,7 @@
 import { JSX, useEffect, useState } from "react";
 import { fetchHomeProducts } from "@/services/api";
 import "../../../styles/homepageProduct.css"
+import { useProductContext } from "@/context/ProductContext";
 
 interface Product {
   id: number;
@@ -9,7 +10,6 @@ interface Product {
   description: string;
   category: string;
   image_url: string;
-  rating_rate: number;
 }
 
 // Groups products under a category label
@@ -22,20 +22,17 @@ export default function HomeAvailableProduct(): JSX.Element {
   const [loadProducts, setLoadProducts] = useState<CategoryGroup[]>([])
   const [activeProductButton, setActiveProductButton] = useState('');
   const [categoryIndex, setCategoryIndex] = useState(0);
-  console.log("🚀 ~ HomeAvailableProduct ~ categoryIndex:", categoryIndex)
-  console.log("🚀 ~ loadProducts:", loadProducts)
+  const { addProduct } = useProductContext();
 
   function displayProductCategory(index: number, category: string) {
-    console.log("🚀 ~ displayProductCategory ~ category:", category)
-    console.log("🚀 ~ displayProductCategory ~ index:", index)
     setCategoryIndex(index)
     setActiveProductButton(category)
   }
 
+    
   useEffect(() => {
     async function fetchProducts() {
       const response = await fetchHomeProducts()
-      console.log("🚀 ~ fetchProducts ~ response:", response)
       setLoadProducts(response.data)
     }
     fetchProducts()
@@ -97,11 +94,14 @@ export default function HomeAvailableProduct(): JSX.Element {
                     </svg>
                     More
                   </button>
-                  <button title="add">
+                  <button
+                    title="add"
+                    onClick={()=>addProduct(item)}
+                  >
                     <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" className="bi bi-plus-circle-fill" viewBox="0 0 16 16">
                       <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0M8.5 4.5a.5.5 0 0 0-1 0v3h-3a.5.5 0 0 0 0 1h3v3a.5.5 0 0 0 1 0v-3h3a.5.5 0 0 0 0-1h-3z" />
                     </svg>
-                    Add
+                    Add to cart
                   </button>
                   <button title="checkout" >
                     <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" className="bi bi-cart-check-fill" viewBox="0 0 16 16">

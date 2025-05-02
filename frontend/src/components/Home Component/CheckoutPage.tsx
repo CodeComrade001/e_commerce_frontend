@@ -1,7 +1,17 @@
-import { JSX } from 'react';
+import { JSX, useCallback, useEffect, useState } from 'react';
 import '../../../styles/orderSummary.css';
+import { useProductContext } from '@/context/ProductContext';
+
+
 
 export default function OrderSummary(): JSX.Element {
+  const { cartProducts, removeProduct, updateQuantity } = useProductContext();
+
+  const handleQtyChange = (id: number, delta: number) => {
+    const prod = cartProducts.find(p => p.id === id);
+    if (prod) updateQuantity(id, (prod.qty||1) + delta);
+  };
+
   return (
     <div className="order-summary-section">
       <h1>Order Summary</h1>
@@ -11,65 +21,32 @@ export default function OrderSummary(): JSX.Element {
         <div className="order-items-container">
           <h2>Items in Your Order</h2>
           <div className="order-items-wrapper">
-            {[
-              {
-                title: 'GameVision X1 Console',
-                variant: 'Black | 1TB',
-                price: '$499.99',
-                qty: 1,
-                img: '/images/checkout/8.jpg',
-                alt: 'GameVision X1 Console',
-              },
-              {
-                title: 'Neural Haptic Controller',
-                variant: 'Black',
-                price: '$69.99',
-                qty: 2,
-                img: '/images/checkout/9.jpg',
-                alt: 'Neural Haptic Controller',
-              },
-              {
-                title: 'Quantum Realm',
-                variant: 'Digital Download',
-                price: '$69.99',
-                qty: 1,
-                img: '/images/checkout/33.jpg',
-                alt: 'Quantum Realm',
-              },
-              {
-                title: 'Dual Controller Charging Dock',
-                variant: 'Black',
-                price: '$29.99',
-                qty: 1,
-                img: 'https://cdn.pixabay.com/photo/2017/08/10/08/47/laptop-2620118_1280.jpg',
-                alt: 'Dual Controller Charging Dock',
-              },
-              {
-                title: 'X1 Extended Warranty',
-                variant: '2 Years',
-                price: '$49.99',
-                qty: 1,
-                img: '/images/checkout/7.jpg',
-                alt: 'X1 Extended Warranty',
-              },
-            ].map((item, idx) => (
+            {cartProducts.map((item, idx) => (
               <div className="order-item" key={idx}>
                 <div className="item-image">
-                  <img src={item.img} alt={item.alt} />
+                  <img src={item.image_url} alt={item.title} />
                 </div>
                 <div className="item-details">
-                  <h3>{item.title}</h3>
-                  <p className="item-variant">{item.variant}</p>
+                  <h3>{item.category}</h3>
+                  <p className="item-variant">
+                    {item.title}
+                    </p>
                   <div className="item-price-qty">
-                    <span className="item-price">{item.price}</span>
+                    <span className="item-price">${item.price}</span>
                     <span className="item-quantity">
-                      <button title="add">
+                      <button 
+                       title="add"
+                       onClick={()=>handleQtyChange(item.id,-1)}
+                       >
                         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" className="bi bi-patch-minus-fill" viewBox="0 0 16 16">
                           <path d="M10.067.87a2.89 2.89 0 0 0-4.134 0l-.622.638-.89-.011a2.89 2.89 0 0 0-2.924 2.924l.01.89-.636.622a2.89 2.89 0 0 0 0 4.134l.637.622-.011.89a2.89 2.89 0 0 0 2.924 2.924l.89-.01.622.636a2.89 2.89 0 0 0 4.134 0l.622-.637.89.011a2.89 2.89 0 0 0 2.924-2.924l-.01-.89.636-.622a2.89 2.89 0 0 0 0-4.134l-.637-.622.011-.89a2.89 2.89 0 0 0-2.924-2.924l-.89.01zM6 7.5h4a.5.5 0 0 1 0 1H6a.5.5 0 0 1 0-1" />
                         </svg>
                       </button>
-                      Qty: {item.qty}
-                      <button title="delete">
+                      qty: {item.qty}
+                      <button 
+                       title="delete"
+                       onClick={()=>handleQtyChange(item.id,1)}
+                       >
                         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" className="bi bi-plus-circle-fill" viewBox="0 0 16 16">
                           <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0M8.5 4.5a.5.5 0 0 0-1 0v3h-3a.5.5 0 0 0 0 1h3v3a.5.5 0 0 0 1 0v-3h3a.5.5 0 0 0 0-1h-3z" />
                         </svg>

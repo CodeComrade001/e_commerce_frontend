@@ -40,3 +40,7 @@ export function CreateNewAccount(
 export function getCurrentUser() {
   return api.get<{ userId: number }>('/api/user-auth/me');
 }
+
+export function fetchUserDetails(data: { userId: number }, config?: AxiosRequestConfig) {
+  return api.post('/api/user/', data, config)
+}

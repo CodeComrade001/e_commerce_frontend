@@ -1,18 +1,24 @@
 // src/context/AuthContext.tsx
-import React, { createContext, useContext, useEffect, useState, ReactNode } from 'react';
+import { createContext, useContext, useEffect, useState, ReactNode } from 'react';
 import { getCurrentUser } from '../services/api';
 
-interface AuthContextType { userId: number | null; }
-const AuthContext = createContext<AuthContextType>({ userId: null });
+interface AuthContextType {
+  userId: number | null;
+}
+
+const AuthContext = createContext<AuthContextType | null>(null);
 
 export function AuthProvider({ children }: { children: ReactNode }) {
   const [userId, setUserId] = useState<number | null>(null);
-  console.log("🚀 ~ AuthProvider ~ userId:", userId)
 
   useEffect(() => {
     getCurrentUser()
-      .then(res => setUserId(res.data.userId))
-      .catch(() => setUserId(null));
+      .then(res => {
+        setUserId(res.data.userId);
+      })
+      .catch(() => {
+        setUserId(null);
+      });
   }, []);
 
   return (
@@ -23,5 +29,9 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 }
 
 export function useAuth() {
-  return useContext(AuthContext);
+  const context = useContext(AuthContext);
+  if (!context) {
+    throw new Error('useAuth must be used within an AuthProvider');
+  }
+  return context;
 }
