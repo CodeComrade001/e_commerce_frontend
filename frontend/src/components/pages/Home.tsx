@@ -20,11 +20,14 @@ export default function ShoppingPageHome(): JSX.Element {
   const [showCheckoutSummary, setShowCheckoutSummary] = useState(false);
 
   const [activeButton, setActiveButton] = useState('Home');
-  const [userDetails,setUserDetails] = useState<unknown>()
+  const [userDetails, setUserDetails] = useState<{ name: string, email: string, avatar_url: string, address: string, phone: string } | null>(null)
   console.log("🚀 ~ ShoppingPageHome ~ userDetails:", userDetails)
 
   console.log("🚀 ~ ShoppingPageHome ~ showAdminOption:", showAdminOption)
 
+  function changeActiveButton(buttonName: string) {
+    setActiveButton(buttonName);
+  }
 
   const handleClickedBtn = (buttonName: string) => {
     setActiveButton(buttonName);
@@ -35,16 +38,25 @@ export default function ShoppingPageHome(): JSX.Element {
     setShowAdminOption(prev => !prev);
   }
 
-
+  function CloseHandleAccountClick() {
+    setShowAdminOption(prev => !prev);
+  }
 
   function CheckoutSummaryClick() {
     setShowCheckoutSummary(prev => !prev)
   }
 
+  function CloseCheckoutSummaryClick() {
+    setShowCheckoutSummary(prev => !prev)
+  }
+
+
   const renderSideViewContent = useCallback(() => {
     switch (activeButton) {
       case "Home":
-        return <HomeAvailableProduct />;
+        return <HomeAvailableProduct
+          checkoutProps={changeActiveButton}
+        />;
       case "Sign In":
       case "Sign Up":
         return <HomeSignUp />;
@@ -57,9 +69,24 @@ export default function ShoppingPageHome(): JSX.Element {
       case "History":
         return <OrderHistoryComponent />;
       case "My Account":
-        return <MyAccountComponent />;
+        if (userDetails !== null) {
+          const { name, email, avatar_url, address, phone } = userDetails;
+          return <MyAccountComponent
+            nameProp={name}
+            emailProp={email}
+            avatar_urlProp={avatar_url}
+            addressProp={address}
+            phoneProp={phone}
+          />
+        }
+        return <HomeAvailableProduct
+          checkoutProps={changeActiveButton}
+        />;
+        ;
       default:
-        return <HomeAvailableProduct />;
+        return <HomeAvailableProduct
+          checkoutProps={changeActiveButton}
+        />;
     }
   }, [activeButton]); // <-- correct placement :contentReference[oaicite:2]{index=2}
 
@@ -69,10 +96,11 @@ export default function ShoppingPageHome(): JSX.Element {
     if (userId) {
       // e.g. api.get(`/orders?userId=${userId}`)
       console.log("user id has been fetched", userId)
-      async function fetchAllDetails(userId : number) {
-        const result = fetchUserDetails({userId})
+      async function fetchAllDetails(userId: number) {
+        const result = await fetchUserDetails({ userId })
+        console.log("🚀 ~ fetchAllDetails ~ result:", result)
         if (result) {
-          setUserDetails(result)
+          setUserDetails(result.data)
         }
       }
       fetchAllDetails(userId)
@@ -158,7 +186,7 @@ export default function ShoppingPageHome(): JSX.Element {
               {/* account */}
               <div
                 className="myAccount_title"
-                onClick={() => handleAccountClick()}
+                onMouseEnter={() => handleAccountClick()}
               >
                 <i className="profile_widget_icon"  >
                   <svg
@@ -242,7 +270,9 @@ export default function ShoppingPageHome(): JSX.Element {
                 }
               </div>
               {/* userCart */}
-              <div className="checkout_cart" onClick={() => CheckoutSummaryClick()} >
+              <div className="checkout_cart"
+                onMouseEnter={() => CheckoutSummaryClick()}
+              >
                 <i className="shopping_cart_widget_icon ">
                   <svg
                     fill="#000000"
@@ -283,8 +313,15 @@ export default function ShoppingPageHome(): JSX.Element {
                 </span>
                 {/* User cart dropdown content can be added here */}
                 {showCheckoutSummary &&
-                  <div className="position">
-                    <div id="checkout_summary" className="dropdown-content">
+                  <div
+                    onMouseEnter={() => CloseCheckoutSummaryClick()}
+                    className="position"
+                  >
+                    <div
+                      onMouseLeave={() => CloseHandleAccountClick()}
+                      id="checkout_summary"
+                      className="dropdown-content"
+                    >
                       <div className="checkout_images">
                         <div className="ordered_images" >
                           <img src="/images/profile/profile.png" alt="" />

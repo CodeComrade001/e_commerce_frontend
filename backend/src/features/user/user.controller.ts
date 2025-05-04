@@ -1,101 +1,93 @@
-// src/features/user/user.controller.ts
 import { RequestHandler } from 'express';
-import { CreateNewAccount, LogInExistingAccount } from './user.service.js';
-import { createSession, validateSession } from '../session/session.service.js';
+import * as userService from './user.service.js';
+import { FetchUserDto } from './dto/fetch-user.dto.js';
+import { UpdateUserDto } from './dto/update-user.dto.js';
+import { WishlistDto } from './dto/wishlist.dto.js';
+import { validateSchema } from '../../utils/validate.js';
+import { OrderRequestDto } from './dto/order.dto.js';
+import { userIdDto } from './dto/userId.dto.js';
 
-export const SignUp: RequestHandler = async (req, res, next): Promise<void> => {
-  console.log("🚀 ~ constSignUp:RequestHandler= ~ req:", req)
+export const fetchUserDetails: RequestHandler = async (req, res, next) => {
+  console.log("🚀 ~ const fetchUserDetails:RequestHandler= ~ req.body:", req.body)
   try {
-    console.log("🚀 ~ constSignUp:RequestHandler= ~ req:", req)
-
-    const { name, email, password } = req.body.params as {
-      name: string;
-      email: string;
-      password: string;
-    };
-    console.log("🚀 ~ constSignUp:RequestHandler= ~ password:", password)
-    console.log("🚀 ~ constSignUp:RequestHandler= ~ email:", email)
-    console.log("🚀 ~ constSignUp:RequestHandler= ~ name:", name)
-
-    const { result, userId } = await CreateNewAccount({ name, email, password });
-    if (!result) {
-      res.status(400).json({ error: 'Could not create account' });
-      return;                       // ← no return res…, just return void
-    }
-
-    const sessionResult = await createSession(userId);
-    if (sessionResult !== null) {
-      const { token, expiresAt } = sessionResult;
-      res.cookie('SESSION', token, {
-        httpOnly: true,
-        secure: false,
-        sameSite: 'lax',
-        expires: expiresAt,
-      })
-      res.cookie('USERID', String(userId), {
-        httpOnly: true,
-        secure: false,
-        sameSite: 'lax',
-        expires: expiresAt,
-      });
-    };
-
-    res.status(201).json({ userId });
-    return;                         // ← optional explicit return
+    const { userId } = validateSchema(FetchUserDto, req.body);
+    const user = await userService.getUserDetails(userId);
+    res.json({ result: true, user });
   } catch (err) {
+    console.log("🚀 ~ const fetchUserDetails:RequestHandler= ~ err:", err)
     next(err);
   }
 };
 
-export const Login: RequestHandler = async (req, res, next): Promise<void> => {
-  console.log("🚀 ~ constLogin:RequestHandler= ~ req:", req)
+export const addOrder: RequestHandler = async (req, res, next) => {
+  console.log("🚀 ~ const addOrder:RequestHandler= ~ req.body value:", req.body)
   try {
-    console.log("🚀 ~ constLogin:RequestHandler= ~ req.body:", req.body)
-    const { email, password } = req.body.params as {
-      email: string;
-      password: string;
-    };
-
-    console.log("🚀 ~ constLogin:RequestHandler= ~ password:", password)
-    console.log("🚀 ~ constLogin:RequestHandler= ~ email:", email)
-
-    const loginResult = await LogInExistingAccount(email, password);
-    if (!loginResult.result) {
-      res.status(401).json({ error: 'Invalid credentials username or password' });
-      return;
-    }
-
-    let session = await validateSession(loginResult.userId);
-    if (!session && session == null) {
-      session = await createSession(loginResult.userId);
-    }
-
-    if (session !== null) {
-      res.cookie('SESSION', session.token, {
-        httpOnly: true,
-        secure: false,
-        sameSite: 'lax',
-        expires: session.expiresAt,
-      })
-      res.cookie('USERID', String(loginResult.userId), {
-        httpOnly: true,
-        secure: false,
-        sameSite: 'lax',
-        expires: session.expiresAt,
-      });
-    };
- 
-    res.status(200).json({ result: true, userId: loginResult.userId });
-    return;
+    const dto = validateSchema(OrderRequestDto, req.body);
+    await userService.placeOrder(dto);
+    res.status(201).json({ result: true });
   } catch (err) {
+    console.log("🚀 ~ const addOrder:RequestHandler= ~ err:", err)
     next(err);
   }
 };
 
-export const GetCurrentUser: RequestHandler = (req, res) => {
-  // authMiddleware has set req.userId
-  console.log("🚀 ~ GetCurrentUser: function has started" )
-  console.log("🚀 ~ GetCurrentUser:", GetCurrentUser)
-  const userId = (req as any).userId as number;
-  res.json({ userId });
+export const GetPlacedOrder: RequestHandler = async (req, res, next) => {
+  try {
+    const dto = validateSchema(userIdDto, req.body);
+    const user = await userService.getUserPlaceOrder(dto);
+    console.log("🚀 ~ constGetPlacedOrder:RequestHandler= ~ user:", user)
+    res.status(201).json({ result: true, user });
+  } catch (err) {
+    console.log("🚀 ~ const addOrder:RequestHandler= ~ err:", err)
+    next(err);
+  }
+};
+
+export const FetchAllUserWishlist: RequestHandler = async (req, res, next) => {
+  console.log("🚀 ~ constFetchAllUserWishlist:RequestHandler= ~ req:", req.body)
+  try {
+    const dto = validateSchema(userIdDto, req.body);
+    const wishlistData = await userService.fetchWishlistOrder(dto);
+    console.log("🚀 ~ constFetchAllUserWishlist:RequestHandler= ~ wishlistData:", wishlistData)
+    res.status(201).json({ result: true, wishlistData });
+  } catch (err) {
+    console.log("🚀 ~ constFetchAllUserWishlist:RequestHandler= ~ err:", err)
+    next(err);
+  }
+};
+
+export const addToWishlist: RequestHandler = async (req, res, next) => {
+  console.log("🚀 ~ const addToWishlist:RequestHandler= ~ req.body:", req.body)
+  try {
+    const dto = validateSchema(WishlistDto, req.body);
+    await userService.addWishlist(dto);
+    res.status(201).json({ result: true });
+  } catch (err) {
+    console.log("🚀 ~ const addToWishlist:RequestHandler= ~ err:", err)
+    next(err);
+  }
+};
+
+export const removeFromWishlist: RequestHandler = async (req, res, next) => {
+  console.log("🚀 ~ const removeFromWishlist:RequestHandler= ~ req.body:", req.body)
+  try {
+    const dto = validateSchema(WishlistDto, req.body);
+    await userService.removeWishlist(dto);
+    res.json({ result: true });
+  } catch (err) {
+    console.log("🚀 ~ const removeFromWishlist:RequestHandler= ~ err:", err)
+    next(err);
+  }
+};
+
+export const updateUserDetails: RequestHandler = async (req, res, next) => {
+  console.log("🚀 ~ const updateUserDetails:RequestHandler= ~ req.body:", req.body)
+  try {
+    const dto = validateSchema(UpdateUserDto, req.body);
+    await userService.updateUser(dto);
+    res.json({ result: true });
+  } catch (err) {
+    console.log("🚀 ~ const updateUserDetails:RequestHandler= ~ err:", err)
+    next(err);
+  }
 };

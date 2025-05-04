@@ -1,16 +1,54 @@
 import { JSX, useCallback, useEffect, useState } from 'react';
 import '../../../styles/orderSummary.css';
 import { useProductContext } from '@/context/ProductContext';
+import { placeNewOrder } from '@/services/api';
+import { useAuth } from '@/context/AuthContext';
+// src/features/user/types.ts
+export interface Product {
+  id: number;
+  title: string;
+  price: number;
+  description: string;
+  category: string;
+  image_url: string;
+  qty?: number;
+}
 
-
+export interface OrderRequest {
+  userId: number;
+  products: Product[];
+}
 
 export default function OrderSummary(): JSX.Element {
+  const { userId } = useAuth();
+  console.log("🚀 ~ OrderSummary ~ userId:", userId)
   const { cartProducts, removeProduct, updateQuantity } = useProductContext();
+  console.log("🚀 ~ OrderSummary ~ cartProducts:", cartProducts)
 
   const handleQtyChange = (id: number, delta: number) => {
     const prod = cartProducts.find(p => p.id === id);
-    if (prod) updateQuantity(id, (prod.qty||1) + delta);
+    if (prod) updateQuantity(id, (prod.qty || 1) + delta);
   };
+
+  const placeOrder = useCallback(async () => {
+    console.log("🚀 ~ placeOrder ~ placeOrder:", placeOrder)
+    try {
+      if (userId !== null) {
+        const payload: OrderRequest = {
+          userId,
+          products: cartProducts.map(p => ({
+            ...p,
+            qty: p.qty ?? 1
+          }))
+        };
+        console.log("🚀 ~ placeOrder ~ payload:", payload)
+        const response = await placeNewOrder(payload);
+        console.log('Order created:', response);
+      }
+    } catch (err) {
+      console.error('placeOrder error user has not logged in', err);
+    }
+  }, [userId, cartProducts]);
 
   return (
     <div className="order-summary-section">
@@ -30,23 +68,23 @@ export default function OrderSummary(): JSX.Element {
                   <h3>{item.category}</h3>
                   <p className="item-variant">
                     {item.title}
-                    </p>
+                  </p>
                   <div className="item-price-qty">
                     <span className="item-price">${item.price}</span>
                     <span className="item-quantity">
-                      <button 
-                       title="add"
-                       onClick={()=>handleQtyChange(item.id,-1)}
-                       >
+                      <button
+                        title="add"
+                        onClick={() => handleQtyChange(item.id, -1)}
+                      >
                         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" className="bi bi-patch-minus-fill" viewBox="0 0 16 16">
                           <path d="M10.067.87a2.89 2.89 0 0 0-4.134 0l-.622.638-.89-.011a2.89 2.89 0 0 0-2.924 2.924l.01.89-.636.622a2.89 2.89 0 0 0 0 4.134l.637.622-.011.89a2.89 2.89 0 0 0 2.924 2.924l.89-.01.622.636a2.89 2.89 0 0 0 4.134 0l.622-.637.89.011a2.89 2.89 0 0 0 2.924-2.924l-.01-.89.636-.622a2.89 2.89 0 0 0 0-4.134l-.637-.622.011-.89a2.89 2.89 0 0 0-2.924-2.924l-.89.01zM6 7.5h4a.5.5 0 0 1 0 1H6a.5.5 0 0 1 0-1" />
                         </svg>
                       </button>
                       qty: {item.qty}
-                      <button 
-                       title="delete"
-                       onClick={()=>handleQtyChange(item.id,1)}
-                       >
+                      <button
+                        title="delete"
+                        onClick={() => handleQtyChange(item.id, 1)}
+                      >
                         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" className="bi bi-plus-circle-fill" viewBox="0 0 16 16">
                           <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0M8.5 4.5a.5.5 0 0 0-1 0v3h-3a.5.5 0 0 0 0 1h3v3a.5.5 0 0 0 1 0v-3h3a.5.5 0 0 0 0-1h-3z" />
                         </svg>
@@ -141,17 +179,20 @@ export default function OrderSummary(): JSX.Element {
           </i>
           Track Order
         </button>
-        <button className="action-btn support">
+        <button
+          className="action-btn support"
+          onClick={() => placeOrder()}
+        >
           <i className="fas fa-headset" >
             <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" className="bi bi-person-bounding-box" viewBox="0 0 16 16">
               <path d="M1.5 1a.5.5 0 0 0-.5.5v3a.5.5 0 0 1-1 0v-3A1.5 1.5 0 0 1 1.5 0h3a.5.5 0 0 1 0 1zM11 .5a.5.5 0 0 1 .5-.5h3A1.5 1.5 0 0 1 16 1.5v3a.5.5 0 0 1-1 0v-3a.5.5 0 0 0-.5-.5h-3a.5.5 0 0 1-.5-.5M.5 11a.5.5 0 0 1 .5.5v3a.5.5 0 0 0 .5.5h3a.5.5 0 0 1 0 1h-3A1.5 1.5 0 0 1 0 14.5v-3a.5.5 0 0 1 .5-.5m15 0a.5.5 0 0 1 .5.5v3a1.5 1.5 0 0 1-1.5 1.5h-3a.5.5 0 0 1 0-1h3a.5.5 0 0 0 .5-.5v-3a.5.5 0 0 1 .5-.5" />
               <path d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1zm8-9a3 3 0 1 1-6 0 3 3 0 0 1 6 0" />
             </svg>
           </i>
-          Contact Support
+          Place Order
         </button>
       </div>
-    </div>
+    </div >
   );
 };
 

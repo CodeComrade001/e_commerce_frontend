@@ -4,6 +4,7 @@ import { LoginExistingAccount, CreateNewAccount } from '../../services/api';
 
 export default function HomeSignUp() {
   const [isSignup, setIsSignup] = useState(false);
+  const [buttonText, setButtonText] = useState("Login In")
   console.log("🚀 ~ HomeSignUp ~ isSignup:", isSignup)
 
   // form fields
@@ -40,11 +41,16 @@ export default function HomeSignUp() {
           email: email,
           password: password
         }
+      });
+      if (response.data.result) {
+        console.log("🚀 ~ signUp ~ response.data.result:", response.data.result)
+        setButtonText('Successful')
       }
-      );
+      console.log('Created user:', response.data);
       console.log('Logged in user:', response);
     } catch (error) {
-      console.log(`Error logging in:`, error);
+      setButtonText('Successful')
+      console.log(`Error logging in or user not found:`, error);
     }
   }
 
@@ -67,8 +73,13 @@ export default function HomeSignUp() {
           password: password
         }
       });
-      console.log('Created user:', response);
+      if (response.data.result) {
+        console.log("🚀 ~ signUp ~ response.data.result:", response.data.result)
+        setButtonText('Successful')
+      }
+      console.log('Created user:', response.data);
     } catch (error) {
+      setButtonText('Failed')
       console.log(`Error creating account:`, error);
     }
   }
@@ -103,7 +114,7 @@ export default function HomeSignUp() {
           </label>
           <p className="forgot-pass">Forgot password?</p>
           <button type="button" className="submit" onClick={login}>
-            Sign In
+            {buttonText}
           </button>
         </div>
 
@@ -158,7 +169,7 @@ export default function HomeSignUp() {
               />
             </label>
             <button type="button" className="submit" onClick={signUp}>
-              Sign Up
+              {buttonText}
             </button>
           </div>
         </div>

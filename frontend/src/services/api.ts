@@ -1,5 +1,7 @@
 // src/services/api.ts
+import { OrderRequest } from '@/components/Home Component/CheckoutPage';
 import axios, { AxiosRequestConfig } from 'axios';
+import { OrderHistoryItem } from './dataTypes';
 
 // Read the VITE_API_URL at build/dev time
 const baseURL = import.meta.env.VITE_API_URL || '';
@@ -41,6 +43,38 @@ export function getCurrentUser() {
   return api.get<{ userId: number }>('/api/user-auth/me');
 }
 
+export function placeNewOrder(data: OrderRequest) {
+  return api.post<OrderRequest, /* response type */ any>(
+    '/api/user/order',
+    data
+  );
+}
+
+export function fetchUserOrderHistory(data: { userId: number }, config?: AxiosRequestConfig) {
+  console.log("🚀 ~ fetchUserOrderHistory ~ data:", data)
+  return api.post(
+    '/api/user/order/history',
+    data,
+    config
+  );
+}
+
 export function fetchUserDetails(data: { userId: number }, config?: AxiosRequestConfig) {
-  return api.post('/api/user/', data, config)
+  return api.post('/api/user/details', data, config)
+}
+
+export function fetchAllWishlistOrder(data: { userId: number }, config?: AxiosRequestConfig) {
+  return api.post('/api/user/wishlist/all', data, config)
+}
+
+export function wishlistAddOrder(data: { userId: number, productId: number }, config?: AxiosRequestConfig) {
+  return api.post('/api/user/wishlist/', data, config)
+}
+
+export function wishlistDeleteOrder(data: { userId: number, productId: number }) {
+  return api.delete('/api/user/wishlist', data)
+}
+
+export function updateUserDetails(data: { userId: number, name: string, email: string }, config?: AxiosRequestConfig) {
+  return api.patch('/api/user', data, config)
 }

@@ -2,7 +2,8 @@ import express, { Request, Response, NextFunction, ErrorRequestHandler } from 'e
 import cors from 'cors';
 import cookieParser from 'cookie-parser';
 import productRoute from './features/product/product.routes.js';
-import userAuthRoute from './features/user/user.routes.js';
+import userAuthRoute from './features/user-auth/user-auth.routes.js';
+import userRoute from './features/user/user.routes.js';
 
 export default function createApp() {
   const app = express();
@@ -22,6 +23,7 @@ export default function createApp() {
   // Routes
   app.use('/api/products', productRoute);
   app.use('/api/user-auth', userAuthRoute);
+  app.use('/api/user', userRoute);
 
   // 404 handler
   app.use((req, res) => {

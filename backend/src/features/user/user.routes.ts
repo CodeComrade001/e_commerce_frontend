@@ -1,26 +1,48 @@
-// src/features/user/user.routes.ts
-import { Router, RequestHandler } from 'express';
+import { RequestHandler, Router } from 'express';
 import asyncHandler from 'express-async-handler';
-import { GetCurrentUser, Login, SignUp } from './user.controller.js';
+import { fetchUserDetails, addOrder, addToWishlist, removeFromWishlist, updateUserDetails, GetPlacedOrder, FetchAllUserWishlist, } from './user.controller.js';
 import { authMiddleware } from '../../middleware/auth.middleware.js';
 
-const userAuthRoute = Router();
+const userRoute = Router();
 
-// cast each wrapped handler to RequestHandler
-userAuthRoute.post(
-  '/login',
-  asyncHandler(Login) as RequestHandler
+// All routes require authentication
+userRoute.use(authMiddleware as RequestHandler);
+
+// Fetch user details
+userRoute.post(
+  '/details',
+  asyncHandler(fetchUserDetails)
 );
 
-userAuthRoute.post(
-  '/sign-up',
-  asyncHandler(SignUp) as RequestHandler
+// Orders
+userRoute.post(
+  '/order',
+  asyncHandler(addOrder)
 );
 
-userAuthRoute.get(
-  '/me',
-  authMiddleware as RequestHandler,      // ← cast directly
-  asyncHandler(GetCurrentUser) as RequestHandler
+userRoute.post(
+  '/order/history',
+  asyncHandler(GetPlacedOrder)
 );
 
-export default userAuthRoute;
+// Wishlist
+userRoute.post(
+  '/wishlist/all',
+  asyncHandler(FetchAllUserWishlist)
+);
+userRoute.post(
+  '/wishlist',
+  asyncHandler(addToWishlist)
+);
+userRoute.delete(
+  '/wishlist',
+  asyncHandler(removeFromWishlist)
+);
+
+// Update profile
+userRoute.patch(
+  '/',
+  asyncHandler(updateUserDetails)
+);
+
+export default userRoute;

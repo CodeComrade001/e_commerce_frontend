@@ -6,6 +6,7 @@ import ShoppingPageHome from './components/pages/Home';
 import AdminHome from './components/pages/Admin';
 import ProtectedRoute from './components/Admin Component/security/ProtectedRoute';
 import { ProductProvider } from './context/ProductContext';
+import LandingHomePage from './components/pages/LandingPage';
 
 createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
@@ -13,7 +14,8 @@ createRoot(document.getElementById('root')!).render(
       <ProductProvider>
         <BrowserRouter>
           <Routes>
-            <Route path="/" element={<ShoppingPageHome />} />
+            <Route path="/" element={<LandingHomePage />} />
+            <Route path="/home" element={<ShoppingPageHome />} />
             <Route
               path="/admin"
               element={

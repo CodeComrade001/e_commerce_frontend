@@ -57,7 +57,8 @@ export async function fetchUploadedProduct() {
       'title',        title,
       'price',        price,
       'description',  description,
-      'image_url',    image_url
+      'image_url',    image_url,
+      'category', category
     )
     ORDER BY id       -- optional: order items within each array
   ) AS products
