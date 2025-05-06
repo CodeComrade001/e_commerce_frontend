@@ -1,7 +1,6 @@
 // src/services/api.ts
 import { OrderRequest } from '@/components/Home Component/CheckoutPage';
 import axios, { AxiosRequestConfig } from 'axios';
-import { OrderHistoryItem } from './dataTypes';
 
 // Read the VITE_API_URL at build/dev time
 const baseURL = import.meta.env.VITE_API_URL || '';
@@ -21,6 +20,14 @@ export const fetchAllProducts = () => {
 
 export const fetchHomeProducts = () => {
   return api.get('/api/products/admin/uploaded');  // will hit http://localhost:3000/api/products
+};
+
+export const getRandomProduct = () => {
+  return api.get('/api/products/Random');  // will hit http://localhost:3000/api/products
+};
+
+export const getDealsProduct = () => {
+  return api.get('/api/products/TopDeals');  // will hit http://localhost:3000/api/products
 };
 
 export function LoginExistingAccount(
@@ -71,10 +78,13 @@ export function wishlistAddOrder(data: { userId: number, productId: number }, co
   return api.post('/api/user/wishlist/', data, config)
 }
 
-export function wishlistDeleteOrder(data: { userId: number, productId: number }) {
-  return api.delete('/api/user/wishlist', data)
+export function wishlistDeleteOrder(data: { userId: number; productId: number }) {
+  return api.delete('/api/user/wishlist', {
+    params: data
+  });
 }
 
 export function updateUserDetails(data: { userId: number, name: string, email: string }, config?: AxiosRequestConfig) {
   return api.patch('/api/user', data, config)
 }
+

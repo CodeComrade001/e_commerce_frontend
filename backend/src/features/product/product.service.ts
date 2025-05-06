@@ -15,6 +15,49 @@ interface Product {
   };
 }
 
+export async function fetchNewDataset() {
+  try {
+    // 1) Fetch and parse
+    const response = await fetch('https://dummyjson.com/products?limit=194');
+    if (!response.ok) {
+      throw new Error(`Fetch failed: ${response.status} ${response.statusText}`);
+    }
+    const { products } = await response.json();  // destructure products array
+
+    // 2) Prepare SQL (7 columns: title, price, description, category, image_url, discount, created_at)
+    const sql = `
+      INSERT INTO products
+        (title, price, description, category, image_url, discount, created_at)
+      VALUES
+        ($1,      $2,    $3,          $4,       $5,        $6,       NOW())
+      RETURNING id;
+    `;
+
+    // 3) Insert in sequence (could also batch with Promise.all)
+    for (const item of products) {
+      const imageUrl = Array.isArray(item.images) && item.images.length
+        ? item.images[0]
+        : null;
+
+        const discountInt = Math.round(item.discountPercentage);
+
+      const { rowCount, rows } = await pool.query(sql, [
+        item.title,
+        item.price,
+        item.description,
+        item.category,
+        imageUrl,
+        discountInt,
+      ]);
+
+      console.log(`Inserted product ${rows[0].id} (success? ${rowCount === 1})`);
+    }
+
+    console.log(`✅ All ${products.length} products inserted.`);
+  } catch (error: unknown) {
+    console.error('Error in fetchNewDataset:', error);
+  }
+}
 
 export async function fetchProductDetails(): Promise<Product[]> {
   try {

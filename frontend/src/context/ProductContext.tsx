@@ -21,6 +21,7 @@ interface ProductContextType {
   addProduct: (prod: Product) => void;
   removeProduct: (id: number) => void;
   updateQuantity: (id: number, qty: number) => void;
+  clearCart: () => void;
 }
 
 const ProductContext =
@@ -29,6 +30,10 @@ const ProductContext =
 type ProviderProps = { children: ReactNode };
 export const ProductProvider: React.FC<ProviderProps> = ({ children }) => {
   const [cartProducts, setCartProducts] = useState<Product[]>([]);
+
+  const clearCart = useCallback(() => {
+    setCartProducts([]);
+  }, []);
 
   const addProduct = useCallback((prod: Product) => {
     setCartProducts(prev => {
@@ -49,7 +54,7 @@ export const ProductProvider: React.FC<ProviderProps> = ({ children }) => {
   }, []);
 
   return (
-    <ProductContext.Provider value={{ cartProducts, addProduct, removeProduct, updateQuantity }}>
+    <ProductContext.Provider value={{ cartProducts, addProduct, removeProduct, updateQuantity,clearCart }}>
       {children}
     </ProductContext.Provider>
   );

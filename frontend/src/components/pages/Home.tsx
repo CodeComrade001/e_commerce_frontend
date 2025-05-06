@@ -14,16 +14,12 @@ import { fetchUserDetails } from "@/services/api";
 
 export default function ShoppingPageHome(): JSX.Element {
   const { userId } = useAuth();   // ← grab userId from context
-  console.log("🚀 ~ ShoppingPageHome ~ userId:", userId)
   const { cartProducts } = useProductContext()
   const [showAdminOption, setShowAdminOption] = useState(false);
   const [showCheckoutSummary, setShowCheckoutSummary] = useState(false);
 
   const [activeButton, setActiveButton] = useState('Home');
   const [userDetails, setUserDetails] = useState<{ name: string, email: string, avatar_url: string, address: string, phone: string } | null>(null)
-  console.log("🚀 ~ ShoppingPageHome ~ userDetails:", userDetails)
-
-  console.log("🚀 ~ ShoppingPageHome ~ showAdminOption:", showAdminOption)
 
   function changeActiveButton(buttonName: string) {
     setActiveButton(buttonName);
@@ -65,12 +61,15 @@ export default function ShoppingPageHome(): JSX.Element {
       case "Blog":
         return <HomeBlogPage />;
       case "Wishlist":
-        return <WishlistComponent />;
+        return <WishlistComponent
+          checkoutProps={changeActiveButton}
+        />;
       case "History":
         return <OrderHistoryComponent />;
       case "My Account":
         if (userDetails !== null) {
           const { name, email, avatar_url, address, phone } = userDetails;
+
           return <MyAccountComponent
             nameProp={name}
             emailProp={email}
@@ -97,10 +96,10 @@ export default function ShoppingPageHome(): JSX.Element {
       // e.g. api.get(`/orders?userId=${userId}`)
       console.log("user id has been fetched", userId)
       async function fetchAllDetails(userId: number) {
-        const result = await fetchUserDetails({ userId })
-        console.log("🚀 ~ fetchAllDetails ~ result:", result)
+        const response = await fetchUserDetails({ userId })
+        const { result, user } = response.data;
         if (result) {
-          setUserDetails(result.data)
+          setUserDetails(user)
         }
       }
       fetchAllDetails(userId)
@@ -210,7 +209,9 @@ export default function ShoppingPageHome(): JSX.Element {
                   </svg>
                 </i>
                 {showAdminOption &&
-                  <div className="position">
+                  <div className="position"
+                    onMouseLeave={() => CloseHandleAccountClick()}
+                  >
                     <div id="accountOptions" className="collapse">
                       <button
                         onClick={() => handleClickedBtn('My Account')}
@@ -314,11 +315,10 @@ export default function ShoppingPageHome(): JSX.Element {
                 {/* User cart dropdown content can be added here */}
                 {showCheckoutSummary &&
                   <div
-                    onMouseEnter={() => CloseCheckoutSummaryClick()}
                     className="position"
                   >
                     <div
-                      onMouseLeave={() => CloseHandleAccountClick()}
+                      onMouseLeave={() => CloseCheckoutSummaryClick()}
                       id="checkout_summary"
                       className="dropdown-content"
                     >

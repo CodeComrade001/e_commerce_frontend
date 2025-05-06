@@ -34,3 +34,31 @@ export interface WishlistItem {
   category: string;
   image_url: string;
 }
+
+export interface Product {
+  id: number;
+  title: string;
+  price: number;
+  description: string;
+  category: string;
+  image_url: string;
+  discount?: number;
+}
+
+export interface SpecialDealsProduct {
+  id: number;
+  title: string;
+  description: string;
+  price: number;
+  category: string;
+  oldPrice: number;
+  newPrice: number;
+  discount: number;
+  image_url: string;
+}
+
+// Groups products under a category label
+export interface CategoryGroup {
+  category: string;
+  products: Product[];
+}

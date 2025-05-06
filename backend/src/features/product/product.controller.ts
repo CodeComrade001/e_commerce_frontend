@@ -1,7 +1,16 @@
 // src/features/product/product.controller.ts
 import { Request, Response } from 'express';
-import { fetchHomeProduct, fetchProductDetails, fetchUploadedProduct } from './product.service.js';
+import { fetchHomeProduct, fetchNewDataset, fetchProductDetails, fetchUploadedProduct } from './product.service.js';
 
+
+export async function getNewDataset(req: Request, res: Response) {
+  try {
+    const products = await fetchNewDataset();
+    res.json(products);
+  } catch (error) {
+    res.status(500).json({ message: `Error fetching product data \n ${error}` });
+  }
+}
 
 export async function getProduct(req: Request, res: Response) {
   try {
@@ -26,6 +35,6 @@ export async function getHomeProduct(req: Request, res: Response) {
     const products = await fetchHomeProduct();
     res.json(products);
   } catch (error) {
-    res.status(500).json({ message: `Error fetching product data \n ${error}`  }    );
+    res.status(500).json({ message: `Error fetching product data \n ${error}` });
   }
 }

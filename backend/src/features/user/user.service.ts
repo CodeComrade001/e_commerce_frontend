@@ -99,7 +99,7 @@ export async function fetchWishlistOrder(dto: { userId: number }) {
 export async function addWishlist(dto: { userId: number; productId: number }) {
   const { userId, productId } = dto;
   const sql = `
-  INSERT INTO wishlist (user_id, product_id, added_at)
+  INSERT INTO wishlist (user_id, product_id, created_at)
     VALUES ($1, $2, NOW())
     ON CONFLICT DO NOTHING
     `;

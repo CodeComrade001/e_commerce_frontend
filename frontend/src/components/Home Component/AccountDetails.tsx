@@ -19,6 +19,11 @@ export default function MyAccountComponent({
   addressProp: string,
   phoneProp: string
 }): JSX.Element {
+  console.log("🚀 ~ phoneProp:", phoneProp)
+  console.log("🚀 ~ addressProp:", addressProp)
+  console.log("🚀 ~ avatar_urlProp:", avatar_urlProp)
+  console.log("🚀 ~ emailProp:", emailProp)
+  console.log("🚀 ~ nameProp:", nameProp)
   const { userId } = useAuth(); // assume `user` has initial details
   const [details, setDetails] = useState<UserDetails>({
     name: nameProp,
