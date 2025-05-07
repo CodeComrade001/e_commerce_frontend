@@ -22,12 +22,8 @@ export const fetchHomeProducts = () => {
   return api.get('/api/products/admin/uploaded');  // will hit http://localhost:3000/api/products
 };
 
-export const getRandomProduct = () => {
-  return api.get('/api/products/Random');  // will hit http://localhost:3000/api/products
-};
-
-export const getDealsProduct = () => {
-  return api.get('/api/products/TopDeals');  // will hit http://localhost:3000/api/products
+export const getLandingPageProduct = () => {
+  return api.get('/api/products/root');  // will hit http://localhost:3000/api/products
 };
 
 export function LoginExistingAccount(

@@ -39,7 +39,7 @@ export async function fetchNewDataset() {
         ? item.images[0]
         : null;
 
-        const discountInt = Math.round(item.discountPercentage);
+      const discountInt = Math.round(item.discountPercentage);
 
       const { rowCount, rows } = await pool.query(sql, [
         item.title,
@@ -88,28 +88,27 @@ export async function fetchProductDetails(): Promise<Product[]> {
   }
 }
 
+
 export async function fetchUploadedProduct() {
   // select all products marked as uploaded
   try {
-
-    const { rows } = await pool.query<Product>(
-      `SELECT  category,
-  ARRAY_AGG(
-    JSON_BUILD_OBJECT(
-      'id',           id,
-      'title',        title,
-      'price',        price,
-      'description',  description,
-      'image_url',    image_url,
-      'category', category
-    )
-    ORDER BY id       -- optional: order items within each array
-  ) AS products
-FROM products
-WHERE uploaded = TRUE
-GROUP BY category;
-`
-    );
+    const sql = `SELECT  category,
+    ARRAY_AGG(
+      JSON_BUILD_OBJECT(
+        'id',           id,
+        'title',        title,
+        'price',        price,
+        'description',  description,
+        'image_url',    image_url,
+        'category', category
+      )
+      ORDER BY id       -- optional: order items within each array
+    ) AS products
+  FROM products
+  WHERE uploaded = TRUE
+  GROUP BY category;
+  `
+    const { rows } = await pool.query<Product>(sql);
     return rows;
   } catch (error) {
     console.log(` error in fetchUploadedProduct() ${error} `)
@@ -119,15 +118,93 @@ GROUP BY category;
 export async function fetchHomeProduct() {
   // for example: show the 10 most recent products for home
   try {
+    const sql = `SELECT id, title, price, description, category, image_url, rating_rate
+     FROM products
+     ORDER BY id ASC
+     LIMIT 10;`
 
-    const { rows } = await pool.query<Product>(
-      `SELECT id, title, price, description, category, image_url, rating_rate
-       FROM products
-       ORDER BY id ASC
-       LIMIT 10;`
-    );
+    const { rows } = await pool.query<Product>(sql);
     return rows;
   } catch (error) {
     console.log(` error in fetchHomeProduct() ${error} `)
+  }
+
+}
+
+export async function fetchRootProduct() {
+  const sql = `
+    WITH featured_products AS (
+      SELECT
+        JSON_AGG(
+          JSON_BUILD_OBJECT(
+            'id',          sub.id,
+            'title',       sub.title,
+            'price',       sub.price,
+            'description', sub.description,
+            'image_url',   sub.image_url,
+            'discount',   sub.discount
+          ) ORDER BY sub.id
+        ) AS arr
+      FROM (
+        SELECT
+          p.id,
+          p.title,
+          p.price,
+          p.description,
+          p.image_url,
+          p.discount,
+          ROW_NUMBER() OVER (ORDER BY p.id) AS rn
+        FROM landing_page lp
+        JOIN products p
+          ON lp.product_id = p.id
+        WHERE lp.uploaded  = true
+          AND lp.featured  = true
+      ) AS sub
+      WHERE sub.rn <= 5
+    ),
+    limited_products AS (
+      SELECT
+        JSON_AGG(
+          JSON_BUILD_OBJECT(
+            'id',          sub.id,
+            'title',       sub.title,
+            'price',       sub.price,
+            'description', sub.description,
+            'image_url',   sub.image_url,
+            'discount',   sub.discount
+          ) ORDER BY sub.id
+        ) AS arr
+      FROM (
+        SELECT
+          p.id,
+          p.title,
+          p.price,
+          p.description,
+          p.image_url,
+          p.discount,
+          ROW_NUMBER() OVER (ORDER BY p.id) AS rn
+        FROM landing_page lp
+        JOIN products p
+          ON lp.product_id = p.id
+        WHERE lp.uploaded      = true
+          AND lp.limited_offer = true
+      ) AS sub
+      WHERE sub.rn <= 5
+    )
+    SELECT
+      JSON_BUILD_OBJECT(
+        'featured', featured_products.arr,
+        'limited',  limited_products.arr
+      ) AS result
+    FROM featured_products
+    CROSS JOIN limited_products;
+  `;
+
+  try {
+    const { rows } = await pool.query<{ result: { featured: any[]; limited: any[] } }>(sql);
+    return rows[0]?.result ?? { featured: [], limited: [] };
+  } catch (error) {
+    console.error("Error in fetchRootProduct():", error);
+    throw error;
   }
 }

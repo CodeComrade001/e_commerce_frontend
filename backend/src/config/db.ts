@@ -4,7 +4,7 @@ import dotenv from 'dotenv';
 
 dotenv.config();
 
-  const pool = new Pool({
+const pool = new Pool({
   user: process.env.DB_USER,
   host: process.env.DB_HOST,
   database: process.env.DB_DATABASE,
@@ -12,17 +12,8 @@ dotenv.config();
   port: Number(process.env.DB_PORT),
 });
 
-async function testConnection() {
-  const client = await pool.connect();
-  try {
-    console.log("Database connection established successfully.");
-  } catch (error: unknown) {
-    const errorMessage = (error instanceof Error) ? error.message : 'Unknown error';
-    console.error('Failed to connect to the database:', errorMessage);
-  } finally {
-    client.release();
-  }
-}
-
-testConnection();
+pool.on('error', (err) => {
+  console.error('Unexpected idle client error', err);
+  process.exit(-1);
+});
 export default pool;

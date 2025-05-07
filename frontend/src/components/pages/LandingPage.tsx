@@ -1,16 +1,15 @@
 /* LandingHomePage.tsx */
 import { JSX, useCallback, useEffect, useState } from "react";
 import "../../../styles/landing_page.css";
-import { CategoryGroup, Product, SpecialDealsProduct } from "@/services/dataTypes";
+import { Product } from "@/services/dataTypes";
 import { useProductContext } from "@/context/ProductContext";
-import { getDealsProduct, getRandomProduct } from "@/services/api";
+import { getLandingPageProduct } from "@/services/api";
 
 export default function LandingHomePage(): JSX.Element {
-  const [randomProduct, setRandomProduct] = useState<CategoryGroup[]>([])
+  const [randomProduct, setRandomProduct] = useState<Product[]>([])
   console.log("🚀 ~ LandingHomePage ~ randomProduct:", randomProduct)
-  const [dealsProduct, setDealsProduct] = useState<SpecialDealsProduct[]>([])
+  const [dealsProduct, setDealsProduct] = useState<Product[]>([])
   console.log("🚀 ~ LandingHomePage ~ dealsProduct:", dealsProduct)
-  const [categoryIndex, setCategoryIndex] = useState(0);
   const { addProduct, cartProducts } = useProductContext();
   // Kick off animations on mount
   useEffect(() => {
@@ -21,36 +20,26 @@ export default function LandingHomePage(): JSX.Element {
   function confirmOrder() {
   }
 
-  const fetchRandomProduct = useCallback(async () => {
+  const fetchRootProduct = useCallback(async () => {
     try {
-      const response = await getRandomProduct()
-      console.log("🚀 ~ fetchRandomProduct ~ response:", response)
-      console.log("🚀 ~ fetchRandomProduct ~ response.data:", response.data)
-    } catch (error: unknown) {
-      console.log("🚀 ~ fetchRandomProduct ~ error:", error)
-    }
-  }, [])
-
-  const fetchDealsProduct = useCallback(async () => {
-    try {
-      const response = await getDealsProduct()
+      const response = await getLandingPageProduct()
       console.log("🚀 ~ fetchDealsProduct ~ response:", response)
       console.log("🚀 ~ fetchDealsProduct ~ response.data:", response.data)
+      const { featured, limited } = response.data;
+      setRandomProduct(featured)
+      setDealsProduct(limited)
     } catch (error: unknown) {
       console.log("🚀 ~ fetchRandomProduct ~ error:", error)
     }
   }, [])
 
-  useEffect(() => {
 
-    fetchRandomProduct()
-    fetchDealsProduct()
+  useEffect(() => {
+    fetchRootProduct()
   }, [])
 
-  const products = randomProduct[categoryIndex]?.products ?? [];
   return (
     <div className="landing_page">
-
       <header className="header ">
         <div className="logo">E-Commerce Project</div>
         <nav>
@@ -62,9 +51,23 @@ export default function LandingHomePage(): JSX.Element {
           </ul>
         </nav>
         <div className="header-buttons">
-          <button className="btn-search">🔍</button>
-          <button className="btn-cart">🛒{cartProducts.length} </button>
-          <button className="btn-user">👤</button>
+          <a href="/home" className="btn-cart">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" className="bi bi-cart-check-fill" viewBox="0 0 16 16">
+              <path d="M.5 1a.5.5 0 0 0 0 1h1.11l.401 1.607 1.498 7.985A.5.5 0 0 0 4 12h1a2 2 0 1 0 0 4 2 2 0 0 0 0-4h7a2 2 0 1 0 0 4 2 2 0 0 0 0-4h1a.5.5 0 0 0 .491-.408l1.5-8A.5.5 0 0 0 14.5 3H2.89l-.405-1.621A.5.5 0 0 0 2 1zM6 14a1 1 0 1 1-2 0 1 1 0 0 1 2 0m7 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0m-1.646-7.646-3 3a.5.5 0 0 1-.708 0l-1.5-1.5a.5.5 0 1 1 .708-.708L8 8.293l2.646-2.647a.5.5 0 0 1 .708.708" />
+            </svg>
+            {cartProducts.length} </a>
+          <a href="/home" className="btn-user">
+            <i>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="currentColor"
+                className="bi bi-person-fill"
+                viewBox="0 0 16 16">
+                <path d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6" />
+              </svg>
+            </i>
+            {/* Login */}
+          </a>
         </div>
       </header>
       <section className="hero">
@@ -86,8 +89,8 @@ export default function LandingHomePage(): JSX.Element {
           </button>
         </h2>
         <div className="product-carousel">
-          {products.length > 0 ? (
-            products.map((item) => (
+          {randomProduct.length > 0 ? (
+            randomProduct.map((item) => (
               <div key={item.id} className="product_container">
                 <img src={item.image_url} alt="" />
                 <div className="information">
@@ -114,12 +117,38 @@ export default function LandingHomePage(): JSX.Element {
                     </svg>
                     checkout
                   </button>
+                  <button title="checkout"
+                    aria-label={item.description}
+                  >
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" className="bi bi-cart-check-fill" viewBox="0 0 16 16">
+                      <path d="M.5 1a.5.5 0 0 0 0 1h1.11l.401 1.607 1.498 7.985A.5.5 0 0 0 4 12h1a2 2 0 1 0 0 4 2 2 0 0 0 0-4h7a2 2 0 1 0 0 4 2 2 0 0 0 0-4h1a.5.5 0 0 0 .491-.408l1.5-8A.5.5 0 0 0 14.5 3H2.89l-.405-1.621A.5.5 0 0 0 2 1zM6 14a1 1 0 1 1-2 0 1 1 0 0 1 2 0m7 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0m-1.646-7.646-3 3a.5.5 0 0 1-.708 0l-1.5-1.5a.5.5 0 1 1 .708-.708L8 8.293l2.646-2.647a.5.5 0 0 1 .708.708" />
+                    </svg>
+                    more info
+                  </button>
                 </nav>
               </div>)
             )) : (
             // <div>No products found in "{randomProduct[categoryIndex]?.category}"</div>
             <>
               {/* 1 */}
+              <div className="product_container">
+                <img src="/images/checkout/7.jpg" alt="Barista Pro Espresso Machine" />
+                <div className="information">Barista Pro Espresso Machine</div>
+                <nav>
+                  <button className="price">$249.99</button>
+                  <button title="add" onClick={() => addProduct({
+                    id: 101,
+                    title: "Barista Pro Espresso Machine",
+                    price: 249.99,
+                    description: "15‑bar pump with thermocoil boiler for perfect crema.",
+                    category: "Kitchen Appliances",
+                    image_url: "",
+                  })}>
+                    Add to cart
+                  </button>
+                  <button title="checkout" onClick={() => confirmOrder()}>Checkout</button>
+                </nav>
+              </div>
               <div className="product_container">
                 <img src="/images/checkout/7.jpg" alt="Barista Pro Espresso Machine" />
                 <div className="information">Barista Pro Espresso Machine</div>
@@ -207,9 +236,110 @@ export default function LandingHomePage(): JSX.Element {
         <div className="collection-info">
           <h2>New Season Collection</h2>
           <p>Explore our latest arrivals with exclusive deals</p>
-          <button className="btn-secondary">View Collection</button>
+          <p>Check out our Blog page for more Information</p>
+          <button className="btn-secondary">Blog</button>
         </div>
-        <div id="collection-model-container" className="model-container"></div>
+        <div id="collection-model-container" className="model-container">
+          <div className="card-stack">
+            <h2>Furniture</h2>
+            <div className="product-card">
+              <div className="product-image">
+                <img src="/images/checkout/7.jpg" alt="Barista Pro Espresso Machine" />
+              </div>
+              <div className="product-info">
+                <h3>Leather Backpack</h3>
+                <p>Stylish and durable with modern compartments</p>
+                <span>$89.99</span>
+              </div>
+            </div>
+            <div className="product-card">
+              <div className="product-image">
+                <img src="/images/checkout/33.jpg" alt="Barista Pro Espresso Machine" />
+              </div>
+              <div className="product-info">
+                <h3>Minimalist Sneakers</h3>
+                <p>Comfort-first casual wear with breathable fabric</p>
+                <span>$69.99</span>
+              </div>
+            </div>
+            <div className="product-card">
+              <div className="product-image">
+                <img src="/images/checkout/10.jpg" alt="Barista Pro Espresso Machine" />
+              </div>
+              <div className="product-info">
+                <h3>Urban Windbreaker</h3>
+                <p>Lightweight outerwear for all seasons</p>
+                <span>$120.00</span>
+              </div>
+            </div>
+          </div>
+          <div className="card-stack">
+            <h2>Furniture</h2>
+            <div className="product-card">
+              <div className="product-image">
+                <img src="/images/checkout/7.jpg" alt="Barista Pro Espresso Machine" />
+              </div>
+              <div className="product-info">
+                <h3>Leather Backpack</h3>
+                <p>Stylish and durable with modern compartments</p>
+                <span>$89.99</span>
+              </div>
+            </div>
+            <div className="product-card">
+              <div className="product-image">
+                <img src="/images/checkout/33.jpg" alt="Barista Pro Espresso Machine" />
+              </div>
+              <div className="product-info">
+                <h3>Minimalist Sneakers</h3>
+                <p>Comfort-first casual wear with breathable fabric</p>
+                <span>$69.99</span>
+              </div>
+            </div>
+            <div className="product-card">
+              <div className="product-image">
+                <img src="/images/checkout/10.jpg" alt="Barista Pro Espresso Machine" />
+              </div>
+              <div className="product-info">
+                <h3>Urban Windbreaker</h3>
+                <p>Lightweight outerwear for all seasons</p>
+                <span>$120.00</span>
+              </div>
+            </div>
+          </div>
+          <div className="card-stack">
+            <h2>Furniture</h2>
+            <div className="product-card">
+              <div className="product-image">
+                <img src="/images/checkout/7.jpg" alt="Barista Pro Espresso Machine" />
+              </div>
+              <div className="product-info">
+                <h3>Leather Backpack</h3>
+                <p>Stylish and durable with modern compartments</p>
+                <span>$89.99</span>
+              </div>
+            </div>
+            <div className="product-card">
+              <div className="product-image">
+                <img src="/images/checkout/33.jpg" alt="Barista Pro Espresso Machine" />
+              </div>
+              <div className="product-info">
+                <h3>Minimalist Sneakers</h3>
+                <p>Comfort-first casual wear with breathable fabric</p>
+                <span>$69.99</span>
+              </div>
+            </div>
+            <div className="product-card">
+              <div className="product-image">
+                <img src="/images/checkout/10.jpg" alt="Barista Pro Espresso Machine" />
+              </div>
+              <div className="product-info">
+                <h3>Urban Windbreaker</h3>
+                <p>Lightweight outerwear for all seasons</p>
+                <span>$120.00</span>
+              </div>
+            </div>
+          </div>
+        </div>
       </section>
 
       <section id="deals" className="deals">
@@ -226,9 +356,15 @@ export default function LandingHomePage(): JSX.Element {
                 <nav>
                   <button className="price">
                     {/* strike through */}
-                    <span>{`$${item.oldPrice}`}</span>``
-                    <span>{item.discount}</span>
-                    <span>{item.newPrice}</span>
+                    <span className="old-price">{`$${item.price.toFixed(2)}`}</span>
+                    <span className="discount">{item.discount}%</span>
+                    <span className="new-price">
+                      ${(
+                        item.discount !== undefined
+                          ? (item.price - (item.price * item.discount) / 100).toFixed(2)
+                          : 0
+                      )}
+                    </span>
                   </button>
                   <button
                     title="add"
@@ -248,6 +384,14 @@ export default function LandingHomePage(): JSX.Element {
                       <path d="M.5 1a.5.5 0 0 0 0 1h1.11l.401 1.607 1.498 7.985A.5.5 0 0 0 4 12h1a2 2 0 1 0 0 4 2 2 0 0 0 0-4h7a2 2 0 1 0 0 4 2 2 0 0 0 0-4h1a.5.5 0 0 0 .491-.408l1.5-8A.5.5 0 0 0 14.5 3H2.89l-.405-1.621A.5.5 0 0 0 2 1zM6 14a1 1 0 1 1-2 0 1 1 0 0 1 2 0m7 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0m-1.646-7.646-3 3a.5.5 0 0 1-.708 0l-1.5-1.5a.5.5 0 1 1 .708-.708L8 8.293l2.646-2.647a.5.5 0 0 1 .708.708" />
                     </svg>
                     checkout
+                  </button>
+                  <button title="checkout"
+                    aria-label={item.description}
+                  >
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" className="bi bi-cart-check-fill" viewBox="0 0 16 16">
+                      <path d="M.5 1a.5.5 0 0 0 0 1h1.11l.401 1.607 1.498 7.985A.5.5 0 0 0 4 12h1a2 2 0 1 0 0 4 2 2 0 0 0 0-4h7a2 2 0 1 0 0 4 2 2 0 0 0 0-4h1a.5.5 0 0 0 .491-.408l1.5-8A.5.5 0 0 0 14.5 3H2.89l-.405-1.621A.5.5 0 0 0 2 1zM6 14a1 1 0 1 1-2 0 1 1 0 0 1 2 0m7 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0m-1.646-7.646-3 3a.5.5 0 0 1-.708 0l-1.5-1.5a.5.5 0 1 1 .708-.708L8 8.293l2.646-2.647a.5.5 0 0 1 .708.708" />
+                    </svg>
+                    more info
                   </button>
                 </nav>
               </div>)
@@ -283,104 +427,12 @@ export default function LandingHomePage(): JSX.Element {
                   <button title="checkout" onClick={() => confirmOrder()}>
                     Checkout
                   </button>
-                </nav>
-              </div>
-
-              {/* Deal #2 */}
-              <div className="product_container">
-                <img src="/images/checkout/8.jpg" alt="EcoLite Fitness Tracker" />
-                <div className="information">
-                  <p>EcoLite Fitness Tracker</p>
-                </div>
-                <nav>
-                  <button className="price">
-                    <span className="old-price">$79.99</span>
-                    <span className="discount">–30%</span>
-                    <span className="new-price">$55.99</span>
-                  </button>
-                  <button
-                    title="add"
-                  // onClick={() => addProduct({
-                  //   id: 502,
-                  //   title: "EcoLite Fitness Tracker",
-                  //   price: 55.99,
-                  //   description: "Waterproof tracker with heart‑rate monitor and sleep analysis.",
-                  //   category: "Wearables",
-                  //   image_url: "",
-                  //   discount: 30,
-                  // })}
-                  >
-                    Add to cart
-                  </button>
                   <button title="checkout" onClick={() => confirmOrder()}>
-                    Checkout
+                    More
                   </button>
                 </nav>
               </div>
 
-              {/* Deal #3 */}
-              <div className="product_container">
-                <img src="/images/checkout/9.jpg" alt="UltraClean Robot Vacuum" />
-                <div className="information">
-                  <p>UltraClean Robot Vacuum</p>
-                </div>
-                <nav>
-                  <button className="price">
-                    <span className="old-price">$399.99</span>
-                    <span className="discount">–20%</span>
-                    <span className="new-price">$319.99</span>
-                  </button>
-                  <button
-                    title="add"
-                  // onClick={() => addProduct({
-                  //   id: 503,
-                  //   title: "UltraClean Robot Vacuum",
-                  //   price: 319.99,
-                  //   description: "Smart mapping vacuum with app control and 120‑minute runtime.",
-                  //   category: "Home Appliances",
-                  //   image_url: "",
-                  //   discount: 20,
-                  // })}
-                  >
-                    Add to cart
-                  </button>
-                  <button title="checkout" onClick={() => confirmOrder()}>
-                    Checkout
-                  </button>
-                </nav>
-              </div>
-
-              {/* Deal #4 */}
-              <div className="product_container">
-                <img src="/images/checkout/10.jpg" alt="GlidePro Electric Scooter" />
-                <div className="information">
-                  <p>GlidePro Electric Scooter</p>
-                </div>
-                <nav>
-                  <button className="price">
-                    <span className="old-price">$549.00</span>
-                    <span className="discount">–15%</span>
-                    <span className="new-price">$466.65</span>
-                  </button>
-                  <button
-                    title="add"
-                  // onClick={() => addProduct({
-                  //   id: 504,
-                  //   title: "GlidePro Electric Scooter",
-                  //   price: 466.65,
-                  //   description: "Foldable e‑scooter with LED display and 25‑mile range.",
-                  //   category: "Outdoor Mobility",
-                  //   image_url: "",
-                  //   discount: 15,
-                  // })}
-                  >
-                    Add to cart
-                  </button>
-                  <button title="checkout" onClick={() => confirmOrder()}>
-                    Checkout
-                  </button>
-                </nav>
-              </div>
             </>
           )}
         </div>

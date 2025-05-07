@@ -1,4 +1,4 @@
-import { JSX, useCallback, useEffect, useState } from "react";
+import { JSX, useCallback, useEffect, useRef, useState } from "react";
 import '../../../styles/home.css';
 import HomeAvailableProduct from "../Home Component/HomeProducts";
 import HomeSignUp from "../Home Component/HomeSignUp";
@@ -15,7 +15,7 @@ import { fetchUserDetails } from "@/services/api";
 export default function ShoppingPageHome(): JSX.Element {
   const { userId } = useAuth();   // ← grab userId from context
   const { cartProducts } = useProductContext()
-  const [showAdminOption, setShowAdminOption] = useState(false);
+  const [showAccountOption, setShowAccountOption] = useState(false);
   const [showCheckoutSummary, setShowCheckoutSummary] = useState(false);
 
   const [activeButton, setActiveButton] = useState('Home');
@@ -30,22 +30,49 @@ export default function ShoppingPageHome(): JSX.Element {
     // Perform additional actions here
   };
 
-  function handleAccountClick() {
-    setShowAdminOption(prev => !prev);
-  }
+  // Separate refs for each timer
+  const accountTimerRef = useRef<number | null>(null);
+  const checkoutTimerRef = useRef<number | null>(null);
 
-  function CloseHandleAccountClick() {
-    setShowAdminOption(prev => !prev);
-  }
+  // Utility to clear a given timer ref
+  const clearTimer = useCallback((ref: React.MutableRefObject<number | null>) => {
+    if (ref.current !== null) {
+      clearTimeout(ref.current);
+      ref.current = null;
+    }
+  }, []);
 
-  function CheckoutSummaryClick() {
-    setShowCheckoutSummary(prev => !prev)
-  }
+  //
+  // Account menu handlers
+  //
+  const onAccountEnter = () => {
+    clearTimer(accountTimerRef);
+    setShowAccountOption(true);
+  };
 
-  function CloseCheckoutSummaryClick() {
-    setShowCheckoutSummary(prev => !prev)
-  }
+  const onAccountLeave = () => {
+    clearTimer(accountTimerRef);
+    accountTimerRef.current = window.setTimeout(() => {
+      setShowAccountOption(false);
+      accountTimerRef.current = null;
+    }, 2000);
+  };
 
+  //
+  // Checkout summary handlers
+  //
+  const onCheckoutEnter = () => {
+    clearTimer(checkoutTimerRef);
+    setShowCheckoutSummary(true);
+  };
+
+  const onCheckoutLeave = () => {
+    clearTimer(checkoutTimerRef);
+    checkoutTimerRef.current = window.setTimeout(() => {
+      setShowCheckoutSummary(false);
+      checkoutTimerRef.current = null;
+    }, 2000);
+  };
 
   const renderSideViewContent = useCallback(() => {
     switch (activeButton) {
@@ -185,7 +212,7 @@ export default function ShoppingPageHome(): JSX.Element {
               {/* account */}
               <div
                 className="myAccount_title"
-                onMouseEnter={() => handleAccountClick()}
+                onMouseEnter={() => onAccountEnter()}
               >
                 <i className="profile_widget_icon"  >
                   <svg
@@ -208,9 +235,9 @@ export default function ShoppingPageHome(): JSX.Element {
                     <path d="M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z" />
                   </svg>
                 </i>
-                {showAdminOption &&
+                {showAccountOption &&
                   <div className="position"
-                    onMouseLeave={() => CloseHandleAccountClick()}
+                    onMouseLeave={() => onAccountLeave()}
                   >
                     <div id="accountOptions" className="collapse">
                       <button
@@ -272,7 +299,7 @@ export default function ShoppingPageHome(): JSX.Element {
               </div>
               {/* userCart */}
               <div className="checkout_cart"
-                onMouseEnter={() => CheckoutSummaryClick()}
+                onMouseEnter={() => onCheckoutEnter()}
               >
                 <i className="shopping_cart_widget_icon ">
                   <svg
@@ -318,7 +345,7 @@ export default function ShoppingPageHome(): JSX.Element {
                     className="position"
                   >
                     <div
-                      onMouseLeave={() => CloseCheckoutSummaryClick()}
+                      onMouseLeave={() => onCheckoutLeave()}
                       id="checkout_summary"
                       className="dropdown-content"
                     >
