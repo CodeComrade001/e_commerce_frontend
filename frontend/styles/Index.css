@@ -6,6 +6,16 @@
   position: relative;
   box-sizing: border-box;
 }
+@media (max-width: 700px) {
+  #root {
+    height: 100svh;
+    width: 100svw;
+    padding: 0;
+    margin: 0;
+    position: relative;
+    box-sizing: border-box;
+  }
+}
 
 html,
 body {

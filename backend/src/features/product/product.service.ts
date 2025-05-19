@@ -73,7 +73,7 @@ export async function fetchProductDetails(): Promise<Product[]> {
         created_at
       FROM products
       ORDER BY id
-      LIMIT 20;
+      LIMIT 50;
     `;  // ORDER BY goes before LIMIT :contentReference[oaicite:0]{index=0}
 
     const { rows } = await pool.query<Product>(queryText);

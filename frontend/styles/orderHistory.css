@@ -3,22 +3,256 @@
 #orderHistoryComponent {
   position: absolute;
   height: 70%;
-  right: 10%;
-  top: 20%;
   width: 60%;
   display: flex;
   flex-direction: column;
   background-color: white;
   border-radius: 10px;
+  padding: 10px 10px 10px 10px;
+  gap: 10px;
+  top: 58%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+#orderHistoryComponent .more_item_side_bar {
+  position: absolute;
+  z-index: 10;
+  right: 6px;
+  display: flex;
+  box-shadow: inset 0px 0px 25px #000c6659;
+  flex-direction: column;
+  width: 40%;
+  padding: 5px 10px;
+  border-radius: 10px;
+  -webkit-backdrop-filter: blur(25px) saturate(200%);
+  backdrop-filter: blur(25px) saturate(200%);
+  background-color: rgba(228, 232, 240, 0.73);
+  border: 1px solid rgba(255, 255, 255, 0.125);
+  gap: 10px;
+  height: 95%;
+}
+
+#orderHistoryComponent .more_item_side_bar .close_sidebar {
+  position: absolute;
+  font-size: 1.5em;
+  left: -40px;
+  border: 3px ridge #000c6659;
+  padding: 20px;
+  top: 50%;
+  background-color: white;
+  z-index: -1;
+  cursor: pointer;
+  box-shadow: inset 0px 0px 25px #000c6659;
+}
+
+#orderHistoryComponent .more_item_side_bar > * {
+  border-radius: 10px;
+}
+
+#orderHistoryComponent .more_item_side_bar .user {
+  background-color: #fff;
+  height: 30px;
+  font-size: 1.7em;
+  padding: 5px 10px;
+}
+
+#orderHistoryComponent .more_item_side_bar .user_email {
+  background-color: #fff;
+  height: 30px;
+  font-size: 1.5em;
+  padding: 5px 10px;
+}
+
+#orderHistoryComponent .more_item_side_bar .ordered_at {
+  background-color: #fff;
+  height: 30px;
+  font-size: 1.3em;
+  padding: 5px 10px;
+}
+
+#orderHistoryComponent .more_item_side_bar .product_ordered {
+  gap: 10px;
+  height: 100%;
   overflow-y: auto;
-  padding: 40px 10px 10px 10px;
+  padding: 20px;
+  background-color: white;
+  display: flex;
+  flex-direction: column;
+}
+
+#orderHistoryComponent .more_item_side_bar .product_container {
+  display: flex;
+}
+
+#orderHistoryComponent
+  .more_item_side_bar
+  .product_container
+  > .each_product_details {
+  display: grid;
+  grid-template-columns: 45% 55%;
+  height: 100%;
+  grid-template-rows: 1fr auto;
+  gap: 10px;
+}
+
+#orderHistoryComponent
+  .more_item_side_bar
+  .product_container
+  .each_product_details
+  > span {
+  height: 60%;
+  width: 100%;
+}
+
+#orderHistoryComponent
+  .more_item_side_bar
+  .product_container
+  .each_product_details
+  > span
+  > img {
+  width: 100%;
+  border-radius: 10px;
+}
+
+#orderHistoryComponent
+  .more_item_side_bar
+  .product_container
+  .each_product_details_options {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+#orderHistoryComponent
+  .more_item_side_bar
+  .product_container
+  > .each_product_details_options
+  > .category {
+  font-size: 1.7em;
+}
+
+#orderHistoryComponent
+  .more_item_side_bar
+  .product_container
+  > .each_product_details_options
+  > .title {
+  font-size: 1.1em;
+}
+
+#orderHistoryComponent
+  .more_item_side_bar
+  .product_container
+  > .each_product_details_options
+  > .qty {
+  font-size: 1.2em;
+}
+
+#orderHistoryComponent
+  .more_item_side_bar
+  .product_container
+  > .each_product_details_options
+  > .price {
+  font-size: 1.2em;
+}
+
+#orderHistoryComponent
+  .more_item_side_bar
+  .product_container
+  > .each_product_details_options:nth-child(1)
+  > * {
+  height: fit-content;
+  border: 3px ridge #000c6659;
+  border-radius: 10px;
+  padding: 5px;
+}
+
+#orderHistoryComponent
+  .more_item_side_bar
+  .product_container
+  .each_product_details_options.description {
+  grid-column: span 2;
+}
+
+#orderHistoryComponent
+  .more_item_side_bar
+  .product_container
+  .each_product_details_options:nth-child(2)
+  > * {
+  height: fit-content;
+  border: 3px ridge #000c6659;
+  border-radius: 10px;
+  padding: 5px;
+}
+
+#orderHistoryComponent
+  .more_item_side_bar
+  .each_product_details
+  > span:nth-child(1) {
+  font-size: 1.2em;
+}
+
+#orderHistoryComponent
+  .more_item_side_bar
+  .each_product_details
+  > span:nth-child(2) {
+  font-size: 1.2em;
+}
+
+#orderHistoryComponent
+  .more_item_side_bar
+  .each_product_details
+  > span:nth-child(3) {
+  font-size: 1.2em;
+}
+
+#orderHistoryComponent
+  .more_item_side_bar
+  .each_product_details
+  > span:nth-child(4) {
+  font-size: 1.2em;
+}
+
+#orderHistoryComponent
+  .more_item_side_bar
+  .each_product_details
+  > span:nth-child(5) {
+  font-size: 1.2em;
+}
+
+/* Keyframes */
+@keyframes slideIn {
+  from {
+    transform: translateX(100%);
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+@keyframes slideOut {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(100%);
+  }
+}
+
+/* When mounting (showMoreItems=true) */
+#orderHistoryComponent .more_item_side_bar.slide-in {
+  animation: slideIn 1s ease-out forwards;
+}
+
+/* When unmounting (showMoreItems=false) */
+#orderHistoryComponent .more_item_side_bar.slide-out {
+  animation: slideOut 5s ease-in forwards;
 }
 
 #orderHistoryComponent > .date_search {
-  position: absolute;
-  left: 30px;
-  background-color: whitesmoke;
-  top: 10px;
+  background-color: white;
+  height: 10%;
+  display: flex;
+  align-items: center;
 }
 
 #orderHistoryComponent > .date_search > input {
@@ -27,8 +261,8 @@
   padding: 10px 15px;
   font-size: 1.2em;
   border-radius: 10px;
-  border: none;
   border: 3px ridge #000c6659;
+  margin: auto 0;
 }
 
 #orderHistoryComponent * {
@@ -40,19 +274,28 @@
 /* Inside orderHistoryComponent we target the checkout_summary section */
 #orderHistoryComponent #checkout_summary {
   display: flex;
-  flex-wrap: wrap;
-  width: 100%;
   height: 100%;
+  overflow-y: auto;
+  flex-direction: column;
+  padding: 20px 0;
 }
+
+
 
 #orderHistoryComponent #checkout_summary .blog-card {
   background: #fff;
   border-radius: 32px;
   box-shadow: 24px 24px 80px rgba(0, 0, 0, 0.1);
   margin: 20px;
-  overflow: hidden;
   display: flex;
   position: relative;
+  height: 150px;
+}
+
+#orderHistoryComponent #checkout_summary .blog-card:hover {
+  box-shadow: 0 0 10px 5px grey;
+  transform: translateY(0) scale(1);
+  opacity: 1;
 }
 
 @media (min-width: 576px) {
@@ -72,6 +315,7 @@
   #orderHistoryComponent #checkout_summary .blog-card__image {
     width: 20%;
     height: 100%;
+    border-radius: 10px;
   }
 }
 
@@ -97,15 +341,14 @@
 
 #orderHistoryComponent #checkout_summary .blog-card__date {
   display: block;
-  font-family: "PT Sans", sans-serif;
-  font-size: 14px;
   line-height: 1.2;
-  text-transform: uppercase;
+  text-transform: capitalize;
   color: #222022;
   margin-bottom: 8px;
   position: absolute;
   left: 50px;
   top: 10px;
+  font-size: 1.2em;
 }
 
 #orderHistoryComponent #checkout_summary .blog-card__title {
@@ -121,6 +364,8 @@
   color: #222022;
   line-height: 1.6;
   margin-bottom: 16px;
+  font-size: 1.5em;
+  margin: auto 0;
 }
 
 #orderHistoryComponent #checkout_summary .blog-card__comments {

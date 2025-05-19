@@ -199,10 +199,10 @@
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   grid-template-rows: repeat(4, 1fr);
-  gap: 40px;
   padding: 10px;
   background-color: white;
   border-radius: 10px;
+  gap: 10px;
 }
 
 #dashboard_content #all_orders .all_orders_container::-webkit-scrollbar {
@@ -213,45 +213,48 @@
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   grid-template-rows: repeat(4, 1fr);
-  gap: 40px;
+  gap: 10px;
 }
 
 #dashboard_content #all_orders .all_orders_container .product_ordered {
   display: flex;
   align-items: center;
-  padding: 10px 0;
   height: fit-content;
   width: 100%;
   flex-direction: column;
-  box-shadow: 0 0 6px 5px grey;
+  background-color: whitesmoke;
   border-radius: 10px;
+  padding: 5px;
 }
 
 #dashboard_content #all_orders .all_orders_container .image_container {
   display: grid;
-  grid-template-rows: repeat(2, 200px);
+  grid-template-rows: repeat(2, 150px);
   grid-template-columns: repeat(2, auto);
   width: 100%;
   gap: 5px;
   height: 100px;
+  background-color: white;
 }
 
 #dashboard_content #all_orders .all_orders_container .options {
   display: grid;
-  grid-template-rows: repeat(2, 1fr);
+  grid-template-rows: repeat(3, 1fr);
   grid-template-columns: 1fr 1fr 1fr;
   width: 100%;
   gap: 5px;
   height: 100px;
+  background-color: white;
 }
 
 #dashboard_content #all_orders .all_orders_container .options > .user_email {
-  grid-column: span 2;
+  grid-column: span 3;
   font-size: 1.2em;
+  padding: 10px;
 }
 
 #dashboard_content #all_orders .all_orders_container .options > .date {
-  grid-column: span 1.5;
+  grid-column: span 3;
   font-size: 1.2em;
 }
 
@@ -571,87 +574,31 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  position: relative;
+  gap: 10px;
+  padding: 10px 0;
+  margin: 0 15%;
 }
 
-#dashboard_content #weekly_chart_order #order_bar_chart {
+#dashboard_content #weekly_chart_order #order_bar_chart > .day-bar-container {
+  width: 15%;
   display: flex;
-  justify-content: center;
-  align-items: center;
   gap: 5px;
-  padding: 10px 0;
+  background-color: whitesmoke;
+  height: 100%;
+  align-items: end;
+  border-radius: 10px;
 }
 
 #dashboard_content #weekly_chart_order #order_bar_chart .active_container {
-  background-color: yellow;
-  width: 10px;
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-end;
-  border-radius: 10px;
-  height: 100%;
+  background-color: green;
+  width: 50%;
+  border-radius: 5px;
 }
 
 #dashboard_content #weekly_chart_order #order_bar_chart .complete_bar {
-  border-radius: 10px;
+  border-radius: 5px;
   background-color: blue;
-  width: 10px;
-}
-
-#dashboard_content
-  #weekly_chart_order
-  #order_bar_chart
-  .active_container:nth-child(1)
-  .complete_bar {
-  height: 19%;
-}
-
-#dashboard_content
-  #weekly_chart_order
-  #order_bar_chart
-  .active_container:nth-child(2)
-  .complete_bar {
-  height: 57%;
-}
-
-#dashboard_content
-  #weekly_chart_order
-  #order_bar_chart
-  .active_container:nth-child(3)
-  .complete_bar {
-  height: 24%;
-}
-
-#dashboard_content
-  #weekly_chart_order
-  #order_bar_chart
-  .active_container:nth-child(4)
-  .complete_bar {
-  height: 96%;
-}
-
-#dashboard_content
-  #weekly_chart_order
-  #order_bar_chart
-  .active_container:nth-child(5)
-  .complete_bar {
-  height: 13%;
-}
-
-#dashboard_content
-  #weekly_chart_order
-  #order_bar_chart
-  .active_container:nth-child(6)
-  .complete_bar {
-  height: 54%;
-}
-
-#dashboard_content
-  #weekly_chart_order
-  #order_bar_chart
-  .active_container:nth-child(7)
-  .complete_bar {
-  height: 23%;
+  width: 50%;
 }
 
 #dashboard_content #weekly_chart_order > #order_label {
@@ -668,17 +615,6 @@
   height: 100%;
 }
 
-#dashboard_content
-  #weekly_chart_order
-  > #order_label
-  > div:nth-child(1)
-  > .color_indicator {
-  background-color: blue;
-  display: flex;
-  width: 15px;
-  height: 10px;
-}
-
 #dashboard_content #weekly_chart_order > #order_label > div .active_indicator {
   background-color: yellow;
   display: flex;
@@ -688,14 +624,15 @@
 
 #dashboard_content #weekly_chart_order > #order_label > span {
   font-size: 1.2em;
-  text-align: right;
+  text-align: center;
 }
 
 #dashboard_content #active_coupons {
-  background-color: whitesmoke;
+  background-color: white;
   grid-area: 4 / 2 / 5 / 3;
-  display: flex;
-  flex-direction: column;
+  display: grid;
+  grid-auto-rows: 20% 60% 20%;
+  border-radius: 10px;
 }
 
 #dashboard_content #active_coupons > #header {
@@ -703,8 +640,8 @@
   display: flex;
   align-items: center;
   width: 100%;
-  flex: 10%;
   background-color: white;
+  border-radius: 10px;
 }
 
 #dashboard_content #active_coupons > #header button {
@@ -724,7 +661,6 @@
 #dashboard_content #active_coupons #header .complete_order {
   background-color: white;
   border: none;
-  height: 90%;
   width: fit-content;
   font-size: 1.2em;
   margin: 10px;
@@ -758,84 +694,31 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  position: relative;
-  gap: 5px;
-  height: 100%;
+  gap: 10px;
   padding: 10px 0;
-  flex: 80%;
-  background-color: white;
+  margin: 0 15%;
+}
+
+#dashboard_content #active_coupons #order_bar_chart > .day-bar-container {
+  width: 15%;
+  display: flex;
+  gap: 5px;
+  background-color: whitesmoke;
+  height: 100%;
+  align-items: end;
+  border-radius: 10px;
 }
 
 #dashboard_content #active_coupons #order_bar_chart .active_container {
-  background-color: yellow;
-  width: 10px;
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-end;
-  border-radius: 10px;
-  height: 100%;
+  background-color: green;
+  width: 50%;
+  border-radius: 5px;
 }
 
 #dashboard_content #active_coupons #order_bar_chart .complete_bar {
-  border-radius: 10px;
   background-color: blue;
-  width: 10px;
-}
-
-#dashboard_content
-  #active_coupons
-  #order_bar_chart
-  .active_container:nth-child(1)
-  .complete_bar {
-  height: 19%;
-}
-
-#dashboard_content
-  #active_coupons
-  #order_bar_chart
-  .active_container:nth-child(2)
-  .complete_bar {
-  height: 57%;
-}
-
-#dashboard_content
-  #active_coupons
-  #order_bar_chart
-  .active_container:nth-child(3)
-  .complete_bar {
-  height: 24%;
-}
-
-#dashboard_content
-  #active_coupons
-  #order_bar_chart
-  .active_container:nth-child(4)
-  .complete_bar {
-  height: 96%;
-}
-
-#dashboard_content
-  #active_coupons
-  #order_bar_chart
-  .active_container:nth-child(5)
-  .complete_bar {
-  height: 13%;
-}
-
-#dashboard_content
-  #active_coupons
-  #order_bar_chart
-  .active_container:nth-child(6)
-  .complete_bar {
-  height: 54%;
-}
-
-#dashboard_content
-  #active_coupons
-  #order_bar_chart
-  .active_container:nth-child(7)
-  .complete_bar {
-  height: 23%;
+  width: 50%;
+  border-radius: 5px;
 }
 
 #dashboard_content #active_coupons > #order_label {
@@ -844,6 +727,7 @@
   grid-template-columns: 80% 20%;
   background-color: white;
   padding: 0 10px;
+  border-radius: inherit;
 }
 
 #dashboard_content #active_coupons > #order_label > div {
@@ -852,17 +736,6 @@
   font-size: 1.5em;
   gap: 10px;
   height: 100%;
-}
-
-#dashboard_content
-  #active_coupons
-  > #order_label
-  > div:nth-child(1)
-  > .color_indicator {
-  background-color: blue;
-  display: flex;
-  width: 15px;
-  height: 10px;
 }
 
 #dashboard_content #active_coupons > #order_label > div .active_indicator {
@@ -877,281 +750,85 @@
   text-align: right;
 }
 
+/* weekly sales analysis report  */
+
 #dashboard_content #weekly_sales {
-  display: flex;
-  gap: 10px;
   grid-area: 1/3/2/4;
-  flex-direction: column;
+  padding: 10px;
 }
 
-#dashboard_content #weekly_sales > .coupon_sales_chart,
 #dashboard_content #weekly_sales > .weekly_sales_chart {
   width: 100%;
-  height: 50%;
-  display: flex;
-  border-radius: 10px;
-  background-color: white;
-}
-
-#dashboard_content #weekly_sales > .coupon_sales_chart .total_sales_info,
-#dashboard_content #weekly_sales > .weekly_sales_chart .total_sales_info {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  margin-left: 10px;
-}
-
-#dashboard_content
-  #weekly_sales
-  > .coupon_sales_chart
-  .total_sales_info
-  > div:nth-child(1),
-#dashboard_content
-  #weekly_sales
-  > .weekly_sales_chart
-  .total_sales_info
-  > div:nth-child(1) {
-  width: fit-content;
-  height: fit-content;
-  padding: 5px;
-  font-size: 1.1em;
-  font-weight: bolder;
-  border-radius: 10px;
-}
-
-#dashboard_content
-  #weekly_sales
-  > .coupon_sales_chart
-  .total_sales_info
-  > div:nth-child(2),
-#dashboard_content
-  #weekly_sales
-  > .weekly_sales_chart
-  .total_sales_info
-  > div:nth-child(2) {
-  width: fit-content;
-  height: fit-content;
-  padding: 5px;
-  font-size: 1.5em;
-  font-weight: bolder;
-  border-radius: 10px;
-}
-
-#dashboard_content
-  #weekly_sales
-  > .coupon_sales_chart
-  .total_sales_info
-  > div:nth-child(3),
-#dashboard_content
-  #weekly_sales
-  > .weekly_sales_chart
-  .total_sales_info
-  > div:nth-child(3) {
-  width: fit-content;
-  height: fit-content;
-  padding: 5px;
-  font-size: 1em;
-  background-color: blue;
-  font-weight: bolder;
-  border-radius: 10px;
-}
-
-#dashboard_content #weekly_sales > .coupon_sales_chart #order_bar_chart,
-#dashboard_content #weekly_sales > .weekly_sales_chart #order_bar_chart {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-#dashboard_content
-  #weekly_sales
-  > .coupon_sales_chart
-  #order_bar_chart
-  .chart_canvas {
-  height: 100% !important;
-  width: 100% !important;
-}
-
-#dashboard_content
-  #weekly_sales
-  .coupon_sales_chart
-  #order_bar_chart
-  .chart_canvas
-  g,
-#dashboard_content
-  #weekly_sales
-  .coupon_sales_chart
-  #order_bar_chart
-  .chart_canvas
-  path {
-  position: relative;
-  height: 100% !important;
-  width: 100% !important;
-}
-
-#dashboard_content
-  #weekly_sales
-  > .weekly_sales_chart
-  #order_bar_chart
-  > .chart_canvas {
-  position: relative;
-  height: 100% !important;
-  width: 100% !important;
-}
-#dashboard_content #weekly_sales > .coupon_sales_chart #order_bar_chart,
-#dashboard_content #weekly_sales > .weekly_sales_chart #order_bar_chart {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 5px;
-  padding: 10px 0;
-}
-
-#dashboard_content
-  #weekly_sales
-  > .coupon_sales_chart
-  #order_bar_chart
-  .active_container,
-#dashboard_content
-  #weekly_sales
-  > .weekly_sales_chart
-  #order_bar_chart
-  .active_container {
-  background-color: yellow;
-  width: 10px;
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-end;
-  border-radius: 10px;
   height: 100%;
-}
-
-#dashboard_content
-  #weekly_sales
-  > .coupon_sales_chart
-  #order_bar_chart
-  .complete_bar,
-#dashboard_content
-  #weekly_sales
-  > .weekly_sales_chart
-  #order_bar_chart
-  .complete_bar {
-  border-radius: 10px;
-  background-color: blue;
-  width: 10px;
-}
-
-#dashboard_content
-  #weekly_sales
-  > .coupon_sales_chart
-  #order_bar_chart
-  .active_container:nth-child(1)
-  .complete_bar,
-#dashboard_content
-  #weekly_sales
-  > .weekly_sales_chart
-  #order_bar_chart
-  .active_container:nth-child(1)
-  .complete_bar {
-  height: 19%;
-}
-
-#dashboard_content
-  #weekly_sales
-  > .coupon_sales_chart
-  #order_bar_chart
-  .active_container:nth-child(2)
-  .complete_bar,
-#dashboard_content
-  #weekly_sales
-  > .weekly_sales_chart
-  #order_bar_chart
-  .active_container:nth-child(2)
-  .complete_bar {
-  height: 57%;
-}
-
-#dashboard_content
-  #weekly_sales
-  > .coupon_sales_chart
-  #order_bar_chart
-  .active_container:nth-child(3)
-  .complete_bar,
-#dashboard_content
-  #weekly_sales
-  > .weekly_sales_chart
-  #order_bar_chart
-  .active_container:nth-child(3)
-  .complete_bar {
-  height: 24%;
-}
-
-#dashboard_content
-  #weekly_sales
-  > .coupon_sales_chart
-  #order_bar_chart
-  .active_container:nth-child(4)
-  .complete_bar,
-#dashboard_content
-  #weekly_sales
-  > .weekly_sales_chart
-  #order_bar_chart
-  .active_container:nth-child(4)
-  .complete_bar {
-  height: 96%;
-}
-
-#dashboard_content
-  #weekly_sales
-  > .coupon_sales_chart
-  #order_bar_chart
-  .active_container:nth-child(5)
-  .complete_bar,
-#dashboard_content
-  #weekly_sales
-  > .weekly_sales_chart
-  #order_bar_chart
-  .active_container:nth-child(5)
-  .complete_bar {
-  height: 13%;
-}
-
-#dashboard_content
-  #weekly_sales
-  > .coupon_sales_chart
-  #order_bar_chart
-  .active_container:nth-child(6)
-  .complete_bar,
-#dashboard_content
-  #weekly_sales
-  > .weekly_sales_chart
-  #order_bar_chart
-  .active_container:nth-child(6)
-  .complete_bar {
-  height: 54%;
-}
-
-#dashboard_content
-  #weekly_sales
-  > .coupon_sales_chart
-  #order_bar_chart
-  .active_container:nth-child(7)
-  .complete_bar,
-#dashboard_content
-  #weekly_sales
-  > .weekly_sales_chart
-  #order_bar_chart
-  .active_container:nth-child(7)
-  .complete_bar {
-  height: 23%;
-}
-
-#dashboard_content #weekly_sales > .coupon_sales_chart {
   display: flex;
   border-radius: 10px;
   background-color: white;
-  width: 100%;
-  height: 50%;
+  flex-direction: column;
+}
+/* CSS (add under your existing #dashboard_content #weekly_sales) */
+
+#dashboard_content #weekly_sales > .weekly_sales_chart > .metrics_input_panel {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 10px;
+  background-color: #fafafa;
+  border-radius: 10px;
+}
+
+#dashboard_content
+  #weekly_sales
+  > .weekly_sales_chart
+  > .metrics_input_panel
+  label {
+  display: flex;
+  justify-content: space-between;
+  font-size: 1.2em;
+}
+
+#dashboard_content
+  #weekly_sales
+  > .weekly_sales_chart
+  > .metrics_input_panel
+  input {
+  width: 50%;
+  padding: 4px 6px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 1em;
+}
+
+#dashboard_content
+  #weekly_sales
+  > .weekly_sales_chart
+  > .metrics_input_panel
+  button {
+  align-self: flex-start;
+  padding: 6px 12px;
+  font-size: 1.2em;
+  font-weight: bold;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  border: 3px solid #000c6659;
+  background-color: white;
+}
+
+#dashboard_content
+  #weekly_sales
+  > .weekly_sales_chart
+  > .metrics_input_panel
+  button:hover {
+  box-shadow: inset 0px 0px 25px #000c6659;
+}
+
+#dashboard_content #weekly_sales .weekly_sales_chart .total_sales_info > div {
+  margin-top: 4px;
+  font-size: 1.2em;
+}
+
+#dashboard_content #weekly_sales .weekly_sales_chart .total_sales_info  {
+  padding: 5px;
 }
 
 #dashboard_content #download_report {

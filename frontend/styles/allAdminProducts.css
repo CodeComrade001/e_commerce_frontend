@@ -1,0 +1,496 @@
+@import url("https://fonts.googleapis.com/css2?family=Bungee+Tint&family=Inria+Sans&family=Poetsen+One&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap");
+.Admin_All_product {
+  height: 98%;
+  padding: 10px;
+  display: flex;
+  flex-direction: row;
+  width: 99%;
+}
+
+.Admin_All_product * {
+  font-family: "Inria Sans", sans-serif !important ;
+  font-weight: 700 !important;
+  font-style: normal !important;
+}
+
+.Admin_All_product .clothes_type_grouping {
+  display: flex;
+  flex-direction: column;
+  width: 20%;
+  left: 5%;
+  background-color: white;
+  border-radius: 12px;
+  gap: 10px;
+  overflow: auto;
+  border: none;
+  margin: 0px 0px 20px 0px;
+}
+
+.Admin_All_product .clothes_type_grouping > div {
+  width: 100%;
+}
+
+.Admin_All_product .clothes_type_grouping > div > input {
+  height: 40px;
+  width: 95%;
+  margin: 0 auto;
+  border-radius: 10px;
+  background-color: whitesmoke;
+  border: none;
+  font-size: 1.2em;
+}
+
+.Admin_All_product .clothes_type_grouping > div > input::placeholder {
+  text-align: center;
+  font-size: 1.2em;
+}
+
+.Admin_All_product .clothes_type_grouping > fieldset * {
+  font-family: "Inria Sans", sans-serif;
+  font-weight: bolder;
+  font-style: normal;
+}
+
+.Admin_All_product .clothes_type_grouping::-webkit-scrollbar {
+  width: 13px;
+  border-radius: 10px;
+}
+
+.Admin_All_product .clothes_type_grouping > fieldset {
+  height: fit-content;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding-right: 5px;
+  padding-left: 5px;
+  padding-bottom: 1px;
+  border: none;
+}
+
+.Admin_All_product .clothes_type_grouping > fieldset > legend > h1 {
+  font-size: 1.3em;
+  z-index: 1;
+  margin: 0;
+  color: #70869d;
+  font-family: "Lato", sans-serif;
+  font-weight: 900;
+  font-style: normal;
+}
+
+.Admin_All_product .clothes_categories {
+  font-size: 1.2em;
+  padding-bottom: 5px;
+}
+
+.Admin_All_product .clothes_type_grouping > fieldset > * {
+  width: 100%;
+}
+
+/* CSS */
+.Admin_All_product .clothes_grouping_button {
+  border-radius: 10px;
+  color: black;
+  cursor: pointer;
+  display: inline-block;
+  padding: 7px 20px;
+  font-weight: 400;
+  font-style: normal;
+  text-decoration: none;
+  border: 0;
+  font-size: 1.4em;
+  -webkit-user-select: none;
+  user-select: none;
+  text-align: left;
+  touch-action: manipulation;
+  position: relative;
+  border: 3px ridge #000c6659;
+  outline: none;
+  background-color: transparent;
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  text-transform: capitalize;
+}
+
+.Admin_All_product .clothes_grouping_button::after {
+  content: "";
+  position: absolute;
+  top: -5px;
+  left: 3%;
+  width: 95%;
+  height: 30%;
+  background-color: white;
+  transition: 0.5s;
+  transform-origin: center;
+}
+
+.Admin_All_product .clothes_grouping_button::before {
+  content: "";
+  transform-origin: center;
+  position: absolute;
+  top: 90%;
+  left: 3%;
+  width: 95%;
+  height: 30%;
+  background-color: white;
+  transition: 0.5s;
+}
+
+.Admin_All_product .clothes_grouping_button:hover::before,
+.Admin_All_product .clothes_grouping_button:hover::after {
+  transform: scale(0);
+}
+
+.Admin_All_product .clothes_grouping_button:hover {
+  box-shadow: inset 0px 0px 25px #000c6659;
+}
+
+.Admin_All_product .clothes_filter_option {
+  width: 100%;
+  height: 30%;
+}
+
+.Admin_All_product .available_items_container {
+  display: flex;
+  width: 90%;
+  right: 5%;
+  top: 20%;
+  background-color: white;
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.125);
+  padding: 10px;
+}
+
+.Admin_All_product .navigation_option {
+  height: 5%;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  padding: 0 10px;
+  align-items: center;
+}
+
+.Admin_All_product .navigation_option > h2 {
+  font-size: 1.8em;
+}
+
+.Admin_All_product .navigation_option > nav {
+  display: flex;
+  gap: 20px;
+  align-items: center;
+  height: 100%;
+}
+
+.Admin_All_product .navigation_option > nav > * {
+  border: none;
+  height: 90%;
+  border: 3px ridge #000c6659;
+  width: fit-content;
+  background-color: inherit;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0 20px;
+  gap: 10px;
+  border-radius: 10px;
+  font-size: 1.2em;
+}
+
+.Admin_All_product .sort_cloth_filter > svg {
+  height: 20px;
+  width: 20px;
+}
+
+.Admin_All_product .navigation_option_content {
+  height: 90%;
+  border-radius: 5px;
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  grid-template-rows: repeat(5, 1fr);
+  overflow-y: auto;
+  gap: 5px;
+  width: 100%;
+  padding: 20px;
+}
+
+@keyframes pulse {
+  50% {
+    opacity: 0.5;
+  }
+}
+
+.Admin_All_product .navigation_option_content::-webkit-scrollbar {
+  width: 0;
+  height: 0;
+}
+
+.Admin_All_product .product_container {
+  border-radius: 10px;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  padding: 10px 5px;
+  cursor: pointer;
+  transition: transform 0.4s ease, opacity 0.3s ease;
+  -webkit-backdrop-filter: blur(16px) saturate(180%);
+  backdrop-filter: blur(16px) saturate(180%);
+  background-color: rgba(255, 255, 255, 0.75);
+  border-radius: 12px;
+  border: 1px solid rgba(209, 213, 219, 0.3);
+}
+
+.Admin_All_product .product_container:hover {
+  box-shadow: 0 0 10px 5px grey;
+  transform: translateY(0) scale(1.05);
+  opacity: 1;
+  z-index: 10;
+}
+
+.Admin_All_product .product_container .information {
+  padding: 10px 5px;
+  font-size: 1.2em;
+}
+
+.Admin_All_product .product_container > div:nth-child(1) {
+  height: 70%;
+  padding: 10px;
+}
+
+.Admin_All_product .product_container > div:nth-child(1) > img {
+  height: 100%;
+  width: 100%;
+}
+
+.Admin_All_product .product_container > nav {
+  width: 100%;
+  height: fit-content;
+  padding: 5px 0;
+  display: grid;
+  grid-template-rows: repeat(2, 1fr);
+  grid-template-columns: repeat(2, 1fr);
+}
+
+.Admin_All_product .product_container > nav .price {
+  height: fit-content;
+  padding: 5px 11px;
+  display: flex;
+  bottom: 0;
+  font-size: 1.5em;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.Admin_All_product .product_container nav > button {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  /* box-shadow: inset 0px 0px 25px #000c6659; */
+  border: 3px solid #000c6659;
+  justify-content: flex-start;
+  border-radius: 10px;
+  padding: 5px;
+  gap: 5px;
+  font-size: 1.2em;
+}
+
+.Admin_All_product .product_container nav > button .wishlist_svg {
+  height: 20px;
+}
+
+.Admin_All_product .product_container > .image_container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  width: 100%;
+}
+
+.Admin_All_product #all_Images .table_body::-webkit-scrollbar {
+  width: 0;
+}
+
+.Admin_All_product .more_info_container {
+  height: 100%;
+  width: 100%;
+  justify-content: center;
+  align-items: flex-end;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  position: absolute;
+  top: 0;
+  right: 0;
+}
+
+.Admin_All_product .item_price_container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex: 10%;
+  position: absolute;
+  width: 100%;
+  top: 0;
+  height: 10%;
+}
+
+.Admin_All_product .price {
+  height: fit-content;
+  font-size: 1.2em;
+  width: fit-content;
+  background-color: white;
+  padding: 5px 10px;
+  border-radius: 5px;
+  margin-left: 10px;
+}
+
+.Admin_All_product .available_items {
+  height: fit-content;
+  width: fit-content;
+  padding: 5px 10px;
+  color: black;
+  background-color: white;
+  border-radius: 5px;
+  font-size: 1em;
+  margin-right: 10px;
+  font-weight: bolder;
+}
+
+.Admin_All_product .more_info_nav {
+  flex: 90%;
+  height: 90%;
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  justify-content: center;
+  align-items: flex-end;
+  display: flex;
+  gap: 5px;
+}
+
+.Admin_All_product .more_info_nav > button {
+  height: fit-content;
+  width: fit-content;
+  padding: 5px 10px;
+
+  border-radius: 10px;
+  color: black;
+  cursor: pointer;
+  display: inline-block;
+
+  text-align: center;
+  text-decoration: none;
+  transition: all 250ms;
+  border: 0;
+  font-size: 1.2em;
+  -webkit-user-select: none;
+  user-select: none;
+  text-align: left;
+  touch-action: manipulation;
+  position: relative;
+  border: 3px ridge #000c6659;
+  outline: none;
+  background-color: white;
+  transition: 1s;
+  font-weight: bold;
+}
+
+.Admin_All_product .more_info_nav > button::after {
+  content: "";
+  position: absolute;
+  top: -5px;
+  left: 3%;
+  width: 95%;
+  height: 30%;
+  background-color: white;
+  transition: 0.5s;
+  transform-origin: center;
+}
+
+.Admin_All_product .more_info_nav > button::before {
+  content: "";
+  transform-origin: center;
+  position: absolute;
+  top: 90%;
+  left: 3%;
+  width: 95%;
+  height: 30%;
+  background-color: white;
+  transition: 0.5s;
+}
+
+.Admin_All_product .more_info_nav > button:hover::before,
+.Admin_All_product .more_info_nav > button:hover::after {
+  transform: scale(0);
+}
+
+.Admin_All_product .more_info_nav > button:hover {
+  box-shadow: inset 0px 0px 25px #f1742759;
+}
+
+.Admin_All_product .card_footer {
+  flex: 1;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.Admin_All_product .price {
+  font-size: 1.2em;
+  font-weight: bolder;
+}
+
+.Admin_All_product .checkout {
+  width: fit-content;
+  height: fit-content;
+  padding: 2px 5px;
+  display: flex;
+  gap: 10px;
+  font-size: 1.2em;
+}
+
+.Admin_All_product .more_items {
+  width: 100%;
+  height: 5%;
+  display: flex;
+  justify-content: space-between;
+  padding: 3px 5px;
+  align-items: center;
+}
+
+.Admin_All_product .prev_page,
+.Admin_All_product .next_page {
+  width: 20%;
+  height: 100%;
+  border-radius: 10px;
+  color: black;
+  cursor: pointer;
+  display: inline-block;
+  padding: 7px 20px;
+  text-align: center;
+  text-decoration: none;
+  transition: all 250ms;
+  border: 0;
+  font-size: 1.4em;
+  -webkit-user-select: none;
+  user-select: none;
+  touch-action: manipulation;
+  position: relative;
+  border: 3px ridge #000c6659;
+  outline: none;
+  background-color: transparent;
+  transition: 1s;
+  font-weight: bold;
+}
+
+.Admin_All_product .prev_page:hover::before,
+.Admin_All_product .next_page:hover::after {
+  transform: scale(0);
+}
+
+.Admin_All_product .clothes_grouping_button:hover {
+  box-shadow: inset 0px 0px 25px #000c6659;
+}

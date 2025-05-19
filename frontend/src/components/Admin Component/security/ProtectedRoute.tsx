@@ -15,9 +15,9 @@ const ProtectedRoute: React.FC<ProtectedRouteProps> = ({ isAuthenticated, childr
     return <Navigate to="/" />;
   }
 
-  if (!userId) {
-    return <Navigate to="/" replace />;
-  }
+  // if (!userId) {
+  //   return <Navigate to="/" replace />;
+  // }
   return children;
 };
 

@@ -123,7 +123,9 @@ export default function HomeAvailableProduct({
           {products.length > 0 ? (
             products.map((item) => (
               <div key={item.id} className="product_container">
-                <img src={item.image_url} alt="" />
+                <div>
+                  <img src={item.image_url} alt="" />
+                </div>
                 <div className="information">
                   {item.title}
                 </div>

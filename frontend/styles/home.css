@@ -1,10 +1,8 @@
 @import url("https://fonts.googleapis.com/css2?family=Bungee+Tint&family=Inria+Sans&family=Poetsen+One&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap");
-@import url("https://fonts.googleapis.com/css2?family=Bungee+Tint&family=Inria+Sans&family=Poetsen+One&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap");
 
 @font-face {
   font-family: "Inria Sans";
-  src:
-    url("../src/font/InriaSans-Bold.ttf") format("ttf");
+  src: url("../src/font/InriaSans-Bold.ttf") format("ttf");
   font-weight: normal;
   font-style: normal;
   font-display: swap;
@@ -142,16 +140,14 @@
   color: black;
   cursor: pointer;
   display: inline-block;
-  padding: 7px 30px;
+  padding: 7px 20px 7px 10px;
   font-family: "Poetsen One", sans-serif;
-  font-weight: 400;
   font-style: normal;
   text-decoration: none;
   border: 0;
   font-size: 1.4em;
   -webkit-user-select: none;
   user-select: none;
-  text-align: left;
   touch-action: manipulation;
   position: relative;
   border: 3px ridge #000c6659;
@@ -160,7 +156,7 @@
   cursor: pointer;
   display: flex;
   justify-content: space-between;
-  align-items: center;
+  gap: 5px;
 }
 
 /* .nav_bar > button::after {
@@ -849,10 +845,10 @@
   background-color: blue;
   color: white;
   position: absolute;
-  top: -25px;
-  left: 10px;
+  top: -20px;
   font-weight: bolder;
   font-size: 1em;
+  left: 25px;
 }
 
 #checkout_summary {

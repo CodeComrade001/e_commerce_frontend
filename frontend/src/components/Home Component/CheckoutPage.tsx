@@ -22,7 +22,7 @@ export interface OrderRequest {
 export default function OrderSummary(): JSX.Element {
   const { userId } = useAuth();
   console.log("🚀 ~ OrderSummary ~ userId:", userId)
-  const { cartProducts, removeProduct, updateQuantity } = useProductContext();
+  const { cartProducts, removeProduct, clearCart, updateQuantity } = useProductContext();
   console.log("🚀 ~ OrderSummary ~ cartProducts:", cartProducts)
 
   const handleQtyChange = (id: number, delta: number) => {
@@ -47,6 +47,8 @@ export default function OrderSummary(): JSX.Element {
       }
     } catch (err) {
       console.error('placeOrder error user has not logged in', err);
+    } finally {
+      clearCart()
     }
   }, [userId, cartProducts]);
 

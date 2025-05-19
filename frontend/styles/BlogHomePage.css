@@ -1,8 +1,6 @@
 #homeBlogComponent {
   position: absolute;
   height: 70%;
-  right: 10%;
-  top: 20%;
   width: 60%;
   display: flex;
   flex-direction: column;
@@ -10,6 +8,9 @@
   border-radius: 10px;
   overflow-y: auto;
   padding: 10px;
+  top: 58%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 }
 
 /* Inside homeBlogComponent we target the checkout_summary section */

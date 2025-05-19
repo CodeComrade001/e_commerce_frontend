@@ -1,15 +1,14 @@
-// src/utils/validate.ts
-import { ObjectSchema, ValidationError } from 'joi';
+import { Schema, ValidationError } from 'joi';
 
 /**
- * Validate and coerce `payload` against a Joi schema.
- * @param schema  Joi schema typed to T.
+ * Validate and coerce `payload` against a Joi schema (object or array).
+ * @param schema  Joi Schema<T> (object or array) typed to T.
  * @param payload  Arbitrary input to validate.
  * @returns        Validated value as T.
  * @throws         HTTP 400 error if validation fails.
  */
 export function validateSchema<T>(
-  schema: ObjectSchema<T>,
+  schema: Schema<T>,
   payload: unknown
 ): T {
   const { value, error } = schema.validate(payload, {
@@ -19,11 +18,15 @@ export function validateSchema<T>(
   });
 
   if (error) {
-    const message = error.details.map(d => d.message).join(', ');
+    const message = (error as ValidationError)
+      .details
+      .map(d => d.message)
+      .join(', ');
     const err = new Error(`Validation failed: ${message}`);
+    // mark as HTTP 400
     (err as any).status = 400;
     throw err;
   }
 
-  return value;  // now strongly typed as T
+  return value;
 }

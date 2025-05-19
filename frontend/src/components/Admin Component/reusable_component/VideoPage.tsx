@@ -1,6 +1,6 @@
 import { JSX } from "react";
 import "../../../../styles/videosPage.css"
-import LineChartDiagram from "@/components/ui/card";
+import LineChartDiagram from "@/components/ui/line-chart";
 
 export default function VideosComponent(): JSX.Element {
 

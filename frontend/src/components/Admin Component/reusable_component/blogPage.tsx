@@ -1,6 +1,6 @@
 import { JSX } from "react";
 import "../../../../styles/blog.css";
-import LineChartDiagram from "@/components/ui/card";
+import LineChartDiagram from "@/components/ui/line-chart";
 
 export default function BlogComponent(): JSX.Element {
   return (

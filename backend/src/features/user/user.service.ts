@@ -21,30 +21,36 @@ export async function getUserDetails(userId: number) {
     FROM users
     WHERE id = $1
   `;
-  const { rows } = await pool.query(sql, [userId]);
-  return rows[0] || null;
+  try {
+    const { rows } = await pool.query(sql, [userId]);
+    return rows[0] || null;
+  } catch (error) {
+    console.error('🚀 ~ getUserDetails ~ error:', error);
+    return null;
+  }
 }
 
 export async function placeOrder(dto: PlaceOrderRequest) {
-  const { userId, products } = dto
-  const test = JSON.stringify(products)
-  console.log("🚀 ~ placeOrder ~ test:", test)
+  const { userId, products } = dto;
   const productFormat = products.map(p => ({
     ...p,
     qty: p.qty ?? 1
-  }))
-  // console.log("🚀 ~ productDetails:", products)
-  console.log("🚀 ~ productFormat ~ productFormat:", productFormat)
+  }));
+
   const sql = `
     INSERT INTO orders (user_id, product_details, ordered_at)
     VALUES ($1, $2::jsonb, NOW())
   `;
-  await pool.query(sql, [userId, JSON.stringify(productFormat)]);
+  try {
+    await pool.query(sql, [userId, JSON.stringify(productFormat)]);
+  } catch (error) {
+    console.error('🚀 ~ placeOrder ~ error:', error);
+    throw error; // let caller know insertion failed
+  }
 }
 
 export async function getUserPlaceOrder(dto: { userId: number }) {
-  const { userId } = dto;    // <-- extract the integer
-  console.log("🚀 ~ getUserPlaceOrder ~ userId:", userId)
+  const { userId } = dto;
   const sql = `
     SELECT
       id            AS order_id,
@@ -55,9 +61,13 @@ export async function getUserPlaceOrder(dto: { userId: number }) {
     ORDER BY id
     LIMIT 10
   `;
-  const { rows } = await pool.query(sql, [userId]);
-  console.log("🚀 ~ getUserPlaceOrder ~ rows:", rows)
-  return rows;  // rows is an array of { order_id, product_details, ordered_at }
+  try {
+    const { rows } = await pool.query(sql, [userId]);
+    return rows;
+  } catch (error) {
+    console.error('🚀 ~ getUserPlaceOrder ~ error:', error);
+    return [];
+  }
 }
 
 export async function removeOrder(userId: number, orderId: number) {
@@ -65,9 +75,14 @@ export async function removeOrder(userId: number, orderId: number) {
     DELETE FROM orders
     WHERE id = $1 AND user_id = $2
   `;
-  const result = await pool.query(sql, [orderId, userId]);
-  if (result.rowCount === 0) {
-    throw new Error('Order not found or unauthorized');
+  try {
+    const result = await pool.query(sql, [orderId, userId]);
+    if (result.rowCount === 0) {
+      throw new Error('Order not found or unauthorized');
+    }
+  } catch (error) {
+    console.error('🚀 ~ removeOrder ~ error:', error);
+    throw error;
   }
 }
 
@@ -91,19 +106,28 @@ export async function fetchWishlistOrder(dto: { userId: number }) {
     ORDER BY p.id
     LIMIT 20;
   `;
-  const { rows } = await pool.query(sql, [userId]);
-  return rows;
+  try {
+    const { rows } = await pool.query(sql, [userId]);
+    return rows;
+  } catch (error) {
+    console.error('🚀 ~ fetchWishlistOrder ~ error:', error);
+    return [];
+  }
 }
-
 
 export async function addWishlist(dto: { userId: number; productId: number }) {
   const { userId, productId } = dto;
   const sql = `
-  INSERT INTO wishlist (user_id, product_id, created_at)
+    INSERT INTO wishlist (user_id, product_id, created_at)
     VALUES ($1, $2, NOW())
     ON CONFLICT DO NOTHING
-    `;
-  await pool.query(sql, [userId, productId]);
+  `;
+  try {
+    await pool.query(sql, [userId, productId]);
+  } catch (error) {
+    console.error('🚀 ~ addWishlist ~ error:', error);
+    throw error;
+  }
 }
 
 export async function removeWishlist(dto: { userId: number; productId: number }) {
@@ -112,7 +136,12 @@ export async function removeWishlist(dto: { userId: number; productId: number })
     DELETE FROM wishlist
     WHERE user_id = $1 AND product_id = $2
   `;
-  await pool.query(sql, [userId, productId]);
+  try {
+    await pool.query(sql, [userId, productId]);
+  } catch (error) {
+    console.error('🚀 ~ removeWishlist ~ error:', error);
+    throw error;
+  }
 }
 
 export async function updateUser({
@@ -125,10 +154,17 @@ export async function updateUser({
   if (email) { fields.push(`email = $${idx++}`); values.push(email); }
   if (avatar_url) { fields.push(`avatar_url = $${idx++}`); values.push(avatar_url); }
   if (fields.length === 0) return;
+
   const sql = `
     UPDATE users SET ${fields.join(', ')}
     WHERE id = $${idx}
   `;
   values.push(userId);
-  await pool.query(sql, values);
+
+  try {
+    await pool.query(sql, values);
+  } catch (error) {
+    console.error('🚀 ~ updateUser ~ error:', error);
+    throw error;
+  }
 }
