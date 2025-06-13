@@ -84,7 +84,10 @@ export function updateUserDetails(data: { userId: number, name: string, email: s
   return api.patch('/api/user', data, config)
 }
 
-// all admin api
+// ============================
+// Admin Product APIs
+// ============================
+
 export const fetchAdminAllProducts = () => {
   return api.get('/api/admin/product/grouped');  // will hit http://localhost:3000/api/products
 }
@@ -237,4 +240,13 @@ export const fetchAdminWeeklyCouponRatios = () => {
  */
 export const fetchAdminCustomerSummary = () => {
   return api.get('/api/admin/analytics/customer-summary');
+};
+
+
+// ============================
+// Admin Blog APIs
+// ============================
+
+export const fetchAllBlogPost = () => {
+  return api.get('/api/admin/blog/all');
 };

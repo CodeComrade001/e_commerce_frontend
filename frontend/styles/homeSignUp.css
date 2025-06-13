@@ -4,255 +4,383 @@
 .SignInComponent {
   display: flex;
   width: 60%;
-  height: 70%;
-  position: absolute;
+  height: 90%;
   border-radius: 10px;
-  top: 58%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-}
-
-.SignInComponent * {
-  font-family: "Inria Sans", sans-serif !important ;
-  font-weight: 700 !important;
-  font-style: normal !important;
-}
-
-/* SignInComponent.css */
-.SignInComponent *,
-.SignInComponent *:before,
-.SignInComponent *:after {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-}
-
-.SignInComponent input,
-.SignInComponent button {
-  border: none;
-  outline: none;
-  background: none;
-  font-family: inherit;
-}
-
-.SignInComponent .cont {
-  border-radius: 20px;
-  overflow: hidden;
-  position: relative;
-  width: 900px;
-  height: 550px;
-  background: #fff;
-  margin: auto;
-  box-shadow: -10px -10px 15px rgba(255, 255, 255, 0.3),
-    10px 10px 15px rgba(70, 70, 70, 0.15),
-    inset -10px -10px 15px rgba(255, 255, 255, 0.3),
-    inset 10px 10px 15px rgba(70, 70, 70, 0.15);
-}
-
-.SignInComponent .form {
-  position: relative;
-  width: 640px;
-  height: 100%;
-  transition: transform 1.2s ease-in-out;
-  padding: 50px 30px 0;
-}
-
-.SignInComponent .sub-cont {
-  overflow: hidden;
-  position: absolute;
-  left: 640px;
-  top: 0;
-  width: 900px;
-  height: 100%;
-  padding-left: 260px;
-  background: #fff;
-  transition: transform 1.2s ease-in-out;
-}
-
-.SignInComponent.s--signup .sub-cont {
-  transform: translate3d(-640px, 0, 0);
-}
-
-.SignInComponent button {
-  display: block;
-  margin: 0 auto;
-  width: 260px;
-  height: 36px;
-  border-radius: 30px;
-  color: #fff;
-  font-size: 15px;
-  cursor: pointer;
-}
-
-.SignInComponent .img {
-  overflow: hidden;
-  z-index: 2;
-  position: absolute;
-  left: 0;
-  top: 0;
-  width: 260px;
-  height: 100%;
-  padding-top: 360px;
-}
-
-.SignInComponent .img:before {
-  content: "";
-  position: absolute;
-  right: 0;
-  top: 0;
-  width: 900px;
-  height: 100%;
-  background-image: url("ext.jpg");
-  opacity: 0.8;
-  background-size: cover;
-  transition: transform 1.2s ease-in-out;
-}
-
-.SignInComponent .img:after {
-  content: "";
-  position: absolute;
-  left: 0;
-  top: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(0, 0, 0, 0.6);
-}
-
-.SignInComponent.s--signup .img:before {
-  transform: translate3d(640px, 0, 0);
-}
-
-.SignInComponent .img__text {
-  z-index: 2;
-  position: absolute;
-  left: 0;
-  top: 50px;
-  width: 100%;
-  padding: 0 20px;
-  text-align: center;
-  color: #fff;
-  transition: transform 1.2s ease-in-out;
-}
-
-.SignInComponent .img__text.m--up {
-  transform: translateX(520px);
-}
-
-.SignInComponent .img__text.m--in {
-  transform: translateX(-520px);
-}
-
-.SignInComponent.s--signup .img__text.m--in {
-  transform: translateX(0);
-}
-
-.SignInComponent .img__btn {
-  overflow: hidden;
-  z-index: 2;
-  position: relative;
-  width: 100px;
-  height: 36px;
-  margin: 0 auto;
-  background: transparent;
-  color: #fff;
-  text-transform: uppercase;
-  font-size: 15px;
-  cursor: pointer;
-}
-
-.SignInComponent .img__btn:after {
-  content: "";
-  z-index: 2;
-  position: absolute;
-  left: 0;
-  top: 0;
-  width: 100%;
-  height: 100%;
-  border: 2px solid #fff;
-  border-radius: 30px;
-}
-
-.SignInComponent .img__btn span {
-  position: absolute;
-  left: 0;
-  top: 0;
-  display: flex;
+  align-items: center;
   justify-content: center;
+  overflow: hidden;
+}
+
+@keyframes highlightColor {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+/* Using new primary shades:
+   Dark:   #2da8a8
+   Base:   #38d2d2
+   Light:  #4adede or #6ceaea
+*/
+
+.SignInComponent .screen {
+  position: relative;
+  height: 100%;
+  width: 100%;
+  border-radius: 10px;
+  box-shadow: 0px 0px 24px #2da8a8;
+  background-image: url("../public/images/premium/second-background.jpg");
+  background-size: contain;
+  background-repeat: no-repeat;
+}
+
+.SignInComponent .screen__content {
+  z-index: 1;
+  position: relative;
+  height: 100%;
+}
+
+.SignInComponent .user_access_container {
+  height: 35px;
+  background-color: #fff;
+  width: 25%;
+  display: flex;
+  flex-direction: row;
+  margin-top: 50px;
+  margin-left: 12%;
+  border-radius: 20px;
+}
+
+.SignInComponent .user_access_btn_container {
+  margin-left: 30px;
+  display: flex;
+  border-radius: 20px;
+  position: relative;
+  left: 0;
+  height: 35px;
+  width: 100%;
+}
+
+.SignInComponent .user_access_btn_container > button:nth-child(1),
+.SignInComponent .user_access_btn_container > button:nth-child(2) {
+  background-color: white;
+  z-index: 1;
+  height: 100%;
+  font-size: 1.2em;
+  width: 50%;
+  color: black;
+  border-radius: 15px;
+  border: none;
+  padding: 0px 15px;
+}
+
+.SignInComponent .active_btn {
+  position: relative;
+  z-index: 4;
+  color: #fff;
+  width: 50%;
+  background-color: #38d2d2;
+  padding: 0px 20px;
+  border-radius: 15px;
+  font-weight: bolder;
+  font-size: 1.2em;
+  border: 0;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  user-select: none;
+  touch-action: manipulation;
+  cursor: pointer;
+  height: 35px;
+  background-image: radial-gradient(
+      93% 87% at 87% 89%,
+      rgba(0, 0, 0, 0.23) 0%,
+      transparent 86.18%
+    ),
+    radial-gradient(
+      66% 66% at 26% 20%,
+      rgba(255, 255, 255, 0.55) 0%,
+      rgba(255, 255, 255, 0) 69.79%,
+      rgba(255, 255, 255, 0) 100%
+    );
+  box-shadow: inset -3px -3px 9px rgba(255, 255, 255, 0.25),
+    inset 0px 3px 9px rgba(255, 255, 255, 0.3),
+    inset 0px 1px 1px rgba(255, 255, 255, 0.6),
+    inset 0px -8px 36px rgba(0, 0, 0, 0.3),
+    inset 0px 1px 5px rgba(255, 255, 255, 0.6), 2px 19px 31px rgba(0, 0, 0, 0.2);
+}
+
+.SignInComponent .moveLeftAnimation,
+.SignInComponent .moveRightAnimation {
+  will-change: transform;
+}
+
+.SignInComponent .moveRightAnimation {
+  position: relative;
+  animation: moveRight 5s;
+  left: 90px;
+}
+
+@keyframes moveRight {
+  to {
+    right: 0;
+    transform: translateX(0);
+  }
+  from {
+    transform: translateX(100%);
+    left: 0;
+  }
+}
+
+.SignInComponent .moveLeftAnimation {
+  animation: moveLeft 1s;
+  left: 0;
+}
+
+@keyframes moveLeft {
+  from {
+    transform: translateX(100%);
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+
+.SignInComponent .screen__background {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 0;
+  -webkit-clip-path: inset(0 0 0 0);
+  clip-path: inset(0 0 0 0);
+}
+
+.SignInComponent .screen__background__shape {
+  transform: rotate(45deg);
+  position: absolute;
+}
+
+.SignInComponent .screen__background__shape1 {
+  height: 520px;
+  width: 520px;
+  background: #fff;
+  top: -50px;
+  right: 120px;
+  border-radius: 0 72px 0 0;
+}
+
+.SignInComponent .screen__background__shape2 {
+  height: 220px;
+  width: 220px;
+  /* Changed to a lighter variant */
+  background: #4adede;
+  top: -172px;
+  right: 0;
+  border-radius: 32px;
+}
+
+.SignInComponent .screen__background__shape3 {
+  height: 540px;
+  width: 190px;
+  background: linear-gradient(270deg, #2da8a8, #38d2d2);
+  top: -24px;
+  right: 0;
+  border-radius: 32px;
+}
+
+.SignInComponent .screen__background__shape4 {
+  height: 400px;
+  width: 200px;
+  /* Using an alternative light tone */
+  background: #6ceaea;
+  top: 420px;
+  right: 50px;
+  border-radius: 60px;
+}
+
+.SignInComponent .Welcome_message {
+  font-size: 1.4em;
+  color: #38d2d2;
+}
+
+.SignInComponent .login {
+  width: 30%;
+  padding: 0px 30px 30px 30px;
+  margin-left: 10%;
+  margin-top: 5%;
+}
+
+.SignInComponent .login__field {
+  padding: 20px 0px;
+  position: relative;
+}
+
+.SignInComponent .login__icon {
+  position: absolute;
+  top: 30px;
+  color: #38d2d2;
+}
+
+.SignInComponent .login__input {
+  border: none;
+  border-bottom: 2px solid #d1d1d4;
+  background-color: grey;
+  color: white;
+  padding: 10px;
+  padding-left: 24px;
+  font-size: 1.2em;
+  font-weight: bold;
+  width: 75%;
+  transition: 0.2s;
+}
+
+.SignInComponent .login__input::placeholder {
+  color: whitesmoke;
+}
+
+.SignInComponent .login__input:active,
+.SignInComponent .login__input:focus,
+.SignInComponent .login__input:hover {
+  outline: none;
+  border-bottom-color: #38d2d2;
+}
+
+.SignInComponent .login__submit {
+  background: #fff;
+  font-size: 1.3rem;
+  margin-top: 30px;
+  padding: 16px 20px;
+  border-radius: 26px;
+  border: 1px solid #d4d3e8;
+  text-transform: uppercase;
+  font-weight: 700;
+  display: flex;
   align-items: center;
   width: 100%;
-  height: 100%;
-  transition: transform 1.2s;
+  /* Updated text and box-shadow color */
+  color: #2da8a8;
+  box-shadow: 0px 2px 2px #2da8a8;
+  cursor: pointer;
+  transition: 0.2s;
 }
 
-.SignInComponent .img__btn span.m--in {
-  transform: translateY(-72px);
-}
-
-.SignInComponent.s--signup .img__btn span.m--in {
-  transform: translateY(0);
-}
-
-.SignInComponent.s--signup .img__btn span.m--up {
-  transform: translateY(72px);
-}
-
-.SignInComponent h2 {
-  width: 100%;
-  font-size: 26px;
-  text-align: center;
-}
-
-.SignInComponent label {
-  display: block;
-  width: 260px;
-  margin: 25px auto 0;
-  text-align: center;
-}
-
-.SignInComponent label span {
-  font-size: 12px;
-  color: #cfcfcf;
+.SignInComponent .sign_up_login_submit {
+  background: #fff;
+  font-size: 1.3rem;
+  margin-top: 8px;
+  padding: 16px 20px;
+  border-radius: 26px;
+  border: 1px solid #d4d3e8;
   text-transform: uppercase;
-}
-
-.SignInComponent input {
-  display: block;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
   width: 100%;
-  margin-top: 5px;
-  padding-bottom: 5px;
-  font-size: 16px;
-  border-bottom: 1px solid rgba(0, 0, 0, 0.4);
+  color: #2da8a8;
+  box-shadow: 0px 2px 2px #2da8a8;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.SignInComponent .login__submit:active,
+.SignInComponent .login__submit:focus,
+.SignInComponent .login__submit:hover {
+  border-color: #38d2d2;
+  outline: none;
+}
+
+.SignInComponent .button__icon {
+  font-size: 1.2rem;
+  margin-left: auto;
+  color: #38d2d2;
+}
+
+.SignInComponent .social_login {
+  position: absolute;
+  height: fit-content;
+  display: flex;
+  gap: 10px;
+  width: fit-content;
+  font-weight: bold;
+  font-size: 1.2em;
   text-align: center;
+  bottom: 88px;
+  left: 0px;
+  color: black;
+  margin-left: 13%;
+  margin-bottom: 15%;
 }
 
-.SignInComponent .forgot-pass {
-  margin-top: 15px;
+.SignInComponent .sign_up_social_login {
+  position: absolute;
+  height: -moz-fit-content;
+  height: fit-content;
+  display: flex;
+  width: -moz-fit-content;
+  gap: 10px;
+  width: fit-content;
+  font-weight: bold;
+  font-size: 1.2em;
+  margin: 0 10px;
   text-align: center;
-  font-size: 12px;
-  color: #cfcfcf;
+  bottom: 56px;
+  left: 0px;
+  color: black;
+  margin-left: 30px;
 }
 
-.SignInComponent .submit {
-  margin-top: 40px;
-  margin-bottom: 20px;
-  background: #000c6659;
-  text-transform: uppercase;
+.SignInComponent .social_icons {
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-.SignInComponent .sign-in {
-  transition-timing-function: ease-out;
+.SignInComponent .social_icons > button {
+  border: none;
+  height: 35px;
+  border-radius: 10px;
 }
 
-.SignInComponent.s--signup .sign-in {
-  transition-timing-function: ease-in-out;
-  transition-duration: 1.2s;
-  transform: translate3d(640px, 0, 0);
+.SignInComponent .social_login__icon {
+  color: white;
+  text-decoration: none;
+  text-shadow: 0px 0px 8px #38d2d2;
 }
 
-.SignInComponent .sign-up {
-  transform: translate3d(-900px, 0, 0);
+.SignInComponent .social_icons > button:hover {
+  transform: scale(1.5);
 }
 
-.SignInComponent.s--signup .sign-up {
-  transform: translate3d(0, 0, 0);
+/* Error styles  */
+
+.SignInComponent .errorText {
+  font-size: 1.3em;
+  color: red;
+  font-weight: bolder;
+  margin: 0;
+}
+
+.SignInComponent .error_list {
+  height: fit-content;
+}
+
+.SignInComponent .error_list > p {
+  margin: 0;
+  font-size: 1.3em;
+  color: red;
+  font-weight: bold;
+}
+
+.SignInComponent .error_list ul {
+  color: red;
+  font-size: 1.2em;
+  list-style: none;
+  font-weight: bold;
 }

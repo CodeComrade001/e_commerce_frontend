@@ -10,6 +10,7 @@ const ALLOWED_UPDATE_COLUMNS = new Set([
   'category',
   'image_url',
   'discount',
+  'uploaded',
 ]);
 
 export async function getAllProductsGroupedByCategory(): Promise<Record<string, Product[]> | null> {

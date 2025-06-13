@@ -561,7 +561,7 @@ export default function ShoppingPageHome(): JSX.Element {
             </div>
           </div>
 
-          <main>
+          <main className="page_component" >
             {renderSideViewContent()}
           </main>
           {/* <div className="chatRoom">

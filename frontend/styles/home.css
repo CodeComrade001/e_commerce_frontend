@@ -952,6 +952,13 @@
   background-color: white;
 }
 
+.page_component {
+  display: flex;
+  justify-content: center;
+  height: 85%;
+  align-items: center;
+}
+
 /* 
 #checkout_summary .option button::after {
   content: "";

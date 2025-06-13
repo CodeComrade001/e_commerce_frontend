@@ -195,6 +195,7 @@
   gap: 10px;
   border-radius: 10px;
   font-size: 1.2em;
+  cursor: pointer;
 }
 
 .Admin_All_product .sort_cloth_filter > svg {

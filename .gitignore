@@ -11,6 +11,8 @@
 # Logs
 **/*.log
 
+notes.txt
+
 # System files
 .DS_Store
 Thumbs.db

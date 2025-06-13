@@ -1,20 +1,48 @@
-import { JSX, useEffect, useState } from "react";
+import { JSX, useCallback, useEffect, useState } from "react";
 import "../../../../styles/allAdminProducts.css"
-import { fetchAdminAllProducts } from "@/services/api";
+import { deleteProducts, fetchAdminAllProducts } from "@/services/api";
 import { CategoryProduct, Product } from "@/services/dataTypes";
 
 export default function AllProductComponent(): JSX.Element {
   const [allProducts, setAllProducts] = useState<CategoryProduct<Product>[]>([]);
   const [activeProductButton, setActiveProductButton] = useState('');
-  console.log("🚀 ~ ImagesComponent ~ allProducts:", allProducts)
+  const [products, setProducts] = useState<Product[]>([]);
   const [categoryIndex, setCategoryIndex] = useState<number>(0);
-  console.log("🚀 ~ ImagesComponent ~ allProducts:", allProducts)
 
-  function displayProductCategory(index: number, category: string) {
-    setCategoryIndex(index)
-    setActiveProductButton(category)
+  const displayProductCategory = useCallback((index: number, category: string) => {
+    setCategoryIndex(index); // Update the index for highlighting
+    setActiveProductButton(category);
+    // Use the passed index to get the correct category
+    setProducts(allProducts[index]?.product_details || []);
+  }, [allProducts]); // Include allProducts to reflect latest data
+
+  const deleteProduct = useCallback(async (id: number, index: number) => {
+    try {
+      const response = await deleteProducts({ id })
+      const { result } = response.data;
+      if (result) {
+        if (index == 0) {
+          const newArray = [...products.slice(index + 1, products.length)]
+          setProducts(newArray)
+        }
+        const newArray = [...products.slice(0, index), ...products.slice(index + 1, products.length)]
+        setProducts(newArray)
+      }
+      console.log("🚀 ~ deleteProduct ~ response:", response)
+    } catch (error) {
+      console.log("🚀 ~ deleteProduct ~ error:", error)
+    }
+  }, [products])
+
+  function showNotUploadedProduct() {
+    const filteredProducts = allProducts[categoryIndex]?.product_details.filter(item => !item.uploaded) || [];
+    setProducts(filteredProducts);
   }
 
+  function showUploadedProduct() {
+    const filteredProducts = allProducts[categoryIndex]?.product_details.filter(item => item.uploaded) || [];
+    setProducts(filteredProducts);
+  }
 
   useEffect(() => {
     // 2. Define and call async fetch inside useEffect
@@ -35,12 +63,8 @@ export default function AllProductComponent(): JSX.Element {
         console.error('Error fetching products:', error);
       }
     }
-
     loadProducts();
   }, []);
-
-  const products = allProducts[categoryIndex]?.product_details || [];
-
 
   return (
     <div className="Admin_All_product">
@@ -79,7 +103,6 @@ export default function AllProductComponent(): JSX.Element {
             <input type="time" name="" id="" title="search time" />
             <button
               title="delete"
-            // onClick={() => addProduct(item)}
             >
               <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" className="bi bi-plus-circle-fill" viewBox="0 0 16 16">
                 <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0M8.5 4.5a.5.5 0 0 0-1 0v3h-3a.5.5 0 0 0 0 1h3v3a.5.5 0 0 0 1 0v-3h3a.5.5 0 0 0 0-1h-3z" />
@@ -88,7 +111,7 @@ export default function AllProductComponent(): JSX.Element {
             </button>
             <button
               title="delete"
-            // onClick={() => addProduct(item)}
+              onClick={() => showNotUploadedProduct()}
             >
               <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" className="bi bi-plus-circle-fill" viewBox="0 0 16 16">
                 <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0M8.5 4.5a.5.5 0 0 0-1 0v3h-3a.5.5 0 0 0 0 1h3v3a.5.5 0 0 0 1 0v-3h3a.5.5 0 0 0 0-1h-3z" />
@@ -97,7 +120,7 @@ export default function AllProductComponent(): JSX.Element {
             </button>
             <button
               title="delete"
-            // onClick={() => addProduct(item)}
+              onClick={() => showUploadedProduct()}
             >
               <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" className="bi bi-plus-circle-fill" viewBox="0 0 16 16">
                 <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0M8.5 4.5a.5.5 0 0 0-1 0v3h-3a.5.5 0 0 0 0 1h3v3a.5.5 0 0 0 1 0v-3h3a.5.5 0 0 0 0-1h-3z" />
@@ -125,7 +148,7 @@ export default function AllProductComponent(): JSX.Element {
         </div>
         <div className="navigation_option_content">
           {products.length > 0 ? (
-            products.map((item) => (
+            products.map((item, index) => (
               <div key={item.id} className="product_container">
                 <div>
                   <img src={item.image_url} alt="" />
@@ -148,7 +171,7 @@ export default function AllProductComponent(): JSX.Element {
                   </button>
                   <button
                     title="delete"
-                  // onClick={() => addProduct(item)}
+                    onClick={() => deleteProduct(item.id, index)}
                   >
                     <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" className="bi bi-plus-circle-fill" viewBox="0 0 16 16">
                       <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0M8.5 4.5a.5.5 0 0 0-1 0v3h-3a.5.5 0 0 0 0 1h3v3a.5.5 0 0 0 1 0v-3h3a.5.5 0 0 0 0-1h-3z" />

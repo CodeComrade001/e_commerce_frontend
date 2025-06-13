@@ -3,14 +3,10 @@
 .Home_product {
   display: flex;
   flex-direction: row;
-  position: absolute;
   gap: 50px;
-  height: 80%;
+  height: 90%;
   width: fit-content;
   margin: 0 auto;
-  top: 58%;
-  left: 50%;
-  transform: translate(-50%, -50%);
 }
 
 .Home_product * {

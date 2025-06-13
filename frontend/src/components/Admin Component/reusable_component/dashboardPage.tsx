@@ -4,6 +4,7 @@ import { fetchAdminAllOrders, fetchAdminMonthlyOrders, fetchAdminMonthlyOrdersLi
 import { OrderCategoryGroup, userDetailsLeaderBoard } from "@/services/dataTypes";
 import { fetchAdminCustomerSummary } from '../../../services/api';
 import LineChart from "@/components/ui/line-chart";
+import LoaderIcon from "../reusable_module/loadingIcon";
 
 export default function DashboardComponent(): JSX.Element {
   const [orders, setOrders] = useState<{ result: boolean; data: OrderCategoryGroup[] } | null>(null)
@@ -84,10 +85,10 @@ export default function DashboardComponent(): JSX.Element {
     loadData()
   }, [])
 
-  if (loading) return <div>Loading…</div>
+  if (loading) return <LoaderIcon />
   if (error) return <div>Error: {error}</div>
 
-  if (loading) return <p>Loading dashboard…</p>
+  if (loading) return <LoaderIcon />
   if (error) return <p style={{ color: 'red' }}>Error: {error}</p>
   return (
     <div id="dashboard_content">

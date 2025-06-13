@@ -78,6 +78,7 @@ export interface Product {
   category: string;
   image_url: string;
   discount?: number;
+  uploaded?: boolean;
 }
 
 export interface OrderProduct {
@@ -126,3 +127,17 @@ export interface historyOrders {
   ordered_at: string;
   product_details: OrderProduct[];
 }
+
+export interface blogProduct {
+  id: number;
+  title: string;
+  price: number;
+  description: string;
+  ordered_at: string;
+  category: string;
+  image_url: string;
+  discount: number;
+  uploaded: boolean;
+  moreText?: string;
+  qty: number;
+} 

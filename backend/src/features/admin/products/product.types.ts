@@ -7,6 +7,7 @@ export interface Product {
   image_url: string | null;
   discount: number;
   created_at: string;
+  uploaded: string;
 }
 
 export type NewProduct = Omit<Product, 'id' | 'created_at'>;

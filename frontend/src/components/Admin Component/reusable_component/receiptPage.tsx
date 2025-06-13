@@ -1,19 +1,17 @@
 import { JSX, useEffect, useState } from "react";
-import "../../../../styles/blog.css";
+import "../../../../styles/receipt_module.css";
 import { fetchAllBlogPost } from '../../../services/api';
 import { blogProduct } from "@/services/dataTypes";
-import AddNewBlogMessage from "../reusable_module/addNewBlog";
 
-export default function BlogComponent(): JSX.Element {
-  const [allBlogItem, setAllBlogItem] = useState<blogProduct[] | null>(null);
+export default function ReceiptComponent(): JSX.Element {
+  const [allPaymentReceipt, setAllPaymentReceipt] = useState<blogProduct[] | null>(null);
   const [sideViewItem, setSideViewItem] = useState<blogProduct | null>(null);
   const [isMoreViewReady, setIsMoreViewReady] = useState<boolean>(false);
-  const [addNewBlogPost, setAddNewBlogPost] = useState<boolean>(false);
 
 
   function getSideView(sideViewItemIndex: number) {
-    allBlogItem !== null &&
-      setSideViewItem(allBlogItem[sideViewItemIndex])
+    allPaymentReceipt !== null &&
+      setSideViewItem(allPaymentReceipt[sideViewItemIndex])
     setIsMoreViewReady(true)
   }
 
@@ -23,7 +21,7 @@ export default function BlogComponent(): JSX.Element {
         const response = await fetchAllBlogPost()
         const { result, data } = response.data;
         if (result) {
-          setSideViewItem(data)
+          setAllPaymentReceipt(data)
           setIsMoreViewReady(true)
         }
       } catch (error) {
@@ -39,10 +37,10 @@ export default function BlogComponent(): JSX.Element {
 
 
   return (
-    <div id="blog_component">
+    <div id="receipt_component">
       <div className="navigation_option">
         <h2>
-          All Blog Product
+          All Payment Receipt
         </h2>
         <nav>
           <input type="date" name="" id="" title="search date" />
@@ -75,17 +73,16 @@ export default function BlogComponent(): JSX.Element {
           </button>
           <button
             title="delete"
-            onClick={() => setAddNewBlogPost((prev) => !prev)}
+          // onClick={() => addProduct(item)}
           >
             <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" className="bi bi-plus-circle-fill" viewBox="0 0 16 16">
               <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0M8.5 4.5a.5.5 0 0 0-1 0v3h-3a.5.5 0 0 0 0 1h3v3a.5.5 0 0 0 1 0v-3h3a.5.5 0 0 0 0-1h-3z" />
             </svg>
-            {addNewBlogPost ? "Cancel" : "Add"}
+            Add
           </button>
         </nav>
       </div>
       <div className="all-blog-items">
-        {addNewBlogPost && <AddNewBlogMessage />}
         {(isMoreViewReady && sideViewItem !== null) &&
           <aside key={sideViewItem.id}
             className={`more_item_side_bar ${isMoreViewReady
@@ -138,8 +135,8 @@ export default function BlogComponent(): JSX.Element {
           </aside>
         }
         <div className="product-card-section">
-          {allBlogItem !== null &&
-            allBlogItem.map((item, index) => (
+          {allPaymentReceipt !== null &&
+            allPaymentReceipt.map((item, index) => (
               <div key={item.id} id="checkout_summary">
                 <button
                   onClick={() => getSideView(index)}

@@ -6,22 +6,24 @@ import DashboardComponent from "../Admin Component/reusable_component/dashboardP
 import BlogComponent from "../Admin Component/reusable_component/blogPage";
 import AllProductComponent from "../Admin Component/reusable_component/AllProductPage";
 import MessageComponent from "../Admin Component/reusable_component/MessagePage";
-import VideosComponent from "../Admin Component/reusable_component/VideoPage";
 import SecurityComponent from "../Admin Component/reusable_component/SecurityPage";
 import AllOrderComponent from "../Admin Component/reusable_component/AllOrderPage";
+import ReceiptComponent from "../Admin Component/reusable_component/receiptPage";
+import LoaderIcon from "../Admin Component/reusable_module/loadingIcon";
 
 export default function AdminHome(): JSX.Element {
   const [selectedView, setSelectedView] = useState('dashboard');
+  const [isSelectViewReady, setIsSelectViewReady] = useState<boolean>(false)
 
   // A mapping from view to button class can be defined.
   const activeBtnMapping: Record<string, string> = {
     dashboard: "active_admin_dashboard",
     blog: "active_admin_blog",
     message: "active_admin_message",
-    videos: "active_admin_videos",
     product: "active_admin_products",
     security: "active_admin_security",
     all_orders: "active_admin_all_orders",
+    receipt: "active_admin_receipt",
   };
 
   // Compute active button class from selectedView without needing state
@@ -36,18 +38,28 @@ export default function AdminHome(): JSX.Element {
         return <BlogComponent />;
       case 'message':
         return <MessageComponent />;
-      case 'videos':
-        return <VideosComponent />;
       case 'product':
         return <AllProductComponent />;
       case 'security':
         return <SecurityComponent />;
+      case 'receipt':
+        return <ReceiptComponent />;
       case 'all_orders':
         return <AllOrderComponent />;
       default:
         return <DashboardComponent />;
     }
   }, [selectedView]);
+
+  useEffect(() => {
+    if (activeBtn) {
+      const timer = setTimeout(() => {
+        setIsSelectViewReady(true);
+      }, 3000); // 3s delay
+
+      return () => clearTimeout(timer);
+    }
+  }, [activeBtn]);
 
   useEffect(() => {
     renderSideViewContent()
@@ -122,7 +134,7 @@ export default function AdminHome(): JSX.Element {
           </button>
 
           <button
-            className={`admin_button_grouping ${selectedView === "history" ? activeBtn : ""}`}
+            className={`admin_button_grouping ${selectedView === "all_orders" ? activeBtn : ""}`}
             onClick={() => setSelectedView('all_orders')}
           >
             <i className="dropdown_widget_icon">
@@ -143,7 +155,7 @@ export default function AdminHome(): JSX.Element {
             Orders
           </button>
           <button
-            className={`admin_button_grouping ${selectedView === "images" ? activeBtn : ""}`}
+            className={`admin_button_grouping ${selectedView === "product" ? activeBtn : ""}`}
             onClick={() => setSelectedView('product')}
           >
             <i className="dropdown_widget_icon">
@@ -221,24 +233,7 @@ export default function AdminHome(): JSX.Element {
             </i>
             Message
           </button>
-          <button
-            className={`admin_button_grouping ${selectedView === "videos" ? activeBtn : ""}`}
-            onClick={() => setSelectedView('videos')}
-          >
-            <i className="dropdown_widget_icon">
-              <svg
-                viewBox="0 0 16 16"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg">
-                <g id="SVGRepo_bgCarrier" stroke-width="0">
-                </g><g id="SVGRepo_tracerCarrier" strokeLinecap="round" strokeLinejoin="round"></g>
-                <g id="SVGRepo_iconCarrier">
-                  <path fill-rule="evenodd" clipRule="evenodd" d="M16 2H0V14H16V2ZM6.5 5V11H7.5L11 8L7.5 5H6.5Z" fill="#000000"></path>
-                </g>
-              </svg>
-            </i>
-            Videos
-          </button>
+
           <button
             className={`admin_button_grouping ${selectedView === "blog" ? activeBtn : ""}`}
             onClick={() => setSelectedView('blog')}
@@ -344,6 +339,20 @@ export default function AdminHome(): JSX.Element {
             </i>
             Blog
           </button>
+          <button
+            className={`admin_button_grouping ${selectedView === "Receipt" ? activeBtn : ""}`}
+            onClick={() => setSelectedView('receipt')}
+          >
+            <i className="dropdown_widget_icon">
+              <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <g id="SVGRepo_bgCarrier" strokeWidth="0"></g><g id="SVGRepo_tracerCarrier" strokeLinecap="round" strokeLinejoin="round"></g><g id="SVGRepo_iconCarrier">
+                  <path d="M7 9H17M7 13H17M21 20L17.6757 18.3378C17.4237 18.2118 17.2977 18.1488 17.1656 18.1044C17.0484 18.065 16.9277 18.0365 16.8052 18.0193C16.6672 18 16.5263 18 16.2446 18H6.2C5.07989 18 4.51984 18 4.09202 17.782C3.71569 17.5903 3.40973 17.2843 3.21799 16.908C3 16.4802 3 15.9201 3 14.8V7.2C3 6.07989 3 5.51984 3.21799 5.09202C3.40973 4.71569 3.71569 4.40973 4.09202 4.21799C4.51984 4 5.0799 4 6.2 4H17.8C18.9201 4 19.4802 4 19.908 4.21799C20.2843 4.40973 20.5903 4.71569 20.782 5.09202C21 5.51984 21 6.0799 21 7.2V20Z" stroke="#000000" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                  </path>
+                </g>
+              </svg>
+            </i>
+            Payments Receipt
+          </button>
         </div>
         <div id="side_bar_collapse">
           <button>
@@ -363,7 +372,7 @@ export default function AdminHome(): JSX.Element {
           </button>
         </div>
       </div>
-      {renderSideViewContent()}
+      {isSelectViewReady ? renderSideViewContent() : <LoaderIcon />}
     </div >
   );
 };

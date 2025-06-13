@@ -3,7 +3,6 @@
 import { RequestHandler } from 'express';
 import * as analytics from './order.analytics.service.js';
 
-
 // 1. Monthly bar-chart data
 export const getMonthlyOrders: RequestHandler = async (_req, res, next) => {
   try {
