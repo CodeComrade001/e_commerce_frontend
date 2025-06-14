@@ -2,12 +2,14 @@ import { JSX, useCallback, useEffect, useState } from "react";
 import "../../../../styles/allAdminProducts.css"
 import { deleteProducts, fetchAdminAllProducts } from "@/services/api";
 import { CategoryProduct, Product } from "@/services/dataTypes";
+import AddNewProduct from "../reusable_module/addNewProduct";
 
 export default function AllProductComponent(): JSX.Element {
   const [allProducts, setAllProducts] = useState<CategoryProduct<Product>[]>([]);
   const [activeProductButton, setActiveProductButton] = useState('');
   const [products, setProducts] = useState<Product[]>([]);
   const [categoryIndex, setCategoryIndex] = useState<number>(0);
+  const [addNewProduct, setAddNewProduct] = useState<boolean>(false)
 
   const displayProductCategory = useCallback((index: number, category: string) => {
     setCategoryIndex(index); // Update the index for highlighting
@@ -129,12 +131,13 @@ export default function AllProductComponent(): JSX.Element {
             </button>
             <button
               title="delete"
-            // onClick={() => addProduct(item)}
+              onClick={() => setAddNewProduct((prev) => !prev)}
             >
               <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" className="bi bi-plus-circle-fill" viewBox="0 0 16 16">
                 <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0M8.5 4.5a.5.5 0 0 0-1 0v3h-3a.5.5 0 0 0 0 1h3v3a.5.5 0 0 0 1 0v-3h3a.5.5 0 0 0 0-1h-3z" />
               </svg>
-              Add
+              {addNewProduct ? "Cancel" : "Add"}
+
             </button>
             <button title="edit"
             // onClick={() => confirmOrder()}
@@ -147,6 +150,7 @@ export default function AllProductComponent(): JSX.Element {
           </nav>
         </div>
         <div className="navigation_option_content">
+          {addNewProduct && <AddNewProduct />}
           {products.length > 0 ? (
             products.map((item, index) => (
               <div key={item.id} className="product_container">

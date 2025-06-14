@@ -26,6 +26,26 @@ export const getLandingPageProduct = () => {
   return api.get('/api/products/root');  // will hit http://localhost:3000/api/products
 };
 
+export const addNewProduct = (
+  data: {
+    params: {
+      price: string;
+      title: string;
+      quantity: string;
+      discount: string;
+      category: string;
+      description: string;
+      productImage?: File;
+    }
+  },
+  config?: AxiosRequestConfig
+) => {
+  return api.post('/api/products/add-new', data, config);  // will hit http://localhost:3000/api/products
+};
+
+
+
+
 export function LoginExistingAccount(
   data: { params: { email: string; password: string } },
   config?: AxiosRequestConfig
@@ -223,7 +243,7 @@ export const fetchAdminWeeklyCompletionStats = () => {
  *    Response: Array<{ week: string; usedRatio: number; unusedRatio: number }>
  */
 export const fetchAdminWeeklyCouponRatios = () => {
-  return api.get<{ date: string; completed: number; canceled: number}[]>(
+  return api.get<{ date: string; completed: number; canceled: number }[]>(
     '/api/admin/analytics/weekly-sales-ratio'
   );
 };
