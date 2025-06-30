@@ -27,7 +27,7 @@ export default function AddNewProduct() {
   const fileInputRef = useRef<HTMLInputElement>(null);
 
   // Demo/upload function
-  const addNewProductDetails = useCallback(async (productDetails: ProductDetails, productFile : FileList) => {
+  const addNewProductDetails = useCallback(async (productDetails: ProductDetails, productFile: FileList) => {
     setIsSubmitting(true);
     try {
       const { price, title, quantity, discount, category, description } = productDetails;
@@ -38,14 +38,12 @@ export default function AddNewProduct() {
 
       // Replace with real API endpoint
       const res = await addNewProduct({
-        params: {
-          price,
-          title,
-          quantity,
-          discount,
-          category,
-          description,
-        }
+        price,
+        title,
+        quantity,
+        discount,
+        category,
+        description,
       })
       const { success } = res.data
       if (!success) {
@@ -73,7 +71,7 @@ export default function AddNewProduct() {
   }, []);
 
   const handleSubmit = useCallback(() => {
-    if (productImage == null) return ;
+    if (productImage == null) return;
     addNewProductDetails(newProductDetails, productImage);
   }, [addNewProductDetails, newProductDetails, productImage]);
 

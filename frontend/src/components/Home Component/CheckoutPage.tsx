@@ -1,7 +1,7 @@
-import { JSX, useCallback, useEffect, useState } from 'react';
+import { JSX, useCallback } from 'react';
 import '../../../styles/orderSummary.css';
 import { useProductContext } from '@/context/ProductContext';
-import { placeNewOrder } from '@/services/api';
+import { createPayment } from '@/services/api';
 import { useAuth } from '@/context/AuthContext';
 // src/features/user/types.ts
 export interface Product {
@@ -22,7 +22,7 @@ export interface OrderRequest {
 export default function OrderSummary(): JSX.Element {
   const { userId } = useAuth();
   console.log("🚀 ~ OrderSummary ~ userId:", userId)
-  const { cartProducts, removeProduct, clearCart, updateQuantity } = useProductContext();
+  const { cartProducts, updateQuantity } = useProductContext();
   console.log("🚀 ~ OrderSummary ~ cartProducts:", cartProducts)
 
   const handleQtyChange = (id: number, delta: number) => {
@@ -31,24 +31,41 @@ export default function OrderSummary(): JSX.Element {
   };
 
   const placeOrder = useCallback(async () => {
-    console.log("🚀 ~ placeOrder ~ placeOrder:", placeOrder)
+    if (!userId) return alert('Please log in first');
+    const tx_ref = `tx_${Date.now()}`;
+    const amount: number = cartProducts.reduce((sum, p) => sum + p.price * (p.qty || 1), 0);
+    console.log("🚀 ~ placeOrder ~ amount:", amount)
+
+    const paymentReq = {
+      amount,
+      tx_ref,
+      customer: {
+        email: 'user@example.com',
+        phone_number: '08012345612',
+        name: 'Mike John',
+      },
+    };
+    console.log("🚀 ~ placeOrder ~ paymentReq:", paymentReq)
+
     try {
-      if (userId !== null) {
-        const payload: OrderRequest = {
-          userId,
-          products: cartProducts.map(p => ({
-            ...p,
-            qty: p.qty ?? 1
-          }))
-        };
-        console.log("🚀 ~ placeOrder ~ payload:", payload)
-        const response = await placeNewOrder(payload);
-        console.log('Order created:', response);
-      }
+      const { data } = await createPayment({
+        amount,
+        tx_ref,
+        customer: {
+          email: 'user@example.com',
+          phone_number: '08012345612',
+          name: 'Mike John',
+        },
+      });
+      // stash order data in sessionStorage so we can retrieve it
+      sessionStorage.setItem('pendingOrder', JSON.stringify({
+        userId,
+        products: cartProducts.map(p => ({ id: p.id, qty: p.qty || 1 }))
+      }));
+     window.open(data.link, '_blank');
     } catch (err) {
-      console.error('placeOrder error user has not logged in', err);
-    } finally {
-      clearCart()
+      console.error(err);
+      alert('Could not start payment');
     }
   }, [userId, cartProducts]);
 

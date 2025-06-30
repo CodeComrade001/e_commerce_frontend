@@ -30,14 +30,12 @@
 */
 
 .SignInComponent .screen {
+  background: linear-gradient(90deg, #2da8a8, #4adede);
   position: relative;
   height: 100%;
   width: 100%;
   border-radius: 10px;
   box-shadow: 0px 0px 24px #2da8a8;
-  background-image: url("../public/images/premium/second-background.jpg");
-  background-size: contain;
-  background-repeat: no-repeat;
 }
 
 .SignInComponent .screen__content {
@@ -311,7 +309,7 @@
   font-weight: bold;
   font-size: 1.2em;
   text-align: center;
-  bottom: 88px;
+  bottom: 40px;
   left: 0px;
   color: black;
   margin-left: 13%;

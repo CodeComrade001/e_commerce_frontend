@@ -77,6 +77,19 @@ export interface Product {
   description: string;
   category: string;
   image_url: string;
+  quantity?: string;
+  discount?: number;
+  uploaded?: boolean;
+}
+
+export interface EditingProduct {
+  id: number;
+  title?: string;
+  price?: number;
+  description?: string;
+  category?: string;
+  image_url?: string;
+  quantity?: string;
   discount?: number;
   uploaded?: boolean;
 }

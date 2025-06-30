@@ -1,14 +1,14 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import '../../../styles/homeSignUp.css';
 import { LoginExistingAccount, CreateNewAccount } from '../../services/api';
 import { z } from "zod";
 
-export default function HomeSignUp() {
-  const [isSignup, setIsSignup] = useState(false);
-  const [buttonText, setButtonText] = useState("Login In")
+export default function HomeSignUp({ authType }: { authType: "Sign in" | "Sign up" | string }) {
+  const [isButtonClicked, setIsButtonClicked] = useState(false);
+  const [logInText, setLogInText] = useState("Login In")
+  const [signUpText, setSignUpText] = useState("Create Account")
   const [animationMovement, setAnimationMovement] = useState("")
-  const [accessType, setAccessType] = useState<"Sign in" | "Sign up">("Sign in");
-  console.log("🚀 ~ HomeSignUp ~ isSignup:", isSignup)
+  const [accessType, setAccessType] = useState<"Sign in" | "Sign up" | string >("");
 
   // form fields
   const [userLogIn, setUserLogIn] = useState({
@@ -28,7 +28,6 @@ export default function HomeSignUp() {
     password: "",
     password0: "",
   });
-  console.log("🚀 ~ HomeSignUp ~ userSignUp:", userSignUp)
 
   function handleAccessBtn(direction: string, UserAccessType: string) {
     setAccessType(UserAccessType as "Sign in" | "Sign up")
@@ -39,8 +38,8 @@ export default function HomeSignUp() {
     event: React.ChangeEvent<HTMLInputElement>,
     inputType: "email" | "password"
   ) {
-    if (inputType === "email") {
-      setUserLogIn(prev => ({ ...prev, userName: event.target.value }));
+    if (inputType == "email") {
+      setUserLogIn(prev => ({ ...prev, email: event.target.value }));
     } else {
       setUserLogIn(prev => ({ ...prev, password: event.target.value }));
     }
@@ -59,11 +58,17 @@ export default function HomeSignUp() {
 
   async function login() {
     // Destructure email/password from state
+    setLogInText('Loading...')
+    setIsButtonClicked(true)
     const { email, password } = userLogIn;
+    console.log("🚀 ~ login ~ password:", password)
+    console.log("🚀 ~ login ~ email:", email)
 
     // Guard against empty inputs
     if (email.trim() === '' || password.trim() === '') {
       console.log('Email and password must not be empty');
+      setLogInText('Email and password must not be empty')
+      setIsButtonClicked(false)
       return;
     }
 
@@ -77,21 +82,25 @@ export default function HomeSignUp() {
       });
       if (response.data.result) {
         console.log("🚀 ~ signUp ~ response.data.result:", response.data.result)
-        setButtonText('Successful')
+        setLogInText('Successful')
       }
       console.log('Created user:', response.data);
       console.log('Logged in user:', response);
     } catch (error) {
-      setButtonText('Incorrect Credentials')
+      setLogInText('Incorrect Credentials')
       console.log(`Error logging in or user not found:`, error);
       if (error instanceof z.ZodError) {
         setFormErrors(error.flatten().fieldErrors);
       }
+    } finally {
+      setIsButtonClicked(false)
     }
   }
 
   async function signUp() {
     // Destructure email/password from state
+    setSignUpText("Loading...")
+    setIsButtonClicked(true)
     const { name, email, password } = userSignUp;
 
     // Guard against empty inputs
@@ -111,17 +120,32 @@ export default function HomeSignUp() {
       });
       if (response.data.result) {
         console.log("🚀 ~ signUp ~ response.data.result:", response.data.result)
-        setButtonText('Successful')
+        setSignUpText('Successful')
       }
       console.log('Created user:', response.data);
     } catch (error) {
-      setButtonText('Account Creation Failed')
+      setSignUpText('Account Creation Failed')
       console.log(`Error creating account:`, error);
       if (error instanceof z.ZodError) {
         setFormErrors(error.flatten().fieldErrors);
       }
+    } finally {
+      setIsButtonClicked(false)
     }
   }
+
+  useEffect(() => {
+    if (authType.trim() == '') {
+      console.log('empty prop value sent')
+      return
+    } else if (authType.trim() == 'Sign In') {
+
+      setAccessType(authType)
+    } else {
+      setAccessType(authType)
+    }
+
+  }, [authType])
 
   return (
 
@@ -213,14 +237,15 @@ export default function HomeSignUp() {
                     />
                   </div>
                   <button
-                    className={`"button" ${accessType === "Sign up" ? `sign_up_login_submit` : 'login__submit'}`}
+                    className={`"button"  ${accessType === "Sign up" ? `sign_up_login_submit` : 'login__submit'}`}
+                    // disabled={isButtonClicked}
                     onClick={(event) => {
                       event.preventDefault();  // Prevents form from submitting and adding query parameters
                       signUp();
                     }}
                     type="submit"
                   >
-                    <span className="button__text">Create Account</span>
+                    <span className="button__text">{signUpText}</span>
                     <i className={`$"button__icon" fas fa-chevron-right`}></i>
                   </button>
                   <div className={`${accessType === "Sign up" ? 'sign_up_social_login' : 'social_login'}`}>
@@ -240,7 +265,7 @@ export default function HomeSignUp() {
               ) : (
                 <form className="login">
                   <div className="Welcome_message">
-                    <h1>Welcome To Dolistify</h1>
+                    <h1>Welcome, Log in To Your Account</h1>
                   </div>
                   <div className="login__field">
                     <i className={`$"login__icon" fas fa-user`}></i>
@@ -264,12 +289,13 @@ export default function HomeSignUp() {
                   </div>
                   <button
                     className="button login__submit"
+                    // disabled={isButtonClicked}
                     onClick={(event) => {
                       event.preventDefault();  // Prevents form from submitting and adding query parameters
                       login();
                     }}
                   >
-                    <span className="button__text">Log In Now</span>
+                    <span className="button__text">{logInText}</span>
                     <i className={`$"button__icon" fas fa-chevron-right`}></i>
                   </button>
                   <div className="social_login">

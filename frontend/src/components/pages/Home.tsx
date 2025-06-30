@@ -75,14 +75,16 @@ export default function ShoppingPageHome(): JSX.Element {
   };
 
   const renderSideViewContent = useCallback(() => {
+    console.log(" user selected btn type is   ", activeButton)
     switch (activeButton) {
       case "Home":
         return <HomeAvailableProduct
           checkoutProps={changeActiveButton}
         />;
-      case "Sign In":
-      case "Sign Up":
-        return <HomeSignUp />;
+      case "Sign in":
+        return (activeButton.trim() === "Sign in") && <HomeSignUp authType={activeButton} />;
+      case "Sign up":
+        return (activeButton.trim() === "Sign up") && <HomeSignUp authType={activeButton} />;
       case "Checkout":
         return <OrderSummary />;
       case "Blog":
@@ -417,7 +419,7 @@ export default function ShoppingPageHome(): JSX.Element {
                         My Account
                       </button>
                       <button
-                        onClick={() => handleClickedBtn('Sign Up')}
+                        onClick={() => handleClickedBtn('Sign in')}
                       >
                         <i className="fa fa-sign-in">
                           <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" className="bi bi-box-arrow-in-right" viewBox="0 0 16 16">
@@ -428,7 +430,7 @@ export default function ShoppingPageHome(): JSX.Element {
                         Sign in
                       </button>
                       <button
-                        onClick={() => handleClickedBtn('Sign Up')}
+                        onClick={() => handleClickedBtn('Sign up')}
                       >
                         <i className="fa fa-user">
                           <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" className="bi bi-person-plus-fill" viewBox="0 0 16 16">

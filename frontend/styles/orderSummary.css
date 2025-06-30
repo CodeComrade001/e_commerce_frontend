@@ -1,356 +1,376 @@
 @import url("https://fonts.googleapis.com/css2?family=Bungee+Tint&family=Inria+Sans&family=Poetsen+One&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap");
 
-.order-summary-section {
-  background-color: white;
+/* HomeSignUp.css */
+.SignInComponent {
+  display: flex;
   width: 60%;
-  height: 70%;
-  position: absolute;
-  right: 10%;
-  top: 20%;
+  height: 90%;
   border-radius: 10px;
-  display: flex;
-  flex-direction: column;
-  padding: 10px;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
 }
 
-.order-summary-section * {
-  font-family: "Inria Sans", sans-serif !important ;
-  font-weight: 700;
-  font-style: normal !important;
+@keyframes highlightColor {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
 }
 
-.order-summary-section h1 {
-  font-size: 3rem;
-  height: 5%;
-  font-weight: 900;
-  color: blue;
-  padding-left: 20px;
+/* New primary shades:
+   Dark:   #000c66
+   Base:   #000c6699
+   Light:  #000c66cc
+*/
+
+.SignInComponent .screen {
+  background: linear-gradient(90deg, #000c66, #000c66cc);
+  position: relative;
+  height: 100%;
+  width: 100%;
+  border-radius: 10px;
+  box-shadow: 0px 0px 24px #000c66;
 }
 
-.order-summary-section .order-date {
-  color: #777;
-  font-size: 1.1rem;
-  margin-bottom: 20px;
-  padding-left: 20px;
-  height: 5%;
-}
-
-.order-summary-section .order-details-container {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 20px;
-  height: 80%;
-}
-
-/* Items list */
-.order-summary-section .order-items-container {
-  flex: 1.5;
-  background-color: #fff;
-  border-radius: 8px;
-  padding: 0 20px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-  overflow-y: auto;
+.SignInComponent .screen__content {
+  z-index: 1;
+  position: relative;
   height: 100%;
 }
 
-.order-summary-section .order-items-container h2 {
-  font-size: 1.9em;
-  margin-bottom: 15px;
+.SignInComponent .user_access_container {
+  height: 35px;
+  background-color: #fff;
+  width: 25%;
+  display: flex;
+  flex-direction: row;
+  margin-top: 50px;
+  margin-left: 12%;
+  border-radius: 20px;
 }
 
-.order-summary-section .order-items-wrapper {
+.SignInComponent .user_access_btn_container {
+  margin-left: 30px;
   display: flex;
-  flex-direction: column;
-  gap: 15px;
-  /* height: 100%; */
-  overflow-y: auto;
-}
-
-.order-summary-section .order-item {
-  display: flex;
-  gap: 15px;
-  align-items: center;
-  height: 100px;
-}
-
-.order-summary-section .order-item .item-details {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
+  border-radius: 20px;
+  position: relative;
+  left: 0;
+  height: 35px;
   width: 100%;
 }
 
-.order-summary-section .item-image img {
-  width: 80px;
-  height: 80px;
-  object-fit: cover;
-  border-radius: 4px;
+.SignInComponent .user_access_btn_container > button:nth-child(1),
+.SignInComponent .user_access_btn_container > button:nth-child(2) {
+  background-color: white;
+  z-index: 1;
+  height: 100%;
+  font-size: 1.2em;
+  width: 50%;
+  color: black;
+  border-radius: 15px;
+  border: none;
+  padding: 0px 15px;
 }
 
-.order-summary-section .item-details h3 {
-  font-size: 1.5em;
+.SignInComponent .active_btn {
+  position: relative;
+  z-index: 4;
+  color: #fff;
+  width: 50%;
+  background-color: #000c6699;
+  padding: 0px 20px;
+  border-radius: 15px;
+  font-weight: bolder;
+  font-size: 1.2em;
+  border: 0;
+  touch-action: manipulation;
+  -webkit-user-select: none;
+  user-select: none;
+  cursor: pointer;
+  height: 35px;
+  background-image: radial-gradient(
+      93% 87% at 87% 89%,
+      rgba(0, 0, 0, 0.23) 0%,
+      transparent 86.18%
+    ),
+    radial-gradient(
+      66% 66% at 26% 20%,
+      rgba(255, 255, 255, 0.55) 0%,
+      rgba(255, 255, 255, 0) 69.79%,
+      rgba(255, 255, 255, 0) 100%
+    );
+  box-shadow: inset -3px -3px 9px rgba(255, 255, 255, 0.25),
+    inset 0px 3px 9px rgba(255, 255, 255, 0.3),
+    inset 0px 1px 1px rgba(255, 255, 255, 0.6),
+    inset 0px -8px 36px rgba(0, 0, 0, 0.3),
+    inset 0px 1px 5px rgba(255, 255, 255, 0.6), 2px 19px 31px rgba(0, 0, 0, 0.2);
+}
+
+.SignInComponent .moveLeftAnimation,
+.SignInComponent .moveRightAnimation {
+  will-change: transform;
+}
+
+.SignInComponent .moveRightAnimation {
+  position: relative;
+  animation: moveRight 5s;
+  left: 90px;
+}
+
+@keyframes moveRight {
+  to {
+    right: 0;
+    transform: translateX(0);
+  }
+  from {
+    transform: translateX(100%);
+    left: 0;
+  }
+}
+
+.SignInComponent .moveLeftAnimation {
+  animation: moveLeft 1s;
+  left: 0;
+}
+
+@keyframes moveLeft {
+  from {
+    transform: translateX(100%);
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+
+.SignInComponent .screen__background {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 0;
+  clip-path: inset(0 0 0 0);
+}
+
+.SignInComponent .screen__background__shape {
+  transform: rotate(45deg);
+  position: absolute;
+}
+
+.SignInComponent .screen__background__shape1 {
+  height: 520px;
+  width: 520px;
+  background: #fff;
+  top: -50px;
+  right: 120px;
+  border-radius: 0 72px 0 0;
+}
+
+.SignInComponent .screen__background__shape2 {
+  height: 220px;
+  width: 220px;
+  background: #000c66cc;
+  top: -172px;
+  right: 0;
+  border-radius: 32px;
+}
+
+.SignInComponent .screen__background__shape3 {
+  height: 540px;
+  width: 190px;
+  background: linear-gradient(270deg, #000c66, #000c6699);
+  top: -24px;
+  right: 0;
+  border-radius: 32px;
+}
+
+.SignInComponent .screen__background__shape4 {
+  height: 400px;
+  width: 200px;
+  background: #000c66cc;
+  top: 420px;
+  right: 50px;
+  border-radius: 60px;
+}
+
+.SignInComponent .Welcome_message {
+  font-size: 1.4em;
+  color: #000c6699;
+}
+
+.SignInComponent .login {
+  width: 30%;
+  padding: 0px 30px 30px 30px;
+  margin-left: 10%;
+  margin-top: 5%;
+}
+
+.SignInComponent .login__field {
+  padding: 20px 0px;
+  position: relative;
+}
+
+.SignInComponent .login__icon {
+  position: absolute;
+  top: 30px;
+  color: #000c6699;
+}
+
+.SignInComponent .login__input {
+  border: none;
+  border-bottom: 2px solid #d1d1d4;
+  background-color: grey;
+  color: white;
+  padding: 10px;
+  padding-left: 24px;
+  font-size: 1.2em;
+  font-weight: bold;
+  width: 75%;
+  transition: 0.2s;
+}
+
+.SignInComponent .login__input::placeholder {
+  color: whitesmoke;
+}
+
+.SignInComponent .login__input:active,
+.SignInComponent .login__input:focus,
+.SignInComponent .login__input:hover {
+  outline: none;
+  border-bottom-color: #000c6699;
+}
+
+.SignInComponent .login__submit {
+  background: #fff;
+  font-size: 1.3rem;
+  margin-top: 30px;
+  padding: 16px 20px;
+  border-radius: 26px;
+  border: 1px solid #d4d3e8;
+  text-transform: uppercase;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  width: 100%;
+  color: #000c66;
+  box-shadow: 0px 2px 2px #000c66;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.SignInComponent .sign_up_login_submit {
+  background: #fff;
+  font-size: 1.3rem;
+  margin-top: 8px;
+  padding: 16px 20px;
+  border-radius: 26px;
+  border: 1px solid #d4d3e8;
+  text-transform: uppercase;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  width: 100%;
+  color: #000c66;
+  box-shadow: 0px 2px 2px #000c66;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.SignInComponent .login__submit:active,
+.SignInComponent .login__submit:focus,
+.SignInComponent .login__submit:hover {
+  border-color: #000c6699;
+  outline: none;
+}
+
+.SignInComponent .button__icon {
+  font-size: 1.2rem;
+  margin-left: auto;
+  color: #000c6699;
+}
+
+.SignInComponent .social_login {
+  position: absolute;
+  height: fit-content;
+  display: flex;
+  gap: 10px;
+  width: fit-content;
+  font-weight: bold;
+  font-size: 1.2em;
+  text-align: center;
+  bottom: 40px;
+  left: 0px;
+  color: black;
+  margin-left: 13%;
+  margin-bottom: 15%;
+}
+
+.SignInComponent .sign_up_social_login {
+  position: absolute;
+  height: fit-content;
+  display: flex;
+  gap: 10px;
+  width: fit-content;
+  font-weight: bold;
+  font-size: 1.2em;
+  margin: 0 10px;
+  text-align: center;
+  bottom: 56px;
+  left: 0px;
+  color: black;
+  margin-left: 30px;
+}
+
+.SignInComponent .social_icons {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.SignInComponent .social_icons > button {
+  border: none;
+  height: 35px;
+  border-radius: 10px;
+}
+
+.SignInComponent .social_login__icon {
+  color: white;
+  text-decoration: none;
+  text-shadow: 0px 0px 8px #000c6699;
+}
+
+.SignInComponent .social_icons > button:hover {
+  transform: scale(1.5);
+}
+
+/* Error styles  */
+.SignInComponent .errorText {
+  font-size: 1.3em;
+  color: red;
+  font-weight: bolder;
   margin: 0;
 }
 
-.order-summary-section .item-variant {
-  font-size: 1.2em;
-  color: #555;
-  margin: 5px 0;
-}
-
-.order-summary-section .item-price-qty {
-  display: flex;
-  gap: 15px;
-  font-size: 1.2rem;
-  justify-content: space-between;
-  align-items: center;
-}
-
-.order-summary-section .item-quantity {
-  display: flex;
-  gap: 10px;
-  font-size: 1.2rem;
-  justify-content: space-between;
-  align-items: center;
-}
-
-.order-summary-section .item-quantity > button {
-  padding: 0px 5px;
-  box-shadow: inset 0px 0px 25px #000c6659 !important;
-  border: 3px solid #000c6659 !important;
-  border-radius: 10px;
-}
-
-/* Sidebar */
-.order-summary-section .order-sidebar {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-  height: 100%;
-}
-
-.order-summary-section .payment-summary,
-.order-summary-section .shipping-info {
-  background-color: #fff;
-  border-radius: 8px;
-  padding: 5px 20px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-  height: 50%;
-  overflow-y: auto;
-  position: relative;
-}
-
-.order-summary-section .shipping-info .edit-information {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 8px;
-  padding: 5px 15px;
-  font-size: 1.2em;
-  color: black;
-  border: 3px solid #000c6659;
-  outline: none;
-  background-color: transparent;
-  cursor: pointer;
-  border-radius: 10px;
-  cursor: pointer;
-  position: absolute;
+.SignInComponent .error_list {
   height: fit-content;
-  width: fit-content;
-  right: 10px;
-  top: 30px;
 }
 
-.order-summary-section .shipping-info .edit-information:hover::before,
-.order-summary-section .shipping-info .edit-information:hover::after {
-  transform: scale(0);
-}
-
-.order-summary-section .shipping-info .edit-information:hover {
-  box-shadow: inset 0px 0px 25px #000c6659;
-}
-
-.activate_header_btn {
-  box-shadow: inset 0px 0px 25px #000c6659 !important;
-  border: 3px solid #000c6659 !important;
-}
-
-.order-summary-section .payment-summary h2,
-.order-summary-section .shipping-info h2 {
-  font-size: 2em;
-  margin-bottom: 15px;
-  color: blue;
-}
-
-.order-summary-section .summary-line {
-  display: flex;
-  justify-content: space-between;
-  margin-bottom: 10px;
-  font-size: 1.2rem;
-}
-
-.order-summary-section .summary-line.discount span:last-child {
-  color: #d9534f;
-}
-
-.order-summary-section .summary-line.total {
+.SignInComponent .error_list > p {
+  margin: 0;
+  font-size: 1.3em;
+  color: red;
   font-weight: bold;
-  font-size: 1.1rem;
-  margin-top: 10px;
 }
 
-.order-summary-section .payment-method h3 {
-  font-size: 1rem;
-  margin-bottom: 10px;
-}
-
-.order-summary-section .payment-info {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  font-size: 0.95rem;
-}
-
-.order-summary-section .checkout-btn {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 8px;
-  padding: 5px 15px;
+.SignInComponent .error_list ul {
+  color: red;
   font-size: 1.2em;
-  color: black;
-  border: 3px solid #000c6659;
-  outline: none;
-  background-color: transparent;
-  cursor: pointer;
-  border-radius: 10px;
-  cursor: pointer;
-  position: relative;
-  height: fit-content;
-  width: fit-content;
-}
-
-.order-summary-section .checkout-btn svg {
-  height: 20px;
-}
-
-.order-summary-section .checkout-btn:hover::before,
-.order-summary-section .checkout-btn:hover::after {
-  transform: scale(0);
-}
-
-.order-summary-section .checkout-btn:hover {
-  box-shadow: inset 0px 0px 25px #000c6659;
-}
-
-.activate_header_btn {
-  box-shadow: inset 0px 0px 25px #000c6659 !important;
-  border: 3px solid #000c6659 !important;
-}
-
-/* Shipping Info */
-.order-summary-section .info-block h3 {
-  font-size: 1.4em;
-  margin-bottom: 8px;
-}
-
-.order-summary-section .info-block address,
-.order-summary-section .info-block p {
-  font-size: 1em;
-  color: #555;
-  margin: 0 0 10px;
-}
-
-.order-summary-section .tracking-info {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  font-size: 0.95rem;
-  color: #555;
-}
-
-/* Actions */
-.order-summary-section .order-actions {
-  display: flex;
-  position: absolute;
-  right: 10px;
-  flex-direction: column;
-  top: 10px;
-  width: 20%;
-  gap: 5px;
-}
-
-.order-summary-section .action-btn {
-  display: flex;
-  align-items: center;
-  justify-content: flex-start;
-  width: 100%;
-  height: fit-content;
-  padding: 5px;
-  font-size: 1.2em;
-  gap: 10px;
-  border: 3px ridge #000c6659;
-  outline: none;
-  border-radius: 10px;
-  position: relative;
-  background-color: transparent;
-  cursor: pointer;
-}
-
-.order-summary-section .action-btn::before {
-  content: "";
-  transform-origin: center;
-  position: absolute;
-  top: 90%;
-  left: 5%;
-  width: 90%;
-  height: 20%;
-  background-color: white;
-  transition: 0.5s;
-}
-
-.order-summary-section .action-btn::after {
-  content: "";
-  position: absolute;
-  top: -5px;
-  left: 5%;
-  width: 90%;
-  height: 20%;
-  background-color: white;
-  transition: 0.5s;
-  transform-origin: center;
-}
-
-.order-summary-section .action-btn:hover::after,
-.order-summary-section .action-btn:hover::before {
-  transform: scale(0);
-}
-
-.order-summary-section .action-btn:hover {
-  box-shadow: inset 0px 0px 25px #000c6659;
-}
-
-.activate_header_btn::after,
-.activate_header_btn::before {
-  display: none;
-}
-
-.order-summary-section .action-btn.cancel {
-  border-color: #d9534f;
-  color: #d9534f;
-}
-
-.order-summary-section .action-btn.track {
-  border-color: #5bc0de;
-  color: #5bc0de;
-}
-
-.order-summary-section .action-btn.support {
-  border-color: #5cb85c;
-  color: #5cb85c;
-}
-
-.order-summary-section .action-btn:hover {
-  /* background-color: #f0f0f0; */
+  list-style: none;
+  font-weight: bold;
 }

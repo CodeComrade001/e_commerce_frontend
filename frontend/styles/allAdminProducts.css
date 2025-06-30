@@ -203,8 +203,14 @@
   width: 20px;
 }
 
-.Admin_All_product .navigation_option_content {
+.Admin_All_product .responsive_side_bar {
   height: 90%;
+  display: flex;
+  gap: 5px;
+}
+
+.Admin_All_product .navigation_option_content {
+  height: 100%;
   border-radius: 5px;
   display: grid;
   grid-template-columns: repeat(7, 1fr);
@@ -213,6 +219,15 @@
   gap: 5px;
   width: 100%;
   padding: 20px;
+  position: relative;
+  flex: 1;
+  border-radius: 10px;
+}
+
+.Admin_All_product .edit_saved_task_container {
+  width: 30%;
+  height: 95%;
+  margin: auto 0;
 }
 
 @keyframes pulse {
