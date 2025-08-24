@@ -11,10 +11,10 @@ const Footer: React.FC = () => {
           <div className="col-span-1 lg:col-span-2">
             <div className="flex items-center space-x-2 mb-4">
               <Heart className="h-8 w-8 text-pink-500 animate-heart-beat" fill="currentColor" />
-              <span className="font-dancing text-2xl font-bold">Bella Boutique</span>
+              <span className="font-dancing text-2xl font-bold">Divineyah Boutique</span>
             </div>
             <p className="text-purple-600 mb-4 font-poppins">
-              Your destination for elegant, feminine fashion. We curate the most beautiful pieces 
+              Your destination for elegant, feminine fashion. We curate the most beautiful pieces
               to make every woman feel confident and radiant.
             </p>
             <div className="flex space-x-4">
@@ -55,15 +55,15 @@ const Footer: React.FC = () => {
             <div className="space-y-3 font-poppins">
               <div className="flex items-center space-x-2 text-purple-600">
                 <MapPin className="h-4 w-4 text-pink-500" />
-                <span className="text-sm">123 Fashion Ave, NY 10001</span>
+                <span className="text-sm">123 Fashion Ave, NG 10001</span>
               </div>
               <div className="flex items-center space-x-2 text-purple-600">
                 <Phone className="h-4 w-4 text-pink-500" />
-                <span className="text-sm">+1 (555) 123-BELLA</span>
+                <span className="text-sm">+1 (555) 123-Divineyah Boutique</span>
               </div>
               <div className="flex items-center space-x-2 text-purple-600">
                 <Mail className="h-4 w-4 text-pink-500" />
-                <span className="text-sm">hello@bellaboutique.com</span>
+                <span className="text-sm">hello@divineyahboutique.com</span>
               </div>
             </div>
           </div>
@@ -72,7 +72,7 @@ const Footer: React.FC = () => {
         <div className="border-t border-purple-200 mt-8 pt-8">
           <div className="flex flex-col md:flex-row justify-between items-center">
             <p className="text-purple-600 text-sm font-poppins">
-              © 2024 Bella Boutique. Made with <Heart className="inline h-4 w-4 text-pink-500" fill="currentColor" /> for fashion lovers.
+              © 2025 Divineyah Boutique. Made with <Heart className="inline h-4 w-4 text-pink-500" fill="currentColor" /> for fashion lovers.
             </p>
             <div className="flex space-x-6 mt-4 md:mt-0">
               <a href="#" className="text-purple-600 hover:text-pink-500 text-sm font-poppins transition-colors duration-200">

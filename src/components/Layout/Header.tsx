@@ -34,7 +34,7 @@ const Header: React.FC = () => {
             >
               <Heart className="h-8 w-8 text-pink-500 animate-heart-beat" fill="currentColor" />
               <span className="font-dancing text-2xl font-bold text-purple-700">
-                Bella Boutique
+                Divineyah Boutique
               </span>
               <Sparkles className="h-5 w-5 text-pink-500 animate-pulse" />
             </motion.div>

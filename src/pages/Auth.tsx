@@ -65,7 +65,7 @@ const Auth: React.FC = () => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    
+
     if (!validateForm()) return;
 
     setIsLoading(true);
@@ -122,7 +122,7 @@ const Auth: React.FC = () => {
           <div className="flex items-center justify-center space-x-2 mb-6">
             <Heart className="h-10 w-10 text-pink-500 animate-heart-beat" fill="currentColor" />
             <span className="font-dancing text-3xl font-bold text-purple-800">
-              Bella Boutique
+              Divineyah Boutique
             </span>
             <Sparkles className="h-8 w-8 text-pink-500 animate-pulse" />
           </div>
@@ -130,8 +130,8 @@ const Auth: React.FC = () => {
             {isLogin ? 'Welcome Back!' : 'Join Our Community'}
           </h2>
           <p className="mt-2 text-purple-600 font-poppins">
-            {isLogin 
-              ? 'Sign in to your account to continue shopping' 
+            {isLogin
+              ? 'Sign in to your account to continue shopping'
               : 'Create an account to start your fashion journey'
             }
           </p>
